@@ -5788,9 +5788,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Tests\\SIS.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Tests\\SIS.Tests.csproj",
       "projectName": "SIS.Tests",
-      "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Tests\\SIS.Tests.csproj",
+      "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Tests\\SIS.Tests.csproj",
       "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Tests\\obj\\",
       "projectStyle": "PackageReference",
@@ -5813,14 +5813,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
             },
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
             },
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj"
             }
           }
         }

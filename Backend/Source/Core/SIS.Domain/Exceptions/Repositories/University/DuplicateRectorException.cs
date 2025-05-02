@@ -1,6 +1,6 @@
 using SIS.Domain.Exceptions.Common;
 
-namespace SIS.Domain.Exceptions.University
+namespace SIS.Domain.Exceptions.Repositories.University
 {
     public class DuplicateRectorException : DuplicateDataException
     {

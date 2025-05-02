@@ -1,6 +1,6 @@
 using SIS.Application.Interfaces.Services;
 using SIS.Application.Interfaces.Validators;
-using SIS.Domain.Exceptions.User;
+using SIS.Domain.Exceptions.Services.User;
 
 namespace SIS.Infrastructure.Validators.Users
 {

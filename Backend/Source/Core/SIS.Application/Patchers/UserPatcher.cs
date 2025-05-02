@@ -1,7 +1,5 @@
 ﻿using SIS.Application.DTOs.UserDTOs;
-using SIS.Application.Interfaces.Repositories;
 using SIS.Domain.Entities;
-using SIS.Domain.Exceptions.User;
 
 namespace SIS.Application.Patchers
 {

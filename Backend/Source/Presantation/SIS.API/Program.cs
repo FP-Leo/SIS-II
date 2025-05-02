@@ -13,10 +13,9 @@ using SIS.Application.Interfaces.Services;
 using SIS.Infrastructure.ExceptionHandlers;
 using Asp.Versioning;
 using FluentValidation;
-using SIS.Application.DTOs.UserDTOs;
 using SIS.Infrastructure.Validators.Users;
 using SIS.Application.Interfaces.Validators;
-using SIS.Infrastructure.Validators;
+using SIS.Infrastructure.Validators.Universities;
 
 namespace SIS.API
 {
@@ -121,6 +120,7 @@ namespace SIS.API
             builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
 
             // Add global exception handler
+            builder.Services.AddExceptionHandler<DbUpdateExceptionHandler>();
             builder.Services.AddExceptionHandler<InvalidInputExceptionHandler>();
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();

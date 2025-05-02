@@ -1,6 +1,8 @@
-﻿namespace SIS.Domain.Exceptions.Database
+﻿using SIS.Domain.Exceptions.Common;
+
+namespace SIS.Domain.Exceptions.Database
 {
-    public class EntityNotFoundException : Exception
+    public class EntityNotFoundException : InvalidInputException
     {
         public EntityNotFoundException()
             : base("The entity was not found.")

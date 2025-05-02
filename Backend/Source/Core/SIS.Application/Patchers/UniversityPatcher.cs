@@ -1,11 +1,6 @@
 using SIS.Application.DTOs.UniversityDTOs;
-using SIS.Application.Interfaces.Repositories;
 using SIS.Application.Interfaces.Services;
 using SIS.Domain.Entities;
-using SIS.Domain.Exceptions.Common;
-using SIS.Domain.Exceptions.Database;
-using SIS.Domain.Exceptions.University;
-using System.Threading.Tasks;
 
 namespace SIS.Application.Patchers
 {

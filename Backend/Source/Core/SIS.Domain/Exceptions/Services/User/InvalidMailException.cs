@@ -1,6 +1,6 @@
 ﻿using SIS.Domain.Exceptions.Common;
 
-namespace SIS.Domain.Exceptions.User
+namespace SIS.Domain.Exceptions.Services.User
 {
     public class InvalidMailException : InvalidInputException
     {

@@ -12,5 +12,7 @@ namespace SIS.Application.Interfaces.Services
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(User user);
         Task<bool> CheckPasswordAsync(User user, string password);
+        Task<bool> ResetPasswordAsync(User user, string newPassword);
+        Task<IList<string>> GetUserRolesAsync(User user);
     }
 }

@@ -6,12 +6,6 @@ using SIS.Application.Interfaces.Validators;
 using SIS.Application.Mappers;
 using SIS.Application.Patchers;
 using SIS.Common.Constants;
-using SIS.Domain.Entities;
-using SIS.Domain.Exceptions.Common;
-using SIS.Domain.Exceptions.Database;
-using SIS.Domain.Exceptions.University;
-using SIS.Infrastructure.Validators;
-using System.Threading;
 
 namespace SIS.API.Controllers
 {

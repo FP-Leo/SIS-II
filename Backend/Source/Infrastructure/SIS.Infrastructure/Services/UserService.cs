@@ -5,6 +5,8 @@ using SIS.Application.Interfaces.Services;
 using SIS.Application.Mappers;
 using SIS.Domain.Entities;
 using SIS.Domain.Exceptions.Database;
+using SIS.Domain.Exceptions.Services.Auth;
+using SIS.Domain.Exceptions.Services.User;
 
 namespace SIS.Infrastructure.Services
 {
@@ -39,7 +41,7 @@ namespace SIS.Infrastructure.Services
             if (!result.Succeeded)
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
-                throw new ApplicationException($"User creation failed: {errors}");
+                throw new UserRegistrationFailed($"Failed to register user. Errors: {errors}");
             }
 
             var roleResult = await _userManager.AddToRoleAsync(user, request.Role);
@@ -47,10 +49,10 @@ namespace SIS.Infrastructure.Services
             {
                 await _userManager.DeleteAsync(user);
                 var errors = string.Join("; ", roleResult.Errors.Select(e => e.Description));
-                throw new ApplicationException($"Role assignment failed: {errors}, rolling back...");
+                throw new UserRegistrationFailed($"Role assignment failed: {errors}, rolling back user registration...");
             }
 
-            var token = _tokenService.CreateToken(user);
+            var token = await _tokenService.CreateToken(user);
 
             return token;
         }
@@ -80,6 +82,35 @@ namespace SIS.Infrastructure.Services
         {
             var result = await _userManager.CheckPasswordAsync(user, password);
             return result;
+        }
+
+        public async Task<bool> ResetPasswordAsync(User user, string newPassword)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new PasswordResetFailedException(user.Id, "Failed to generate password reset token.");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join("; ", result.Errors.Select(e => e.Description));
+                throw new PasswordResetFailedException(user.Id, $"Password reset failed: {errors}");
+            }
+
+            return result.Succeeded;
+        }
+
+        public async Task<IList<string>> GetUserRolesAsync(User user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles == null || roles.Count == 0)
+            {
+                throw new RoleFetchingFailedException("User has no roles assigned.");
+            }
+
+            return roles;
         }
     }
 }

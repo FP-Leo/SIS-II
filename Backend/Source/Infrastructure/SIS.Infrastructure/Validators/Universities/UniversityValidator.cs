@@ -3,10 +3,9 @@ using SIS.Application.Interfaces.Services;
 using SIS.Application.Interfaces.Validators;
 using SIS.Domain.Entities;
 using SIS.Domain.Exceptions.Common;
-using SIS.Domain.Exceptions.University;
-using System.Threading;
+using SIS.Domain.Exceptions.Repositories.University;
 
-namespace SIS.Infrastructure.Validators
+namespace SIS.Infrastructure.Validators.Universities
 {
     public class UniversityValidator(IUniversityRepository universityRepository, IUserService userService): IUniversityValidator
     {

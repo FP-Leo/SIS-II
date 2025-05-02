@@ -5380,9 +5380,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj",
+      "projectUniqueName": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj",
       "projectName": "SIS.API",
-      "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj",
+      "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\SIS.API.csproj",
       "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Presantation\\SIS.API\\obj\\",
       "projectStyle": "PackageReference",
@@ -5405,17 +5405,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
             },
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
             },
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj"
             },
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj"
             }
           }
         }

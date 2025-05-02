@@ -840,9 +840,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
+      "projectUniqueName": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
       "projectName": "SIS.Application",
-      "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
+      "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
       "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\obj\\",
       "projectStyle": "PackageReference",
@@ -865,8 +865,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
-              "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
             }
           }
         }

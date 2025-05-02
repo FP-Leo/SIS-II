@@ -26,6 +26,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SIS.API.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/v1/auth/reset/password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "resetPasswordDto",
+        "Type": "SIS.Application.DTOs.AuthDTOs.ResetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SIS.API.Controllers.UniversitiesController",
     "Method": "GetAllUniversities",
     "RelativePath": "api/v1/universities",
