@@ -1,0 +1,10 @@
+Add-Migration YourMigrationName -StartupProject SIS.API -Project SIS.Persistence
+Remove-Migration YourMigrationName -StartupProject SIS.API -Project SIS.Persistence
+
+# To remove only the latest migration
+Remove-Migration -StartupProject SIS.API -Project SIS.Persistence
+
+Update-Database YourMigrationName -StartupProject SIS.API -Project SIS.Persistence
+Drop-Database YourMigrationName -StartupProject SIS.API -Project SIS.Persistence
+
+

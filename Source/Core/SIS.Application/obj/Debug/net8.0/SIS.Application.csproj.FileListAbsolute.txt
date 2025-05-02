@@ -1,0 +1,15 @@
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\bin\Debug\net8.0\SIS.Application.deps.json
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\bin\Debug\net8.0\SIS.Application.dll
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\bin\Debug\net8.0\SIS.Application.pdb
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\bin\Debug\net8.0\SIS.Domain.dll
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\bin\Debug\net8.0\SIS.Domain.pdb
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Application.csproj.AssemblyReference.cache
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Application.AssemblyInfoInputs.cache
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Application.AssemblyInfo.cs
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Application.csproj.CoreCompileInputs.cache
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Appl.225C13FF.Up2Date
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Application.dll
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\refint\SIS.Application.dll
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\SIS.Application.pdb
+C:\Users\leoni\Desktop\SIS-II\Source\Core\SIS.Application\obj\Debug\net8.0\ref\SIS.Application.dll
