@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj": {}
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Common\\SIS.Common.csproj": {
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Common\\SIS.Common.csproj",
+        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj",
         "projectName": "SIS.Common",
-        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Common\\SIS.Common.csproj",
+        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj",
         "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Common\\obj\\",
+        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
               }
             }
           }
@@ -87,14 +87,14 @@
         }
       }
     },
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
+        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
         "projectName": "SIS.Application",
-        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
+        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj",
         "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\obj\\",
+        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -115,8 +115,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
               }
             }
           }
@@ -156,14 +156,14 @@
         }
       }
     },
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
         "projectName": "SIS.Domain",
-        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
+        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
         "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\obj\\",
+        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -231,14 +231,14 @@
         }
       }
     },
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj": {
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj",
         "projectName": "SIS.Infrastructure",
-        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -259,11 +259,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
               },
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
               }
             }
           }
@@ -329,14 +329,14 @@
         }
       }
     },
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj": {
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj",
         "projectName": "SIS.Persistence",
-        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj",
+        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\SIS.Persistence.csproj",
         "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Persistence\\obj\\",
+        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -357,17 +357,17 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Common\\SIS.Common.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Common\\SIS.Common.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj"
               },
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
               },
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj"
               },
-              "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj"
+              "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj"
               }
             }
           }

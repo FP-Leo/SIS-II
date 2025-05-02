@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {}
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
+    "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
         "projectName": "SIS.Domain",
-        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
+        "projectPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\SIS.Domain.csproj",
         "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Source\\Core\\SIS.Domain\\obj\\",
+        "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

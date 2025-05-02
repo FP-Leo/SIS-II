@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "re04umW/TpI=",
+  "dgSpecHash": "Z5MmNa2wLx0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Tests\\SIS.Tests.csproj",
+  "projectFilePath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Tests\\SIS.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Leo\\.nuget\\packages\\asp.versioning.abstractions\\8.1.0\\asp.versioning.abstractions.8.1.0.nupkg.sha512",
     "C:\\Users\\Leo\\.nuget\\packages\\asp.versioning.http\\8.1.0\\asp.versioning.http.8.1.0.nupkg.sha512",
