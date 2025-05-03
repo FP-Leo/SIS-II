@@ -37,7 +37,7 @@ namespace SIS.Infrastructure.Services
         {
             var user = request.ToUser();
 
-            var result = await _userManager.CreateAsync(user, request.Password);
+            var result = await _userManager.CreateAsync(user, request.PasswordDto.NewPassword);
             if (!result.Succeeded)
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
@@ -47,7 +47,7 @@ namespace SIS.Infrastructure.Services
             var roleResult = await _userManager.AddToRoleAsync(user, request.Role);
             if (!roleResult.Succeeded)
             {
-                await _userManager.DeleteAsync(user);
+                await DeleteUserAsync(user);
                 var errors = string.Join("; ", roleResult.Errors.Select(e => e.Description));
                 throw new UserRegistrationFailed($"Role assignment failed: {errors}, rolling back user registration...");
             }
@@ -86,11 +86,7 @@ namespace SIS.Infrastructure.Services
 
         public async Task<bool> ResetPasswordAsync(User user, string newPassword)
         {
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            if (string.IsNullOrEmpty(token))
-            {
-                throw new PasswordResetFailedException(user.Id, "Failed to generate password reset token.");
-            }
+            var token = await GeneratePasswordResetTokenAsync(user);
 
             var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
             if (!result.Succeeded)
@@ -111,6 +107,16 @@ namespace SIS.Infrastructure.Services
             }
 
             return roles;
+        }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new PasswordResetFailedException(user.Id, "Failed to generate password reset token.");
+            }
+            return token;
         }
     }
 }

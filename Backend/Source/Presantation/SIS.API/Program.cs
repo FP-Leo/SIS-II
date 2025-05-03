@@ -62,7 +62,8 @@ namespace SIS.API
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddIdentity<User, IdentityRole>(options => {
+            builder.Services.AddIdentity<User, IdentityRole>(options =>
+            {
                 /* //After development is finished.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
@@ -77,7 +78,8 @@ namespace SIS.API
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 8;
                 options.User.RequireUniqueEmail = false;
-            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             string signingKey = builder.Configuration["JWT:SigningKey"] ?? throw new InvalidOperationException("JWT:SigningKey is not configured.");
 

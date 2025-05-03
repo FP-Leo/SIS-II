@@ -27,15 +27,52 @@
   },
   {
     "ContainingType": "SIS.API.Controllers.AuthController",
-    "Method": "ResetPassword",
-    "RelativePath": "api/v1/auth/reset/password",
-    "HttpMethod": "POST",
+    "Method": "SelfResetPassword",
+    "RelativePath": "api/v1/auth/password",
+    "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "resetPasswordDto",
-        "Type": "SIS.Application.DTOs.AuthDTOs.ResetPasswordDto",
+        "Name": "dto",
+        "Type": "SIS.Application.DTOs.AuthDTOs.SelfResetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SIS.API.Controllers.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/v1/auth/password/forgot",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "schoolMail",
+        "Type": "SIS.Application.DTOs.AuthDTOs.SchoolMailDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SIS.API.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/v1/auth/users/{id}/password",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "SIS.Application.DTOs.AuthDTOs.NewPasswordDto",
         "IsRequired": true
       }
     ],

@@ -1,12 +1,15 @@
 ﻿using FluentValidation;
 using SIS.Application.DTOs.UserDTOs;
 using SIS.Application.Interfaces.Validators;
+using SIS.Infrastructure.Validators.Auth;
 
 namespace SIS.Infrastructure.Validators.Users
 {
     public class UserCreateDtoValidator: AbstractValidator<UserCreateDto>
     {
         private readonly IUserValidator userValidator;
+        private static readonly string[] AllowedRoles = { "Admin", "Student", "Lecturer", "Staff", "Rector", "Dean", "HoD" };
+
         public UserCreateDtoValidator(IUserValidator userValidator) {
             this.userValidator = userValidator;
 
@@ -20,25 +23,16 @@ namespace SIS.Infrastructure.Validators.Users
                 .Must(userName => userName.All(char.IsDigit)).WithMessage("User name must only contain numbers.")
                 .MustAsync(ValidateUserNameIsUnique);
 
-            RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Password is required.")
-                .MinimumLength(12).WithMessage("Password must be at least 12 characters long.")
-                .Matches(@"[A-Z]").WithMessage("Password must contain at least one uppercase letter.")
-                .Matches(@"[a-z]").WithMessage("Password must contain at least one lowercase letter.")
-                .Matches(@"[0-9]").WithMessage("Password must contain at least one number.")
-                .Matches(@"[\W_]").WithMessage("Password must contain at least one special character.");
-
-            RuleFor(x => x.ConfirmPassword)
-                .NotEmpty().WithMessage("Confirm password is required.")
-                .Equal(x => x.Password).WithMessage("Confirm password must match the password.");
+            RuleFor(x => x.PasswordDto)
+                .SetValidator(new PasswordValidator());
 
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("First name is required.")
-                .Matches(@"^[a-zA-Z]+$").WithMessage("First name must contain only letters.");
+                .Matches(@"^\p{L}+$").WithMessage("First name must contain only letters.");
 
             RuleFor(x => x.LastName)
                 .NotEmpty().WithMessage("Last name is required.")
-                .Matches(@"^[a-zA-Z]+$").WithMessage("Last name must contain only letters.");
+                .Matches(@"^\p{L}+$").WithMessage("Last name must contain only letters.");
 
             RuleFor(x => x.DateOfBirth)
                 .NotEmpty().WithMessage("Date of birth is required.")
@@ -47,6 +41,7 @@ namespace SIS.Infrastructure.Validators.Users
             RuleFor(x => x.SchoolMail)
                 .NotEmpty().WithMessage("School mail is required.")
                 .EmailAddress().WithMessage("Invalid email format.")
+                .Must(email => email.EndsWith("@comu.edu.tr"))
                 .MustAsync(ValidateSchoolMailIsUnique);
             // .Matches(@"^[a-zA-Z0-9._%+-]+@school\.com$").WithMessage("School mail must end with '@school.com'."); // To be implemented in the future
 
@@ -63,7 +58,7 @@ namespace SIS.Infrastructure.Validators.Users
 
         private bool BeValidRole(string role)
         {
-            return role == "Admin" || role == "Student" || role == "Lecturer";
+            return AllowedRoles.Contains(role);
         }
 
         private async Task<bool> ValidateUserNameIsUnique(string userName, CancellationToken ct)

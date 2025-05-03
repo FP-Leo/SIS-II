@@ -31,13 +31,28 @@ namespace SIS.Infrastructure.Services
             };
         }
 
-        public async Task<bool> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        public async Task<bool> CheckPasswordByIdAsync(string userId, string password)
         {
-            // Can throw an exception if the user is not found, as this is a valid case for a reset password operation.
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null) return false;
+
+            var result = await _userService.CheckPasswordAsync(user, password);
+            return result;
+        }
+
+        public async Task<bool> ResetPasswordAsync(ResetPassword resetPasswordDto)
+        {
             var user = await _userService.GetUserByIdAsync(resetPasswordDto.UserId) ?? throw new EntityNotFoundException(resetPasswordDto.UserId);
-            var result = await _userService.ResetPasswordAsync(user, resetPasswordDto.NewPassword);
+            var result = await _userService.ResetPasswordAsync(user, resetPasswordDto.PasswordDto.NewPassword);
 
             return result;
+        }
+
+        public async Task<string> GetResetTokenAsync(string schoolMail)
+        {
+            var user = await _userService.GetUserBySchoolMailAsync(schoolMail) ?? throw new EntityNotFoundException(schoolMail);
+            var token = await _userService.GeneratePasswordResetTokenAsync(user);
+            return token;
         }
     }
 }

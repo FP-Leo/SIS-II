@@ -37,6 +37,18 @@ namespace SIS.Persistence.Databases.Context
                 new IdentityRole{
                     Name = "Staff",
                     NormalizedName = "STAFF"
+                },
+                new IdentityRole{
+                    Name = "Rector",
+                    NormalizedName = "RECTOR"
+                },
+                new IdentityRole{
+                    Name = "Dean",
+                    NormalizedName = "DEAN"
+                },
+                new IdentityRole{
+                    Name = "HoD",
+                    NormalizedName = "HOD"
                 }
             ];
             //////////// Relationships
