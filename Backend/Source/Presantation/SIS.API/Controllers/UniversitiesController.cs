@@ -1,21 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SIS.Application.DTOs.UniversityDTOs;
 using SIS.Application.Interfaces.Repositories;
 using SIS.Application.Interfaces.Services;
 using SIS.Application.Interfaces.Validators;
 using SIS.Application.Mappers;
 using SIS.Application.Patchers;
+using SIS.Common;
 using SIS.Common.Constants;
 
 namespace SIS.API.Controllers
 {
     [Route("api/v{version:apiVersion}/universities")]
     [ApiController]
-    public class UniversitiesController(IUniversityRepository universityRepo, IUniversityValidator universityValidator, IUserService userService) : ControllerBase
+    public class UniversitiesController(IUniversityRepository universityRepo) : ControllerBase
     {
         private readonly IUniversityRepository _universityRepo = universityRepo;
-        private readonly IUniversityValidator _universityValidator = universityValidator;
-        private readonly IUserService _userService = userService;
 
         // Codes: 200 - OK, 400 - Bad Request, 401 - Unauthorized, 404 - Not Found, 500 - Internal Server Error
 
@@ -41,6 +42,8 @@ namespace SIS.API.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetUniversityById([FromRoute]int id, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureIdIsValid(id, "University");
+
             var university = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (university == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
@@ -53,18 +56,17 @@ namespace SIS.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateUniversity([FromBody] UniversityCreateDto university, CancellationToken cancellationToken)
+        [Authorize("Admin")]
+        public async Task<IActionResult> CreateUniversity([FromBody] UniversityCreateDto university, [FromServices] IValidator<UniversityCreateDto> validator, CancellationToken cancellationToken)
         {
-            var user = await _userService.GetUserByIdAsync(university.RectorId);
-            if (user == null)
-                return NotFound(ErrorMessages.RectorNotFound);
+            var validationResult = await validator.ValidateAsync(university, cancellationToken);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
 
-            var transformedUniversity = university.ToUniversity(user);
-
-            await _universityValidator.ValidateUniversityAsync(transformedUniversity, cancellationToken);
+            var transformedUniversity = university.ToUniversity();
 
             var createdUniversity = await _universityRepo.CreateUniversityAsync(transformedUniversity, cancellationToken);
-            return CreatedAtAction(nameof(GetUniversityById), new { id = createdUniversity.Id }, new { id = createdUniversity.Id });
+            return CreatedAtAction(nameof(GetUniversityById), new { id = createdUniversity.Id }, transformedUniversity.ToUniversityGetDto());
         }
 
         [HttpPut("{id}")]
@@ -72,24 +74,20 @@ namespace SIS.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateUniversity(int id, [FromBody] UniversityUpdateDto university, CancellationToken cancellationToken)
+        [Authorize("Admin")]
+        public async Task<IActionResult> UpdateUniversity(int id, [FromBody] UniversityUpdateDto university, [FromServices] IValidator<UniversityUpdateDto> validator,CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureIdIsValid(id, "University");
+
             var existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (existingUniversity == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
 
-            var user = await _userService.GetUserByIdAsync(university.RectorId);
-            if (user == null)
-                return NotFound(ErrorMessages.RectorNotFound);
+            var validationResult = await validator.ValidateAsync(university, cancellationToken);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
 
-            existingUniversity.Name = university.Name;
-            existingUniversity.Abbreviation = university.Abbreviation;
-            existingUniversity.Address = university.Address;
-            existingUniversity.Domain = university.Domain;
-            existingUniversity.RectorId = user.Id;
-            existingUniversity.Rector = user;
-
-            await _universityValidator.ValidateUniversityAsync(existingUniversity, cancellationToken);
+            existingUniversity.ApplyUpdate(university);
 
             await _universityRepo.UpdateUniversityAsync(existingUniversity, cancellationToken);
 
@@ -97,13 +95,19 @@ namespace SIS.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchUniversity([FromRoute] int id, [FromBody] UniversityPatchDto university, CancellationToken cancellationToken)
+        public async Task<IActionResult> PatchUniversity([FromRoute] int id, [FromBody] UniversityPatchDto university, [FromServices] IValidator<UniversityPatchDto> validator, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureIdIsValid(id, "University");
+
             var existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (existingUniversity == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
 
-            await existingUniversity.ApplyPatchAsync(university, _userService);
+            var validationResult = await validator.ValidateAsync(university, cancellationToken);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            existingUniversity.ApplyPatch(university);
 
             await _universityRepo.UpdateUniversityAsync(existingUniversity, cancellationToken);
 
@@ -111,14 +115,21 @@ namespace SIS.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        [Authorize("Admin")]
         public async Task<IActionResult> DeleteUniversity([FromRoute] int id, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureIdIsValid(id, "University");
+
             var university = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (university == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
 
             await _universityRepo.DeleteUniversityByIdAsync(university, cancellationToken);
-            return Ok();
+            return NoContent();
         }
     }
 }

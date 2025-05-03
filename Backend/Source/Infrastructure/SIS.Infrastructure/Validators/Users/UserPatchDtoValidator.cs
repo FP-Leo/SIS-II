@@ -13,10 +13,12 @@ namespace SIS.Infrastructure.Validators.Users
 
             RuleFor(x => x.FirstName)
                 .Matches(@"^[a-zA-Z]+$").WithMessage("First name must contain only letters.")
+                .Length(2, 50).WithMessage("First name must be between 2 and 50 characters.")
                 .When(x => !string.IsNullOrEmpty(x.FirstName), ApplyConditionTo.CurrentValidator);
 
             RuleFor(x => x.LastName)
                 .Matches(@"^[a-zA-Z]+$").WithMessage("Last name must contain only letters.")
+                .Length(2, 50).WithMessage("Last name must be between 2 and 50 characters.")
                 .When(x => !string.IsNullOrEmpty(x.LastName), ApplyConditionTo.CurrentValidator);
 
             RuleFor(x => x.SchoolMail)

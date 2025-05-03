@@ -4,9 +4,9 @@ using SIS.Application.Interfaces.Validators;
 
 namespace SIS.Infrastructure.Validators.Universities
 {
-    public class UniversityCreateDtoValidator: AbstractValidator<UniversityCreateDto>
+    public class UniversityUpdateDtoValidator: AbstractValidator<UniversityUpdateDto>
     {
-        public UniversityCreateDtoValidator(IUniversityValidator universityValidator)
+        public UniversityUpdateDtoValidator(IUniversityValidator universityValidator)
         {
             RuleFor(u => u.Name)
                 .NotEmpty().WithMessage("Name is required.")

@@ -4,9 +4,8 @@ namespace SIS.Application.Interfaces.Validators
 {
     public interface IUniversityValidator
     {
-        Task ValidateUniversityNameExistsAsync(string universityName, CancellationToken cancellationToken);
-        Task ValidateUniversityAbbreviationExistsAsync(string universityAbbreviation, CancellationToken cancellationToken);
-        Task ValidateRectorExistsAsync(string rectorId, CancellationToken cancellationToken);
-        Task ValidateUniversityAsync(University university, CancellationToken cancellationToken);
+        Task<bool> BeUniqueUniversityNameAsync(string universityName, CancellationToken cancellationToken);
+        Task<bool> BeUniqueUniversityAbbreviationAsync(string universityAbbreviation, CancellationToken cancellationToken);
+        Task<bool> BeValidRectorAsync(string rectorId, CancellationToken cancellationToken);
     }
 }

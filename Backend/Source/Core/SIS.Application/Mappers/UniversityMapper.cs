@@ -6,7 +6,7 @@ namespace SIS.Application.Mappers
 
     public static class UniversityMapper
     {
-        public static University ToUniversity(this UniversityCreateDto universityCD, User Rector)
+        public static University ToUniversity(this UniversityCreateDto universityCD)
         {
             return new University
             {
@@ -14,11 +14,10 @@ namespace SIS.Application.Mappers
                 Abbreviation = universityCD.Abbreviation,
                 Address = universityCD.Address,
                 Domain = universityCD.Domain,
-                RectorId = Rector.Id,
-                Rector = Rector
+                RectorId = universityCD.RectorId
             };
         }
-        public static UniversityGetDto ToUniversityGetDto(this UniversityCreateDto universityCD, User Rector)
+        public static UniversityGetDto ToUniversityGetDto(this UniversityCreateDto universityCD)
         {
             return new UniversityGetDto
             {
@@ -26,7 +25,7 @@ namespace SIS.Application.Mappers
                 Abbreviation = universityCD.Abbreviation,
                 Address = universityCD.Address,
                 Domain = universityCD.Domain,
-                RectorId = Rector.Id
+                RectorId = universityCD.RectorId
             };
         }
         public static UniversityGetDto ToUniversityGetDto(this University university)

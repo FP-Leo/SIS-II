@@ -28,23 +28,26 @@ namespace SIS.Infrastructure.Validators.Users
 
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("First name is required.")
+                .Length(2, 50).WithMessage("First name must be between 2 and 50 characters.")
                 .Matches(@"^\p{L}+$").WithMessage("First name must contain only letters.");
 
             RuleFor(x => x.LastName)
                 .NotEmpty().WithMessage("Last name is required.")
+                .Length(2, 50).WithMessage("Last name must be between 2 and 50 characters.")
                 .Matches(@"^\p{L}+$").WithMessage("Last name must contain only letters.");
 
             RuleFor(x => x.DateOfBirth)
                 .NotEmpty().WithMessage("Date of birth is required.")
-                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage("Date of birth must be in the past.");
+                .Must(date => date <= DateOnly.FromDateTime(DateTime.Now)).WithMessage("Date of birth must be in the past.")
+                .Must(date => date >= DateOnly.FromDateTime(DateTime.Now.AddYears(-100))).WithMessage("Date of birth must be within the last 100 years.")
+                .Must((user, date) => BeValidBirthday(user.Role, date)).WithMessage("Date of birth is not valid for the selected role.");
 
             RuleFor(x => x.SchoolMail)
                 .NotEmpty().WithMessage("School mail is required.")
                 .EmailAddress().WithMessage("Invalid email format.")
                 .Must(email => email.EndsWith("@comu.edu.tr"))
                 .MustAsync(ValidateSchoolMailIsUnique);
-            // .Matches(@"^[a-zA-Z0-9._%+-]+@school\.com$").WithMessage("School mail must end with '@school.com'."); // To be implemented in the future
-
+            
             RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage("Phone number is required.")
                 .Matches(@"^\d{10}$").WithMessage("Phone number must be 10 digits long.");
@@ -59,6 +62,22 @@ namespace SIS.Infrastructure.Validators.Users
         private bool BeValidRole(string role)
         {
             return AllowedRoles.Contains(role);
+        }
+
+        private static bool BeValidBirthday(string role, DateOnly bday)
+        {
+            var now = DateOnly.FromDateTime(DateTime.Now);
+            return role switch
+            {
+                "Student" => bday >= now.AddYears(-16),
+                "Lecturer" => bday >= now.AddYears(-22),
+                "Staff" => bday >= now.AddYears(-18),
+                "Admin" => bday >= now.AddYears(-18),
+                "Rector" => bday >= now.AddYears(-30),
+                "Dean" => bday >= now.AddYears(-28),
+                "HoD" => bday >= now.AddYears(-26),
+                _ => false
+            };
         }
 
         private async Task<bool> ValidateUserNameIsUnique(string userName, CancellationToken ct)

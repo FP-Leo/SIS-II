@@ -16,14 +16,7 @@ namespace SIS.Common
 
             logger.LogInformation("Action {Action} succeeded for entity: {Entity}.", action, entityName);
         }
-        public static void EnsureEntityExists<T>(object? entity, string entityName, ILogger<T> logger)
-        {
-            if (entity == null)
-            {
-                logger.LogWarning("The entity does not exist: {Entity}.", entityName);
-                throw new EntityNotFoundException(entityName);
-            }
-        }
+
         public static void EnsureObjectNotNull<T>(object obj, string entityName, ILogger<T> logger)
         {
             if (obj == null)
@@ -42,13 +35,10 @@ namespace SIS.Common
             }
         }
 
-        public static void EnsureIdIsValid<T>(int id, string entityName, ILogger<T> logger)
+        public static void EnsureIdIsValid(int id, string entityName)
         {
-            if (id < 0)
-            {
-                logger.LogWarning("The ID is invalid: {Entity}", entityName);
-                throw new InvalidInputException($"The ID must be greater than zero: {entityName}.");
-            }
+            if (id <= 0)
+                throw new InvalidInputException($"Invalid Id of {entityName}.");
         }
     }
 }

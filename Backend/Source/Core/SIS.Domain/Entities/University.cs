@@ -21,6 +21,6 @@ namespace SIS.Domain.Entities
 
         // Navigation Properties  
         public ICollection<Faculty> Faculties { get; set; } = []; // One-to-Many relationship
-        public required User Rector { get; set; } // One-to-One
+        public User? Rector { get; set; } // One-to-One
     }
 }

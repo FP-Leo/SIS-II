@@ -8,12 +8,14 @@ namespace SIS.Domain.Exceptions.Database
             : base("The entity was not found.")
         {
         }
-        public EntityNotFoundException(string entityName)
-            : base($"The entity \"{entityName}\" was not found.")
+
+        public EntityNotFoundException(string entityName, string value)
+            : base($"The entity \"{entityName}\" with \"{value}\" was not found.")
         {
         }
-        public EntityNotFoundException(string entityName, Exception innerException)
-            : base($"The entity \"{entityName}\" was not found.", innerException)
+
+        public EntityNotFoundException(string entityName, string value, Exception innerException)
+            : base($"The entity \"{entityName}\" with \"{value}\" was not found.", innerException)
         {
         }
     }

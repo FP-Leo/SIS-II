@@ -42,7 +42,7 @@ namespace SIS.Infrastructure.Services
 
         public async Task<bool> ResetPasswordAsync(ResetPassword resetPasswordDto)
         {
-            var user = await _userService.GetUserByIdAsync(resetPasswordDto.UserId) ?? throw new EntityNotFoundException(resetPasswordDto.UserId);
+            var user = await _userService.GetUserByIdAsync(resetPasswordDto.UserId) ?? throw new EntityNotFoundException("User", $"Id: {resetPasswordDto.UserId}");
             var result = await _userService.ResetPasswordAsync(user, resetPasswordDto.PasswordDto.NewPassword);
 
             return result;
@@ -50,8 +50,9 @@ namespace SIS.Infrastructure.Services
 
         public async Task<string> GetResetTokenAsync(string schoolMail)
         {
-            var user = await _userService.GetUserBySchoolMailAsync(schoolMail) ?? throw new EntityNotFoundException(schoolMail);
+            var user = await _userService.GetUserBySchoolMailAsync(schoolMail) ?? throw new EntityNotFoundException("User", $"School Mail: {schoolMail}");
             var token = await _userService.GeneratePasswordResetTokenAsync(user);
+ 
             return token;
         }
     }
