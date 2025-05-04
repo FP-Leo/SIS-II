@@ -8,11 +8,23 @@ using SIS.Domain.Exceptions.Services.User;
 
 namespace SIS.Infrastructure.Validators.Universities
 {
-    public class UniversityValidator(IUniversityRepository universityRepository, IUserService userService): IUniversityValidator
+    /// <summary>
+    /// Provides validation methods for university-related data.
+    /// </summary>
+    /// <param name="universityRepository">The repository for managing university data.</param>
+    /// <param name="userService">The service for managing user-related operations.</param>
+    public class UniversityValidator(IUniversityRepository universityRepository, IUserService userService) : IUniversityValidator
     {
         private readonly IUniversityRepository _universityRepo = universityRepository;
         private readonly IUserService _userService = userService;
 
+        /// <summary>
+        /// Validates the uniqueness of a university name asynchronously.
+        /// </summary>
+        /// <param name="universityName">The name of the university to validate.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>True if the university name is unique; otherwise, throws an exception.</returns>
+        /// <exception cref="DuplicateNameException">Thrown when the university name already exists.</exception>
         public async Task<bool> BeUniqueUniversityNameAsync(string universityName, CancellationToken cancellationToken)
         {
             bool nameAlreadyExists = await _universityRepo.UniversityExistsByNameAsync(universityName, cancellationToken);
@@ -21,6 +33,13 @@ namespace SIS.Infrastructure.Validators.Universities
             return true;
         }
 
+        /// <summary>
+        /// Validates the uniqueness of a university abbreviation asynchronously.
+        /// </summary>
+        /// <param name="universityAbbreviation">The abbreviation of the university to validate.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>True if the university abbreviation is unique; otherwise, throws an exception.</returns>
+        /// <exception cref="DuplicateAbbreviationException">Thrown when the university abbreviation already exists.</exception>
         public async Task<bool> BeUniqueUniversityAbbreviationAsync(string universityAbbreviation, CancellationToken cancellationToken)
         {
             bool abbreviationAlreadyExists = await _universityRepo.UniversityExistsByAbbreviationAsync(universityAbbreviation, cancellationToken);
@@ -29,6 +48,15 @@ namespace SIS.Infrastructure.Validators.Universities
             return true;
         }
 
+        /// <summary>
+        /// Validates the existence and role of a rector asynchronously.
+        /// </summary>
+        /// <param name="rectorId">The ID of the rector to validate.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>True if the rector is valid; otherwise, throws an exception.</returns>
+        /// <exception cref="DuplicateRectorException">Thrown when the rector already exists.</exception>
+        /// <exception cref="EntityNotFoundException">Thrown when the rector user is not found.</exception>
+        /// <exception cref="InvalidRoleException">Thrown when the rector user has no roles or an invalid role.</exception>
         public async Task<bool> BeValidRectorAsync(string rectorId, CancellationToken cancellationToken)
         {
             bool rectorAlreadyExists = await _universityRepo.RectorExistsAsync(rectorId, cancellationToken);

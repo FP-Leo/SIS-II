@@ -2,55 +2,49 @@
 using SIS.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SIS.Common.Constants;
 
 namespace SIS.Persistence.Databases.Context
 {
+    /// <summary>
+    /// Represents the application's database context, extending the IdentityDbContext to include user and role management.
+    /// </summary>
     public class ApplicationDbContext(DbContextOptions dbContextOptions) : IdentityDbContext<User>(dbContextOptions)
     {
+        /// <summary>
+        /// Gets or sets the DbSet for universities.
+        /// </summary>
         public DbSet<University> Universities { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for faculties.
+        /// </summary>
         public DbSet<Faculty> Faculties { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for departments.
+        /// </summary>
         public DbSet<Department> Departments { get; set; }
+
+        /// <summary>
+        /// Configures the model relationships and seed data for the database.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder used to configure entity relationships and seed data.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // List of Roles.
             List<IdentityRole> roles = [
-                new IdentityRole{
-                    Name = "Student",
-                    NormalizedName = "STUDENT"
-                },
-                new IdentityRole{
-                    Name = "Lecturer",
-                    NormalizedName = "LECTURER"
-                },
-                new IdentityRole{
-                    Name = "Advisor",
-                    NormalizedName = "ADVISOR"
-                },
-                new IdentityRole{
-                    Name = "Administrator",
-                    NormalizedName = "ADMINISTRATOR"
-                },
-                new IdentityRole{
-                    Name = "Admin",
-                    NormalizedName = "ADMIN"
-                },
-                new IdentityRole{
-                    Name = "Staff",
-                    NormalizedName = "STAFF"
-                },
-                new IdentityRole{
-                    Name = "Rector",
-                    NormalizedName = "RECTOR"
-                },
-                new IdentityRole{
-                    Name = "Dean",
-                    NormalizedName = "DEAN"
-                },
-                new IdentityRole{
-                    Name = "HoD",
-                    NormalizedName = "HOD"
-                }
+                new IdentityRole{Name = RoleConstants.Student, NormalizedName = RoleConstants.Student.ToUpper()},
+                new IdentityRole{Name = RoleConstants.Lecturer, NormalizedName = RoleConstants.Lecturer.ToUpper()},
+                new IdentityRole{Name = RoleConstants.Advisor, NormalizedName = RoleConstants.Advisor.ToUpper()},
+                new IdentityRole{Name = RoleConstants.Administrator, NormalizedName = RoleConstants.Administrator.ToUpper()},
+                new IdentityRole{Name = RoleConstants.Staff, NormalizedName = RoleConstants.Staff.ToUpper()},
+                new IdentityRole{Name = RoleConstants.Rector, NormalizedName = RoleConstants.Rector.ToUpper()},
+                new IdentityRole{Name = RoleConstants.Dean, NormalizedName = RoleConstants.Dean.ToUpper()},
+                new IdentityRole{Name = RoleConstants.HoD, NormalizedName = RoleConstants.HoD.ToUpper()},
+                new IdentityRole{Name = RoleConstants.SuperUser, NormalizedName = RoleConstants.SuperUser.ToUpper()}
             ];
+
             //////////// Relationships
             /// University
 
@@ -99,5 +93,4 @@ namespace SIS.Persistence.Databases.Context
             base.OnModelCreating(modelBuilder);
         }
     }
-
 }

@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SIS.Domain.Entities;
 using SIS.Persistence.Repositories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SIS.Persistence.Databases.Context;
 using Microsoft.Extensions.Logging;
-using SIS.Domain.Exceptions.Database;
-using SIS.Domain.Exceptions.Common;
 
 namespace SIS.Tests.Repositories
 {
+    /// <summary>
+    /// Unit tests for the UniversityRepository.
+    /// </summary>
     [TestClass]
     public class UniversityRepositoryTest
     {
@@ -17,6 +17,9 @@ namespace SIS.Tests.Repositories
         private ApplicationDbContext _context = null!;
         private ILogger<UniversityRepository> _logger = null!;
 
+        /// <summary>
+        /// Sets up the test environment.
+        /// </summary>
         [TestInitialize]
         public void Setup()
         {
@@ -33,6 +36,9 @@ namespace SIS.Tests.Repositories
             _repository = new UniversityRepository(_context, _logger);
         }
 
+        /// <summary>
+        /// Cleans up the test environment.
+        /// </summary>
         [TestCleanup]
         public void Teardown()
         {

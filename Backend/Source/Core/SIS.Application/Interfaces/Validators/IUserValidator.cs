@@ -2,10 +2,23 @@ using SIS.Domain.Entities;
 
 namespace SIS.Application.Interfaces.Validators
 {
+    /// <summary>
+    /// Provides methods for validating user-related data.
+    /// </summary>
     public interface IUserValidator
     {
-        // It will use UserManager to validate the user so no CancellationToken is needed
+        /// <summary>
+        /// Validates the uniqueness and format of a username.
+        /// </summary>
+        /// <param name="userName">The username to validate.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         Task ValidateUserNameAsync(string userName);
+
+        /// <summary>
+        /// Validates the uniqueness and format of a school email.
+        /// </summary>
+        /// <param name="email">The school email to validate.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         Task ValidateSchoolMailAsync(string email);
     }
 }

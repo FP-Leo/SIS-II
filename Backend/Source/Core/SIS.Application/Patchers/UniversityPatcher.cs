@@ -1,11 +1,18 @@
 using SIS.Application.DTOs.UniversityDTOs;
-using SIS.Application.Interfaces.Services;
 using SIS.Domain.Entities;
 
 namespace SIS.Application.Patchers
 {
+    /// <summary>
+    /// Provides extension methods for patching and updating university entities.
+    /// </summary>
     public static class UniversityPatcher
     {
+        /// <summary>
+        /// Applies the changes from a <see cref="UniversityUpdateDto"/> to a <see cref="University"/> entity.
+        /// </summary>
+        /// <param name="university">The university entity to update.</param>
+        /// <param name="dto">The data transfer object containing the changes.</param>
         public static void ApplyUpdate(this University university, UniversityUpdateDto dto)
         {
             university.Name = dto.Name;
@@ -15,6 +22,11 @@ namespace SIS.Application.Patchers
             university.RectorId = dto.RectorId;
         }
 
+        /// <summary>
+        /// Applies the changes from a <see cref="UniversityPatchDto"/> to a <see cref="University"/> entity.
+        /// </summary>
+        /// <param name="university">The university entity to patch.</param>
+        /// <param name="dto">The data transfer object containing the changes.</param>
         public static void ApplyPatch(this University university, UniversityPatchDto dto)
         {
             if (dto.Name is not null) university.Name = dto.Name;

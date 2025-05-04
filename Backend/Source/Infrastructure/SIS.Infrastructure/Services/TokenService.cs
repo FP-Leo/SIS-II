@@ -11,12 +11,21 @@ using SIS.Domain.Exceptions.Services.Token;
 
 namespace SIS.Infrastructure.Services
 {
+    /// <summary>
+    /// Provides methods for token-related operations.
+    /// </summary>
     public class TokenService : ITokenService
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TokenService"/> class.
+        /// </summary>
+        /// <param name="config">The configuration containing JWT settings.</param>
+        /// <param name="userManager">The user manager for managing user entities.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the signing key is not configured.</exception>
         public TokenService(IConfiguration config, UserManager<User> userManager)
         {
             _userManager = userManager;
@@ -27,6 +36,14 @@ namespace SIS.Infrastructure.Services
 
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
         }
+
+        /// <summary>
+        /// Creates a JWT token for the specified user.
+        /// </summary>
+        /// <param name="user">The user for whom the token is created.</param>
+        /// <returns>The generated JWT token as a string.</returns>
+        /// <exception cref="ArgumentException">Thrown when the user's username is null or empty.</exception>
+        /// <exception cref="TokenCreationFailedException">Thrown when the user has no roles assigned or token creation fails.</exception>
         public async Task<string> CreateToken(User user)
         {
             if (string.IsNullOrEmpty(user.UserName))

@@ -5,11 +5,18 @@ using SIS.Infrastructure.Validators.Auth;
 
 namespace SIS.Infrastructure.Validators.Users
 {
-    public class UserCreateDtoValidator: AbstractValidator<UserCreateDto>
+    /// <summary>
+    /// Validates the <see cref="UserCreateDto"/> for creating a new user.
+    /// Ensures that the user data meets the required criteria.
+    /// </summary>
+    public class UserCreateDtoValidator : AbstractValidator<UserCreateDto>
     {
         private readonly IUserValidator userValidator;
         private static readonly string[] AllowedRoles = { "Admin", "Student", "Lecturer", "Staff", "Rector", "Dean", "HoD" };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserCreateDtoValidator"/> class.
+        /// </summary>
         public UserCreateDtoValidator(IUserValidator userValidator) {
             this.userValidator = userValidator;
 
@@ -69,13 +76,13 @@ namespace SIS.Infrastructure.Validators.Users
             var now = DateOnly.FromDateTime(DateTime.Now);
             return role switch
             {
-                "Student" => bday >= now.AddYears(-16),
-                "Lecturer" => bday >= now.AddYears(-22),
-                "Staff" => bday >= now.AddYears(-18),
-                "Admin" => bday >= now.AddYears(-18),
-                "Rector" => bday >= now.AddYears(-30),
-                "Dean" => bday >= now.AddYears(-28),
-                "HoD" => bday >= now.AddYears(-26),
+                "Student" => bday <= now.AddYears(-16),
+                "Lecturer" => bday <= now.AddYears(-22),
+                "Staff" => bday <= now.AddYears(-18),
+                "Admin" => bday <= now.AddYears(-18),
+                "Rector" => bday <= now.AddYears(-30),
+                "Dean" => bday <= now.AddYears(-28),
+                "HoD" => bday <= now.AddYears(-26),
                 _ => false
             };
         }

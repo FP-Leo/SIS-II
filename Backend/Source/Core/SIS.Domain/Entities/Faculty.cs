@@ -6,25 +6,64 @@ namespace SIS.Domain.Entities
     [Index(nameof(Code), IsUnique = true)]
     [Index(nameof(PhoneNumber), IsUnique = true)]
     [Index(nameof(DeanId), IsUnique = true)] // DeanID is unique to ensure one dean per faculty. If otherwise, it will need to change.
+    /// <summary>
+    /// Represents a faculty within a university in the system.
+    /// </summary>
     public class Faculty
     {
-        // Primary Key
+        /// <summary>
+        /// Gets or sets the unique identifier for the faculty.
+        /// </summary>
         public int Id { get; set; }
 
-        // Properties
+        /// <summary>
+        /// Gets or sets the name of the faculty.
+        /// </summary>
         public required string Name { get; set; }
-        public required string Code { get; set; } // e.g., "ENG" for Engineering, "SCI" for Science
+
+        /// <summary>
+        /// Gets or sets the code of the faculty (e.g., "ENG" for Engineering).
+        /// </summary>
+        public required string Code { get; set; }
+
+        /// <summary>
+        /// Gets or sets the address of the faculty.
+        /// </summary>
         public required string Address { get; set; }
+
+        /// <summary>
+        /// Gets or sets the phone number of the faculty.
+        /// </summary>
         public required string PhoneNumber { get; set; }
-        public required bool IsActive { get; set; } = true; // Faculty is active or not
 
-        // Foreign Keys
-        public required int UniId { get; set; } // query by int for performance
-        public required string DeanId { get; set; } // GUID from User table. If tracking start/end date is needed, it needs to be a separate table.
+        /// <summary>
+        /// Gets or sets a value indicating whether the faculty is active.
+        /// </summary>
+        public required bool IsActive { get; set; } = true;
 
-        // Navigation Properties
-        public required University University { get; set; }   //One-to-Many relationship, connection on the Many side
-        public required User Dean { get; set; } // One-to-One relationship, less faculties than users
-        public ICollection<Department> Departments { get; set; } = []; // One-to-Many relationship, connection on the Many side (Department)
+        /// <summary>
+        /// Gets or sets the unique identifier of the university the faculty belongs to.
+        /// </summary>
+        public required int UniId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier of the dean of the faculty.
+        /// </summary>
+        public required string DeanId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the university the faculty belongs to.
+        /// </summary>
+        public required University University { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user who is the dean of the faculty.
+        /// </summary>
+        public required User Dean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of departments within the faculty.
+        /// </summary>
+        public ICollection<Department> Departments { get; set; } = [];
     }
 }

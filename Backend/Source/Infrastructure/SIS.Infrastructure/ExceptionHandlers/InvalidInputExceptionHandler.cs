@@ -6,10 +6,23 @@ using SIS.Domain.Exceptions.Common;
 
 namespace SIS.Infrastructure.ExceptionHandlers
 {
-    public class InvalidInputExceptionHandler(ILogger<InvalidInputExceptionHandler> logger): IExceptionHandler
+    /// <summary>
+    /// Handles exceptions related to invalid input.
+    /// </summary>
+    /// <param name="logger">The logger used to log exception details.</param>
+    public class InvalidInputExceptionHandler(ILogger<InvalidInputExceptionHandler> logger) : IExceptionHandler
     {
         private readonly ILogger<InvalidInputExceptionHandler> _logger = logger;
 
+        /// <summary>
+        /// Attempts to handle an <see cref="InvalidInputException"/> and generate an appropriate HTTP response.
+        /// </summary>
+        /// <param name="httpContext">The HTTP context for the current request.</param>
+        /// <param name="exception">The exception to handle.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>
+        /// A <see cref="ValueTask{TResult}"/> containing a boolean value indicating whether the exception was handled.
+        /// </returns>
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
             if (exception is not InvalidInputException notFoundException)
