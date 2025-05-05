@@ -1228,6 +1228,7 @@
           "Microsoft.Extensions.Configuration": "8.0.0",
           "Microsoft.Extensions.Identity.Core": "8.0.15",
           "SIS.Application": "1.0.0",
+          "SIS.Common": "1.0.0",
           "SIS.Domain": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "8.8.0"
         },

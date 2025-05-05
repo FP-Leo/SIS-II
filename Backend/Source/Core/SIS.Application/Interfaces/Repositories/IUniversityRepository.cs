@@ -45,6 +45,13 @@ namespace SIS.Application.Interfaces.Repositories
         Task DeleteUniversityByIdAsync(University university, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Checks if a university exists by its ID asynchronously.
+        /// </summary>
+        /// <param name="id">The ID of the university.</param>
+        /// <param name="cancellationToken"> A token to cancel the operation.</param>
+        Task<bool> UniversityExistsByIdAsync(int id, CancellationToken cancellationToken);
+
+        /// <summary>
         /// Checks if a university exists by its name asynchronously.
         /// </summary>
         /// <param name="name">The name of the university.</param>

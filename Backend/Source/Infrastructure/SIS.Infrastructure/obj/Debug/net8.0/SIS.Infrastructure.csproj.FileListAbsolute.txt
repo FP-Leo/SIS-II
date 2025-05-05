@@ -33,3 +33,5 @@ C:\Users\Leoni\Desktop\SIS-II\Backend\Source\Infrastructure\SIS.Infrastructure\b
 C:\Users\Leoni\Desktop\SIS-II\Backend\Source\Infrastructure\SIS.Infrastructure\bin\Debug\net8.0\SIS.Domain.pdb
 C:\Users\Leoni\Desktop\SIS-II\Backend\Source\Infrastructure\SIS.Infrastructure\obj\Debug\net8.0\SIS.Infr.EFC70D7C.Up2Date
 C:\Users\Leoni\Desktop\SIS-II\Backend\Source\Infrastructure\SIS.Infrastructure\obj\Debug\net8.0\ref\SIS.Infrastructure.dll
+C:\Users\Leoni\Desktop\SIS-II\Backend\Source\Infrastructure\SIS.Infrastructure\bin\Debug\net8.0\SIS.Common.dll
+C:\Users\Leoni\Desktop\SIS-II\Backend\Source\Infrastructure\SIS.Infrastructure\bin\Debug\net8.0\SIS.Common.pdb

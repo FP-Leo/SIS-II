@@ -84,6 +84,21 @@ namespace SIS.Persistence.Repositories
         }
 
         /// <summary>
+        /// Checks if a university exists by its ID.
+        /// </summary>
+        /// <param name="id">The id of the university.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
+        /// <returns>True if the university exists, otherwise false.</returns>
+        public async Task<bool> UniversityExistsByIdAsync(int id, CancellationToken cancellationToken)
+        {
+            CommonUtils.EnsureIdIsValid(id, nameof(University));
+
+            bool exists = await _context.Universities.AnyAsync(u => u.Id == id, cancellationToken);
+
+            return exists;
+        }
+
+        /// <summary>
         /// Checks if a university exists by its name.
         /// </summary>
         /// <param name="name">The name of the university.</param>

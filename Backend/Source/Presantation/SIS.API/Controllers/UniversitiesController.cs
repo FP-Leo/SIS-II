@@ -55,7 +55,7 @@ namespace SIS.API.Controllers
         /// <response code="400">If the ID is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpGet("{id: int}")]
+        [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(UniversityGetDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -111,7 +111,7 @@ namespace SIS.API.Controllers
         /// <response code="400">If the request is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpPut("{id: int}")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(UniversityGetDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -148,7 +148,7 @@ namespace SIS.API.Controllers
         /// <response code="400">If the request is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpPatch("{id: int}")]
+        [HttpPatch("{id:int}")]
         [ProducesResponseType(typeof(UniversityGetDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -183,7 +183,7 @@ namespace SIS.API.Controllers
         /// <response code="400">If the ID is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpDelete("{id: int}")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]

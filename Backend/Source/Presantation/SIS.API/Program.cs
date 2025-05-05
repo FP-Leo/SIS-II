@@ -16,6 +16,7 @@ using FluentValidation;
 using SIS.Infrastructure.Validators.Users;
 using SIS.Application.Interfaces.Validators;
 using SIS.Infrastructure.Validators.Universities;
+using SIS.Infrastructure.Validators.Faculty;
 
 namespace SIS.API
 {
@@ -130,6 +131,7 @@ namespace SIS.API
 
             builder.Services.AddScoped<IUserValidator, UserValidator>();
             builder.Services.AddScoped<IUniversityValidator, UniversityValidator>();
+            builder.Services.AddScoped<IFacultyValidator, FacultyValidator>();
 
             builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
 

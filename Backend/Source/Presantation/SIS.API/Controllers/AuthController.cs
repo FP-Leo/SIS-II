@@ -123,7 +123,7 @@ namespace SIS.API.Controllers
         /// - 401: Unauthorized.
         /// - 500: Internal server error.
         /// </remarks>
-        [HttpPatch("users/{id: string}/password")]
+        [HttpPatch("users/{id}/password")]
         [Authorize($"{RoleConstants.SuperUser}, {RoleConstants.Administrator}")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]

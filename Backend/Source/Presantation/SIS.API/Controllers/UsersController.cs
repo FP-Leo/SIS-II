@@ -36,7 +36,7 @@ namespace SIS.API.Controllers
         /// - 404: User not found.
         /// - 500: Internal server error.
         /// </remarks>
-        [HttpGet("{id: string}")]
+        [HttpGet("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(UserGetDto), 200)]
         [ProducesResponseType(400)]
@@ -118,7 +118,7 @@ namespace SIS.API.Controllers
         /// - 404: User not found.
         /// - 500: Internal server error.
         /// </remarks>
-        [HttpPatch("{id: string}")]
+        [HttpPatch("{id}")]
         [Authorize(Roles = $"{RoleConstants.SuperUser}, {RoleConstants.Administrator}")]
         [ProducesResponseType(typeof(UserGetDto), 200)]
         [ProducesResponseType(400)]
