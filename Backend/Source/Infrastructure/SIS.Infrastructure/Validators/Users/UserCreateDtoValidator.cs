@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using SIS.Application.DTOs.UserDTOs;
 using SIS.Application.Interfaces.Validators;
+using SIS.Common.Constants;
 using SIS.Infrastructure.Validators.Auth;
 
 namespace SIS.Infrastructure.Validators.Users
@@ -12,7 +13,7 @@ namespace SIS.Infrastructure.Validators.Users
     public class UserCreateDtoValidator : AbstractValidator<UserCreateDto>
     {
         private readonly IUserValidator userValidator;
-        private static readonly string[] AllowedRoles = { "Admin", "Student", "Lecturer", "Staff", "Rector", "Dean", "HoD" };
+        private static readonly string[] AllowedRoles = RoleConstants.GetAllRoles();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserCreateDtoValidator"/> class.
@@ -76,13 +77,13 @@ namespace SIS.Infrastructure.Validators.Users
             var now = DateOnly.FromDateTime(DateTime.Now);
             return role switch
             {
-                "Student" => bday <= now.AddYears(-16),
-                "Lecturer" => bday <= now.AddYears(-22),
-                "Staff" => bday <= now.AddYears(-18),
-                "Admin" => bday <= now.AddYears(-18),
-                "Rector" => bday <= now.AddYears(-30),
-                "Dean" => bday <= now.AddYears(-28),
-                "HoD" => bday <= now.AddYears(-26),
+                RoleConstants.Student => bday <= now.AddYears(-16),
+                RoleConstants.Lecturer => bday <= now.AddYears(-22),
+                RoleConstants.Staff => bday <= now.AddYears(-18),
+                RoleConstants.SuperUser => bday <= now.AddYears(-18),
+                RoleConstants.Rector => bday <= now.AddYears(-30),
+                RoleConstants.Dean => bday <= now.AddYears(-28),
+                RoleConstants.HoD => bday <= now.AddYears(-26),
                 _ => false
             };
         }

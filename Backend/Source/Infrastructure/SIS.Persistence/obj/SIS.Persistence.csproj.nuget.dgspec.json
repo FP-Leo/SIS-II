@@ -259,6 +259,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj": {
+                "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj"
+              },
               "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
                 "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
               },

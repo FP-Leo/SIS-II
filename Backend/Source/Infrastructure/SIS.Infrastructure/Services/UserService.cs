@@ -27,7 +27,7 @@ namespace SIS.Infrastructure.Services
         /// <returns>The user if found; otherwise, null.</returns>
         public async Task<User?> GetUserByIdAsync(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            User? user = await _userManager.FindByIdAsync(id);
             return user;
         }
 
@@ -38,7 +38,7 @@ namespace SIS.Infrastructure.Services
         /// <returns>The user if found; otherwise, null.</returns>
         public async Task<User?> GetUserByUsernameAsync(string userName)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            User? user = await _userManager.FindByNameAsync(userName);
             return user;
         }
         
@@ -49,7 +49,7 @@ namespace SIS.Infrastructure.Services
         /// <returns>The user if found; otherwise, null.</returns>
         public async Task<User?> GetUserBySchoolMailAsync(string schoolMail)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.SchoolMail == schoolMail);
+            User? user = await _userManager.Users.FirstOrDefaultAsync(u => u.SchoolMail == schoolMail);
             return user;
         }
 
@@ -61,16 +61,16 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="UserRegistrationFailed">Thrown when user registration or role assignment fails.</exception>
         public async Task<string> RegisterUserAsync(UserCreateDto request)
         {
-            var user = request.ToUser();
+            User user = request.ToUser();
 
-            var result = await _userManager.CreateAsync(user, request.PasswordDto.NewPassword);
+            IdentityResult result = await _userManager.CreateAsync(user, request.PasswordDto.NewPassword);
             if (!result.Succeeded)
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
                 throw new UserRegistrationFailed($"Failed to register user. Errors: {errors}");
             }
 
-            var roleResult = await _userManager.AddToRoleAsync(user, request.Role);
+            IdentityResult roleResult = await _userManager.AddToRoleAsync(user, request.Role);
             if (!roleResult.Succeeded)
             {
                 await DeleteUserAsync(user);
@@ -78,7 +78,7 @@ namespace SIS.Infrastructure.Services
                 throw new UserRegistrationFailed($"Role assignment failed: {errors}, rolling back user registration...");
             }
 
-            var token = await _tokenService.CreateToken(user);
+            string token = await _tokenService.CreateToken(user);
 
             return token;
         }
@@ -90,7 +90,7 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="EntityUpdateFailedException">Thrown when the user update fails.</exception>
         public async Task UpdateUserAsync(User user)
         {
-            var result = await _userManager.UpdateAsync(user);
+            IdentityResult result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
@@ -105,7 +105,7 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="EntityDeleteFailedException">Thrown when the user deletion fails.</exception>
         public async Task DeleteUserAsync(User user)
         {
-            var result = await _userManager.DeleteAsync(user);
+            IdentityResult result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
@@ -121,7 +121,7 @@ namespace SIS.Infrastructure.Services
         /// <returns>True if the password matches; otherwise, false.</returns>
         public async Task<bool> CheckPasswordAsync(User user, string password)
         {
-            var result = await _userManager.CheckPasswordAsync(user, password);
+            bool result = await _userManager.CheckPasswordAsync(user, password);
             return result;
         }
         
@@ -134,9 +134,9 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="PasswordResetFailedException">Thrown when the password reset fails.</exception>
         public async Task<bool> ResetPasswordAsync(User user, string newPassword)
         {
-            var token = await GeneratePasswordResetTokenAsync(user);
+            string token = await GeneratePasswordResetTokenAsync(user);
 
-            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            IdentityResult result = await _userManager.ResetPasswordAsync(user, token, newPassword);
             if (!result.Succeeded)
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
@@ -154,7 +154,7 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="RoleFetchingFailedException">Thrown when the user has no roles assigned.</exception>
         public async Task<IList<string>> GetUserRolesAsync(User user)
         {
-            var roles = await _userManager.GetRolesAsync(user);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
             if (roles == null || roles.Count == 0)
             {
                 throw new RoleFetchingFailedException("User has no roles assigned.");
@@ -171,7 +171,7 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="PasswordResetFailedException">Thrown when the token generation fails.</exception>
         public async Task<string> GeneratePasswordResetTokenAsync(User user)
         {
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
             if (string.IsNullOrEmpty(token))
             {
                 throw new PasswordResetFailedException(user.Id, "Failed to generate password reset token.");

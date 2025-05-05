@@ -120,6 +120,7 @@ namespace SIS.API
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
+            builder.Services.AddScoped<IFacultyRepository, FacultyRepository>();
 
             // Add global exception handler
             builder.Services.AddExceptionHandler<DbUpdateExceptionHandler>();

@@ -1,6 +1,7 @@
 ﻿using SIS.Application.DTOs.AuthDTOs;
 using SIS.Application.Interfaces.Services;
 using SIS.Application.Mappers;
+using SIS.Domain.Entities;
 using SIS.Domain.Exceptions.Database;
 
 namespace SIS.Infrastructure.Services
@@ -22,16 +23,16 @@ namespace SIS.Infrastructure.Services
         /// <returns>A <see cref="SuccessfulLoginDto"/> if authentication is successful; otherwise, null.</returns>
         public async Task<SuccessfulLoginDto?> AuthenticateAsync(LoginDto loginDto)
         {
-            var user = await _userService.GetUserByUsernameAsync(loginDto.Username);
+            User? user = await _userService.GetUserByUsernameAsync(loginDto.Username);
             // Don't throw an exception if the user is not found or password is not correct, just return null. Avoids leaking information about whether the user exists.
             if (user == null) return null;
 
-            var isValidPassword = await _userService.CheckPasswordAsync(user, loginDto.Password);
+            bool isValidPassword = await _userService.CheckPasswordAsync(user, loginDto.Password);
             if (!isValidPassword) return null;
 
-            var userRoles = await _userService.GetUserRolesAsync(user);
+            IList<string> userRoles = await _userService.GetUserRolesAsync(user);
 
-            var token = await _tokenService.CreateToken(user);
+            string? token = await _tokenService.CreateToken(user);
 
             return new SuccessfulLoginDto
             {
@@ -49,10 +50,10 @@ namespace SIS.Infrastructure.Services
         /// <returns>True if the password matches; otherwise, false.</returns>
         public async Task<bool> CheckPasswordByIdAsync(string userId, string password)
         {
-            var user = await _userService.GetUserByIdAsync(userId);
+            User? user = await _userService.GetUserByIdAsync(userId);
             if (user == null) return false;
 
-            var result = await _userService.CheckPasswordAsync(user, password);
+            bool result = await _userService.CheckPasswordAsync(user, password);
             return result;
         }
 
@@ -64,8 +65,8 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="EntityNotFoundException">Thrown when the user is not found.</exception>
         public async Task<bool> ResetPasswordAsync(ResetPassword resetPasswordDto)
         {
-            var user = await _userService.GetUserByIdAsync(resetPasswordDto.UserId) ?? throw new EntityNotFoundException("User", $"Id: {resetPasswordDto.UserId}");
-            var result = await _userService.ResetPasswordAsync(user, resetPasswordDto.PasswordDto.NewPassword);
+            User user = await _userService.GetUserByIdAsync(resetPasswordDto.UserId) ?? throw new EntityNotFoundException("User", $"Id: {resetPasswordDto.UserId}");
+            bool result = await _userService.ResetPasswordAsync(user, resetPasswordDto.PasswordDto.NewPassword);
 
             return result;
         }
@@ -78,8 +79,8 @@ namespace SIS.Infrastructure.Services
         /// <exception cref="EntityNotFoundException">Thrown when the user is not found.</exception>
         public async Task<string> GetResetTokenAsync(string schoolMail)
         {
-            var user = await _userService.GetUserBySchoolMailAsync(schoolMail) ?? throw new EntityNotFoundException("User", $"School Mail: {schoolMail}");
-            var token = await _userService.GeneratePasswordResetTokenAsync(user);
+            User user = await _userService.GetUserBySchoolMailAsync(schoolMail) ?? throw new EntityNotFoundException("User", $"School Mail: {schoolMail}");
+            string token = await _userService.GeneratePasswordResetTokenAsync(user);
  
             return token;
         }

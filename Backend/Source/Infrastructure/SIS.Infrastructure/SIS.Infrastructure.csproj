@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\SIS.Common.csproj" />
     <ProjectReference Include="..\..\Core\SIS.Application\SIS.Application.csproj" />
     <ProjectReference Include="..\..\Core\SIS.Domain\SIS.Domain.csproj" />
   </ItemGroup>

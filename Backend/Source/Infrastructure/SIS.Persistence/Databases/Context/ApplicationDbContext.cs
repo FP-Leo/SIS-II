@@ -68,7 +68,7 @@ namespace SIS.Persistence.Databases.Context
             modelBuilder.Entity<Faculty>()
                 .HasOne(f => f.University)
                 .WithMany(u => u.Faculties)
-                .HasForeignKey(f => f.UniId)
+                .HasForeignKey(f => f.UniversityId)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade from University to Faculty, to avoid deleting all faculties when a university is deleted. Loss of data is not acceptable.
 
             /// Department

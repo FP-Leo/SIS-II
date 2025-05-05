@@ -2,8 +2,8 @@ using IndexAttribute = Microsoft.EntityFrameworkCore.IndexAttribute;
 
 namespace SIS.Domain.Entities
 {
-    [Index(nameof(UniId), nameof(Name), IsUnique = true)]
-    [Index(nameof(Code), IsUnique = true)]
+    [Index(nameof(UniversityId), nameof(Name), IsUnique = true)]
+    [Index(nameof(UniversityId), nameof(Code), IsUnique = true)]
     [Index(nameof(PhoneNumber), IsUnique = true)]
     [Index(nameof(DeanId), IsUnique = true)] // DeanID is unique to ensure one dean per faculty. If otherwise, it will need to change.
     /// <summary>
@@ -44,7 +44,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the unique identifier of the university the faculty belongs to.
         /// </summary>
-        public required int UniId { get; set; }
+        public required int UniversityId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the dean of the faculty.
@@ -54,12 +54,12 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the university the faculty belongs to.
         /// </summary>
-        public required University University { get; set; }
+        public University? University { get; set; }
 
         /// <summary>
         /// Gets or sets the user who is the dean of the faculty.
         /// </summary>
-        public required User Dean { get; set; }
+        public User? Dean { get; set; }
 
         /// <summary>
         /// Gets or sets the collection of departments within the faculty.

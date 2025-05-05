@@ -51,7 +51,7 @@ namespace SIS.Infrastructure.Services
                 throw new ArgumentException("UserName cannot be null or empty.", nameof(user));
             }
 
-            var roles = await _userManager.GetRolesAsync(user);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
             if (roles == null || roles.Count == 0)
             {
                 throw new TokenCreationFailedException("User has no roles assigned.");
@@ -68,7 +68,7 @@ namespace SIS.Infrastructure.Services
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            var daysString = _config["JWT:TokenLifetimeDays"];
+            string? daysString = _config["JWT:TokenLifetimeDays"];
             if (!int.TryParse(daysString, out int days))
             {
                 throw new TokenCreationFailedException("JWT:TokenLifetimeDays is not a valid integer.");
@@ -87,10 +87,9 @@ namespace SIS.Infrastructure.Services
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
+                SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
                 return tokenHandler.WriteToken(token);
-
             }
             catch (Exception ex)
             {

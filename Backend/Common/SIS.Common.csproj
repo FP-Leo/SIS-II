@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Source\Core\SIS.Domain\SIS.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

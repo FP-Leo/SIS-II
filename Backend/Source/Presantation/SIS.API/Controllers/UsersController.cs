@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIS.API.Common;
@@ -7,6 +8,7 @@ using SIS.Application.Interfaces.Services;
 using SIS.Application.Mappers;
 using SIS.Application.Patchers;
 using SIS.Common.Constants;
+using SIS.Domain.Entities;
 using System.Security.Claims;
 
 namespace SIS.API.Controllers
@@ -34,7 +36,7 @@ namespace SIS.API.Controllers
         /// - 404: User not found.
         /// - 500: Internal server error.
         /// </remarks>
-        [HttpGet("{id}")]
+        [HttpGet("{id: string}")]
         [Authorize]
         [ProducesResponseType(typeof(UserGetDto), 200)]
         [ProducesResponseType(400)]
@@ -43,19 +45,17 @@ namespace SIS.API.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetUser([FromRoute] string id)
         {
-            var roles = User.Claims.Where(c => c.Type == ClaimTypes.Role)
-                                    .Select(c => c.Value)
-                                    .ToList();
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
                 return Unauthorized(ErrorMessages.UnAuthorized);
 
+            List<string> roles = [.. User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value)];
+
             if (!roles.Contains(RoleConstants.SuperUser) && !roles.Contains(RoleConstants.Administrator) && userId != id)
                 return Unauthorized(ErrorMessages.UnAuthorized);
 
-            var user = await _userService.GetUserByIdAsync(id);
+            User? user = await _userService.GetUserByIdAsync(id);
 
             if (user == null)
                 return NotFound(ErrorMessages.UserNotFound);
@@ -88,12 +88,12 @@ namespace SIS.API.Controllers
             [FromServices] IValidator<UserCreateDto> validator
             )
         {
-            var validationResult = await validator.ValidateAsync(userCreateDto);
+            ValidationResult validationResult = await validator.ValidateAsync(userCreateDto);
 
             if (!validationResult.IsValid) 
                 return BadRequest(ControllerUtil.CreateValidationProblemDetails(validationResult, HttpContext.Request.Path));
 
-            var token = await _userService.RegisterUserAsync(userCreateDto);
+            string token = await _userService.RegisterUserAsync(userCreateDto);
 
             return CreatedAtAction(nameof(GetUser), new { id = userCreateDto.UserName }, new UserSuccessfulRegistrationDto
             {
@@ -118,7 +118,7 @@ namespace SIS.API.Controllers
         /// - 404: User not found.
         /// - 500: Internal server error.
         /// </remarks>
-        [HttpPatch("{id}")]
+        [HttpPatch("{id: string}")]
         [Authorize(Roles = $"{RoleConstants.SuperUser}, {RoleConstants.Administrator}")]
         [ProducesResponseType(typeof(UserGetDto), 200)]
         [ProducesResponseType(400)]
@@ -131,11 +131,11 @@ namespace SIS.API.Controllers
             [FromServices] IValidator<UserPatchDto> validator
             )
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            User? user = await _userService.GetUserByIdAsync(id);
             if (user == null)
                 return NotFound(ErrorMessages.UserNotFound);
 
-            var validationResult = await validator.ValidateAsync(userPatchDto);
+            ValidationResult validationResult = await validator.ValidateAsync(userPatchDto);
 
             if (!validationResult.IsValid)
                 return BadRequest(ControllerUtil.CreateValidationProblemDetails(validationResult, HttpContext.Request.Path));
@@ -170,7 +170,7 @@ namespace SIS.API.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            User? user = await _userService.GetUserByIdAsync(id);
             if (user == null)
                 return NotFound(ErrorMessages.UserNotFound);
 

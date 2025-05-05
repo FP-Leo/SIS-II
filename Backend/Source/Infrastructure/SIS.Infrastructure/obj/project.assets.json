@@ -204,6 +204,39 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Mvc.Abstractions/2.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Routing.Abstractions": "2.3.0",
+          "Microsoft.Net.Http.Headers": "2.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Routing.Abstractions/2.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Routing.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Routing.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.WebUtilities/2.3.0": {
         "type": "package",
         "dependencies": {
@@ -798,6 +831,22 @@
           "bin/placeholder/SIS.Application.dll": {}
         }
       },
+      "SIS.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.3.0",
+          "Microsoft.AspNetCore.Mvc.Abstractions": "2.3.0",
+          "Microsoft.Extensions.Logging": "8.0.1",
+          "SIS.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SIS.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SIS.Common.dll": {}
+        }
+      },
       "SIS.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -997,6 +1046,32 @@
         "lib/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
         "microsoft.aspnetcore.identity.entityframeworkcore.8.0.15.nupkg.sha512",
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.Abstractions/2.3.0": {
+      "sha512": "xrF8Fh10hEAS6Qp967IgPqNw2iz3/3Q8FQo+Jowbytaj1JJN86p0z851hSH4XP/sFnI5gFu7mGdkplirAJMWPw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.abstractions/2.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Abstractions.xml",
+        "microsoft.aspnetcore.mvc.abstractions.2.3.0.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Routing.Abstractions/2.3.0": {
+      "sha512": "ZkFpUrSmp6TocxZLBEX3IBv5dPMbQuMs6L/BPl0WRfn32UVOtNYJQ0bLdh3cL9LMV0rmTW/5R0w8CBYxr0AOUw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.routing.abstractions/2.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Routing.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Routing.Abstractions.xml",
+        "microsoft.aspnetcore.routing.abstractions.2.3.0.nupkg.sha512",
+        "microsoft.aspnetcore.routing.abstractions.nuspec"
       ]
     },
     "Microsoft.AspNetCore.WebUtilities/2.3.0": {
@@ -1908,6 +1983,11 @@
       "path": "../../Core/SIS.Application/SIS.Application.csproj",
       "msbuildProject": "../../Core/SIS.Application/SIS.Application.csproj"
     },
+    "SIS.Common/1.0.0": {
+      "type": "project",
+      "path": "../../../Common/SIS.Common.csproj",
+      "msbuildProject": "../../../Common/SIS.Common.csproj"
+    },
     "SIS.Domain/1.0.0": {
       "type": "project",
       "path": "../../Core/SIS.Domain/SIS.Domain.csproj",
@@ -1922,6 +2002,7 @@
       "Microsoft.Extensions.Configuration >= 8.0.0",
       "Microsoft.Extensions.Identity.Core >= 8.0.15",
       "SIS.Application >= 1.0.0",
+      "SIS.Common >= 1.0.0",
       "SIS.Domain >= 1.0.0",
       "System.IdentityModel.Tokens.Jwt >= 8.8.0"
     ]
@@ -1937,7 +2018,7 @@
       "projectName": "SIS.Infrastructure",
       "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\SIS.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Leo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Infrastructure\\SIS.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1958,6 +2039,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj": {
+              "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Common\\SIS.Common.csproj"
+            },
             "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj": {
               "projectPath": "C:\\Users\\Leoni\\Desktop\\SIS-II\\Backend\\Source\\Core\\SIS.Application\\SIS.Application.csproj"
             },

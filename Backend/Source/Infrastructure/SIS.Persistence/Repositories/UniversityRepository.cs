@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SIS.Common;
-using SIS.Common.Extensions;
 using SIS.Domain.Entities;
 using SIS.Application.Interfaces.Repositories;
 using SIS.Persistence.Databases.Context;
@@ -23,7 +22,7 @@ namespace SIS.Persistence.Repositories
         /// <returns>A collection of universities.</returns>
         public async Task<IEnumerable<University>> GetAllUniversitiesAsync(CancellationToken cancellationToken)
         {
-            var universities = await _context.Universities.ToListAsync(cancellationToken);
+            List<University> universities = await _context.Universities.ToListAsync(cancellationToken);
             return universities;
         }
 
@@ -92,7 +91,7 @@ namespace SIS.Persistence.Repositories
         /// <returns>True if the university exists, otherwise false.</returns>
         public async Task<bool> UniversityExistsByNameAsync(string name, CancellationToken cancellationToken)
         {
-            var exists = await _context.Universities.AnyAsync(u => u.Name == name, cancellationToken);
+            bool exists = await _context.Universities.AnyAsync(u => u.Name == name, cancellationToken);
             return exists;
         }
 
@@ -104,7 +103,7 @@ namespace SIS.Persistence.Repositories
         /// <returns>True if the university exists, otherwise false.</returns>
         public async Task<bool> UniversityExistsByAbbreviationAsync(string abbreviation, CancellationToken cancellationToken)
         {
-            var exists = await _context.Universities.AnyAsync(u => u.Abbreviation == abbreviation, cancellationToken);
+            bool exists = await _context.Universities.AnyAsync(u => u.Abbreviation == abbreviation, cancellationToken);
             return exists;
         }
 
@@ -116,7 +115,7 @@ namespace SIS.Persistence.Repositories
         /// <returns>True if the rector exists, otherwise false.</returns>
         public async Task<bool> RectorExistsAsync(string rectorId, CancellationToken cancellationToken)
         {
-            var exists = await _context.Universities.AnyAsync(u => u.RectorId == rectorId, cancellationToken);
+            bool exists = await _context.Universities.AnyAsync(u => u.RectorId == rectorId, cancellationToken);
             return exists;
         }
     }

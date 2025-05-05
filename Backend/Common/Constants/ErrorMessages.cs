@@ -30,14 +30,10 @@ namespace SIS.Common.Constants
         // University-related error messages
 
         /// <summary>
-        /// Error message when no universities are found.
-        /// </summary>
-        public const string UniversitiesNotFound = "No universities found";
-
-        /// <summary>
         /// Error message when no university matches the search criteria.
         /// </summary>
         public const string UniversityNotFound = "No university found matching the search criteria.";
+
 
         /// <summary>
         /// Error message when a rector is not found.

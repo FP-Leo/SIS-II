@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIS.API.Common;
 using SIS.Application.DTOs.AuthDTOs;
 using SIS.Application.Interfaces.Services;
+using SIS.Common.Constants;
 using System.Security.Claims;
 
 namespace SIS.API.Controllers
@@ -36,7 +38,7 @@ namespace SIS.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var successfulLogInDto = await _authService.AuthenticateAsync(loginDto);
+            SuccessfulLoginDto? successfulLogInDto = await _authService.AuthenticateAsync(loginDto);
             if (successfulLogInDto == null)
                 return Unauthorized("Invalid credentials.");
 
@@ -84,22 +86,22 @@ namespace SIS.API.Controllers
         [Authorize]
         public async Task<IActionResult> SelfResetPassword([FromBody] SelfResetPasswordDto dto, [FromServices] IValidator<SelfResetPasswordDto> validator)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string? userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
                 return Unauthorized("User not found.");
 
             if (userId != dto.UserId)
                 return Unauthorized("User ID mismatch.");
 
-            var validationResult = await validator.ValidateAsync(dto);
+            ValidationResult validationResult = await validator.ValidateAsync(dto);
             if (!validationResult.IsValid)
                 return BadRequest(ControllerUtil.CreateValidationProblemDetails(validationResult, HttpContext.Request.Path));
 
-            var isValidPassword = await _authService.CheckPasswordByIdAsync(dto.UserId, dto.CurrentPassword);
+            bool isValidPassword = await _authService.CheckPasswordByIdAsync(dto.UserId, dto.CurrentPassword);
             if (!isValidPassword)
                 return Unauthorized("Invalid current password.");
 
-            var result = await _authService.ResetPasswordAsync(new ResetPassword { UserId = dto.UserId, PasswordDto = dto.PasswordDto });
+            bool result = await _authService.ResetPasswordAsync(new ResetPassword { UserId = dto.UserId, PasswordDto = dto.PasswordDto });
             if (result)
                 return Ok("Password reset successfully.");
 
@@ -121,8 +123,8 @@ namespace SIS.API.Controllers
         /// - 401: Unauthorized.
         /// - 500: Internal server error.
         /// </remarks>
-        [HttpPatch("users/{id}/password")]
-        [Authorize("SuperUser, Administrator")]
+        [HttpPatch("users/{id: string}/password")]
+        [Authorize($"{RoleConstants.SuperUser}, {RoleConstants.Administrator}")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
@@ -162,12 +164,12 @@ namespace SIS.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword([FromBody] SchoolMailDto schoolMail, [FromServices] IValidator<SchoolMailDto> validator)
         {
-            var validationResult = await validator.ValidateAsync(schoolMail);
+            ValidationResult validationResult = await validator.ValidateAsync(schoolMail);
             if (!validationResult.IsValid)
                 return BadRequest(ControllerUtil.CreateValidationProblemDetails(validationResult, HttpContext.Request.Path));
 
             // Control of user is done in the service layer since it has access to the database via _userService
-            var token = await _authService.GetResetTokenAsync(schoolMail.SchoolMail);
+            string token = await _authService.GetResetTokenAsync(schoolMail.SchoolMail);
 
             string link = $"https://example.com/reset-password?token={token}";
 

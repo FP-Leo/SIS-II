@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIS.Application.DTOs.UniversityDTOs;
@@ -7,6 +8,7 @@ using SIS.Application.Mappers;
 using SIS.Application.Patchers;
 using SIS.Common;
 using SIS.Common.Constants;
+using SIS.Domain.Entities;
 
 namespace SIS.API.Controllers
 {
@@ -35,10 +37,10 @@ namespace SIS.API.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetAllUniversities(CancellationToken cancellationToken)
         {
-            var universities = await _universityRepo.GetAllUniversitiesAsync(cancellationToken);
+            IEnumerable<University> universities = await _universityRepo.GetAllUniversitiesAsync(cancellationToken);
 
             if (universities == null || !universities.Any())
-                return NotFound(ErrorMessages.UniversitiesNotFound);
+                return NotFound("No universities found.");
 
             return Ok(universities.Select(u => u.ToUniversityGetDto()));
         }
@@ -53,7 +55,7 @@ namespace SIS.API.Controllers
         /// <response code="400">If the ID is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpGet("{id}")]
+        [HttpGet("{id: int}")]
         [ProducesResponseType(typeof(UniversityGetDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -62,7 +64,7 @@ namespace SIS.API.Controllers
         {
             CommonUtils.EnsureIdIsValid(id, "University");
 
-            var university = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
+            University? university = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (university == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
 
@@ -82,17 +84,18 @@ namespace SIS.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(UniversityGetDto), 201)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [Authorize("SuperUser")]
+        [Authorize(RoleConstants.SuperUser)]
         public async Task<IActionResult> CreateUniversity([FromBody] UniversityCreateDto university, [FromServices] IValidator<UniversityCreateDto> validator, CancellationToken cancellationToken)
         {
-            var validationResult = await validator.ValidateAsync(university, cancellationToken);
+            ValidationResult validationResult = await validator.ValidateAsync(university, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            var transformedUniversity = university.ToUniversity();
+            University transformedUniversity = university.ToUniversity();
 
-            var createdUniversity = await _universityRepo.CreateUniversityAsync(transformedUniversity, cancellationToken);
+            University createdUniversity = await _universityRepo.CreateUniversityAsync(transformedUniversity, cancellationToken);
             return CreatedAtAction(nameof(GetUniversityById), new { id = createdUniversity.Id }, transformedUniversity.ToUniversityGetDto());
         }
 
@@ -108,21 +111,21 @@ namespace SIS.API.Controllers
         /// <response code="400">If the request is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpPut("{id}")]
+        [HttpPut("{id: int}")]
         [ProducesResponseType(typeof(UniversityGetDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [Authorize("SuperUser")]
-        public async Task<IActionResult> UpdateUniversity(int id, [FromBody] UniversityUpdateDto university, [FromServices] IValidator<UniversityUpdateDto> validator, CancellationToken cancellationToken)
+        [Authorize(RoleConstants.SuperUser)]
+        public async Task<IActionResult> UpdateUniversity([FromRoute] int id, [FromBody] UniversityUpdateDto university, [FromServices] IValidator<UniversityUpdateDto> validator, CancellationToken cancellationToken)
         {
             CommonUtils.EnsureIdIsValid(id, "University");
 
-            var existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
+            University? existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (existingUniversity == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
 
-            var validationResult = await validator.ValidateAsync(university, cancellationToken);
+            ValidationResult validationResult = await validator.ValidateAsync(university, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
@@ -145,21 +148,21 @@ namespace SIS.API.Controllers
         /// <response code="400">If the request is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpPatch("{id}")]
+        [HttpPatch("{id: int}")]
         [ProducesResponseType(typeof(UniversityGetDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [Authorize("SuperUser")]
+        [Authorize(RoleConstants.SuperUser)]
         public async Task<IActionResult> PatchUniversity([FromRoute] int id, [FromBody] UniversityPatchDto university, [FromServices] IValidator<UniversityPatchDto> validator, CancellationToken cancellationToken)
         {
             CommonUtils.EnsureIdIsValid(id, "University");
 
-            var existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
+            University? existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (existingUniversity == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
 
-            var validationResult = await validator.ValidateAsync(university, cancellationToken);
+            ValidationResult validationResult = await validator.ValidateAsync(university, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
@@ -180,17 +183,17 @@ namespace SIS.API.Controllers
         /// <response code="400">If the ID is invalid.</response>
         /// <response code="404">If the university is not found.</response>
         /// <response code="500">If an internal server error occurs.</response>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id: int}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [Authorize("SuperUser")]
+        [Authorize(RoleConstants.SuperUser)]
         public async Task<IActionResult> DeleteUniversity([FromRoute] int id, CancellationToken cancellationToken)
         {
             CommonUtils.EnsureIdIsValid(id, "University");
 
-            var university = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
+            University? university = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
             if (university == null)
                 return NotFound(ErrorMessages.UniversityNotFound);
 

@@ -49,5 +49,21 @@
         /// Represents the "SuperUser" role.
         /// </summary>
         public const string SuperUser = "SuperUser";
+
+        /// <summary>
+        /// Returns an array of all role constants.
+        /// </summary>
+        public static string[] GetAllRoles() =>
+        [
+            Student,
+            Lecturer,
+            Advisor,
+            Administrator,
+            Staff,
+            Rector,
+            Dean,
+            HoD,
+            SuperUser
+        ];
     }
 }
