@@ -1,0 +1,1 @@
+export const SUBJECTS_API_KEY = "SUBJECTS_API_KEY";
