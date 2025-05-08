@@ -17,12 +17,13 @@ using SIS.Infrastructure.Validators.Users;
 using SIS.Application.Interfaces.Validators;
 using SIS.Infrastructure.Validators.Universities;
 using SIS.Infrastructure.Validators.Faculty;
+using SIS.Persistence.Databases.Data.SeedData;
 
 namespace SIS.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,6 @@ namespace SIS.API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             builder.Services.AddSwaggerGen(option =>
             {
@@ -77,7 +77,7 @@ namespace SIS.API
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 8;
+                options.Password.RequiredLength = 5;
                 options.User.RequireUniqueEmail = false;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
@@ -140,8 +140,16 @@ namespace SIS.API
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    await IdentitySeeder.SeedAdminAsync(services);
+                }
+
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options => { 
+                    options.ConfigObject.AdditionalItems["persistAuthorization"] = true;
+                });
             }
 
             app.UseHttpsRedirection();
@@ -152,7 +160,7 @@ namespace SIS.API
 
             app.MapControllers();
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }
