@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -142,6 +141,9 @@ namespace SIS.API
             {
                 using (var scope = app.Services.CreateScope())
                 {
+                    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    db.Database.Migrate();
+
                     var services = scope.ServiceProvider;
                     await IdentitySeeder.SeedAdminAsync(services);
                 }

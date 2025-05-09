@@ -1,0 +1,19 @@
+name: "SIS"
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server
+    container_name: SIS.Database
+    ports:
+      - "1400:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Leonit123456.
+  
+  sis.api:
+    container_name: SIS.API
+    build:
+      context: .
+      dockerfile: Source/Presentation/SIS.API/Dockerfile
+    depends_on:
+      - mssql
