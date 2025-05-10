@@ -6,6 +6,7 @@ using SIS.Domain.Exceptions.Common;
 using SIS.Domain.Exceptions.Database;
 using SIS.Domain.Exceptions.Repositories.University;
 using SIS.Domain.Exceptions.Services.User;
+using System.Threading;
 
 namespace SIS.Infrastructure.Validators.Universities
 {
@@ -33,6 +34,14 @@ namespace SIS.Infrastructure.Validators.Universities
 
             return true;
         }
+        /// <inheritdoc/>
+        public async Task<bool> BeUniqueUniversityNameAsync(string universityName, int uniId, CancellationToken cancellationToken)
+        {
+            bool nameAlreadyExists = await _universityRepo.UniversityExistsByNameAsync(universityName, uniId, cancellationToken);
+            if (nameAlreadyExists) throw new DuplicateNameException("University");
+
+            return true;
+        }
 
         /// <summary>
         /// Validates the uniqueness of a university abbreviation asynchronously.
@@ -44,6 +53,14 @@ namespace SIS.Infrastructure.Validators.Universities
         public async Task<bool> BeUniqueUniversityAbbreviationAsync(string universityAbbreviation, CancellationToken cancellationToken)
         {
             bool abbreviationAlreadyExists = await _universityRepo.UniversityExistsByAbbreviationAsync(universityAbbreviation, cancellationToken);
+            if (abbreviationAlreadyExists) throw new DuplicateAbbreviationException("University");
+
+            return true;
+        }
+        /// <inheritdoc/>
+        public async Task<bool> BeUniqueUniversityAbbreviationAsync(string universityAbbreviation, int uniId, CancellationToken cancellationToken)
+        {
+            bool abbreviationAlreadyExists = await _universityRepo.UniversityExistsByAbbreviationAsync(universityAbbreviation, uniId, cancellationToken);
             if (abbreviationAlreadyExists) throw new DuplicateAbbreviationException("University");
 
             return true;
@@ -65,6 +82,19 @@ namespace SIS.Infrastructure.Validators.Universities
 
             var user = await _userService.GetUserByIdAsync(rectorId) ?? throw new EntityNotFoundException("User", rectorId);
             
+            var roles = await _userService.GetUserRolesAsync(user);
+            if (roles == null || !roles.Any()) throw new InvalidRoleException("The provided user doesn't have any roles associated with it.");
+
+            return roles.Contains(RoleConstants.Rector);
+        }
+        /// <inheritdoc/>
+        public async Task<bool> BeValidRectorAsync(string rectorId, int uniId, CancellationToken cancellationToken)
+        {
+            bool rectorAlreadyExists = await _universityRepo.RectorExistsAsync(rectorId, uniId, cancellationToken);
+            if (rectorAlreadyExists) throw new DuplicateRectorException();
+
+            var user = await _userService.GetUserByIdAsync(rectorId) ?? throw new EntityNotFoundException("User", rectorId);
+
             var roles = await _userService.GetUserRolesAsync(user);
             if (roles == null || !roles.Any()) throw new InvalidRoleException("The provided user doesn't have any roles associated with it.");
 

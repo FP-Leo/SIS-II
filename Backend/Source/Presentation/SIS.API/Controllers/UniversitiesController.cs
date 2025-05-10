@@ -86,7 +86,7 @@ namespace SIS.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [Authorize(RoleConstants.SuperUser)]
+        [Authorize(Roles = RoleConstants.SuperUser)]
         public async Task<IActionResult> CreateUniversity([FromBody] UniversityCreateDto university, [FromServices] IValidator<UniversityCreateDto> validator, CancellationToken cancellationToken)
         {
             ValidationResult validationResult = await validator.ValidateAsync(university, cancellationToken);
@@ -116,18 +116,18 @@ namespace SIS.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [Authorize(RoleConstants.SuperUser)]
+        [Authorize(Roles = RoleConstants.SuperUser)]
         public async Task<IActionResult> UpdateUniversity([FromRoute] int id, [FromBody] UniversityUpdateDto university, [FromServices] IValidator<UniversityUpdateDto> validator, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(id, "University");
-
-            University? existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
-            if (existingUniversity == null)
-                return NotFound(ErrorMessages.UniversityNotFound);
+            CommonUtils.EnsureIdIsSame(id, university.Id, "University");
 
             ValidationResult validationResult = await validator.ValidateAsync(university, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
+            
+            University? existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
+            if (existingUniversity == null)
+                return NotFound(ErrorMessages.UniversityNotFound);
 
             existingUniversity.ApplyUpdate(university);
 
@@ -153,18 +153,18 @@ namespace SIS.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [Authorize(RoleConstants.SuperUser)]
+        [Authorize(Roles = RoleConstants.SuperUser)]
         public async Task<IActionResult> PatchUniversity([FromRoute] int id, [FromBody] UniversityPatchDto university, [FromServices] IValidator<UniversityPatchDto> validator, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(id, "University");
-
-            University? existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
-            if (existingUniversity == null)
-                return NotFound(ErrorMessages.UniversityNotFound);
+            CommonUtils.EnsureIdIsSame(id, university.Id, "University");
 
             ValidationResult validationResult = await validator.ValidateAsync(university, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
+
+            University? existingUniversity = await _universityRepo.GetUniversityByIdAsync(id, cancellationToken);
+            if (existingUniversity == null)
+                return NotFound(ErrorMessages.UniversityNotFound);
 
             existingUniversity.ApplyPatch(university);
 

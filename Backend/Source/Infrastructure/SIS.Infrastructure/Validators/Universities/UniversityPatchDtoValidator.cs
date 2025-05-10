@@ -9,17 +9,27 @@ namespace SIS.Infrastructure.Validators.Universities
     /// </summary>
     public class UniversityPatchDtoValidator : AbstractValidator<UniversityPatchDto>
     {
+        private readonly IUniversityValidator _universityValidator;
         /// <summary>
         /// Initializes a new instance of the <see cref="UniversityPatchDtoValidator"/> class.
         /// </summary>
         public UniversityPatchDtoValidator(IUniversityValidator universityValidator)
         {
+            _universityValidator = universityValidator;
+
+            /// <summary>
+            /// Ensures that the university ID is not empty and greater than 0.
+            /// </summary>
+            RuleFor(u => u.Id)
+                .NotEmpty().WithMessage("Id is required.")
+                .GreaterThan(0).WithMessage("Id must be greater than 0.");
+
             /// <summary>
             /// Ensures that the university name is unique and meets length requirements.
             /// </summary>
             RuleFor(u => u.Name)
                 .Length(3, 100).WithMessage("Name must be between 5 and 50 characters.")
-                .MustAsync(universityValidator.BeUniqueUniversityNameAsync)
+                .MustAsync(BeUniqueUniversityNameAsync)
                 .When(u => !string.IsNullOrEmpty(u.Name), ApplyConditionTo.CurrentValidator);
 
             /// <summary>
@@ -27,7 +37,7 @@ namespace SIS.Infrastructure.Validators.Universities
             /// </summary>
             RuleFor(u => u.Abbreviation)
                 .Length(2, 10).WithMessage("Abbreviation must be between 2 and 10 characters.")
-                .MustAsync(universityValidator.BeUniqueUniversityAbbreviationAsync)
+                .MustAsync(BeUniqueUniversityAbbreviationAsync)
                 .When(u => !string.IsNullOrEmpty(u.Abbreviation), ApplyConditionTo.CurrentValidator);
 
             /// <summary>
@@ -42,8 +52,23 @@ namespace SIS.Infrastructure.Validators.Universities
             /// </summary>
             RuleFor(u => u.RectorId)
                 .Length(36, 450).WithMessage("RectorId must be a valid GUID.")
-                .MustAsync(universityValidator.BeValidRectorAsync)
+                .MustAsync(BeValidRectorAsync)
                 .When(u => !string.IsNullOrEmpty(u.RectorId), ApplyConditionTo.CurrentValidator);
+        }
+
+        private async Task<bool> BeUniqueUniversityNameAsync(UniversityPatchDto university, string name, CancellationToken cancellationToken)
+        {
+            return await _universityValidator.BeUniqueUniversityNameAsync(name, university.Id, cancellationToken);
+        }
+
+        private async Task<bool> BeUniqueUniversityAbbreviationAsync(UniversityPatchDto university, string abbreviation, CancellationToken cancellationToken)
+        {
+            return await _universityValidator.BeUniqueUniversityAbbreviationAsync(abbreviation, university.Id, cancellationToken);
+        }
+
+        private async Task<bool> BeValidRectorAsync(UniversityPatchDto university, string rectorId, CancellationToken cancellationToken)
+        {
+            return await _universityValidator.BeValidRectorAsync(rectorId, university.Id, cancellationToken);
         }
     }
 }

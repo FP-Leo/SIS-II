@@ -25,22 +25,6 @@ namespace SIS.Application.Mappers
         }
 
         /// <summary>
-        /// Maps a <see cref="UniversityCreateDto"/> to a <see cref="UniversityGetDto"/>.
-        /// </summary>
-        /// <param name="universityCD">The data transfer object containing the university creation data.</param>
-        /// <returns>A <see cref="UniversityGetDto"/> containing the mapped data.</returns>
-        public static UniversityGetDto ToUniversityGetDto(this UniversityCreateDto universityCD)
-        {
-            return new UniversityGetDto
-            {
-                Name = universityCD.Name,
-                Abbreviation = universityCD.Abbreviation,
-                Address = universityCD.Address,
-                RectorId = universityCD.RectorId
-            };
-        }
-
-        /// <summary>
         /// Maps a <see cref="University"/> entity to a <see cref="UniversityGetDto"/>.
         /// </summary>
         /// <param name="university">The university entity to map.</param>
