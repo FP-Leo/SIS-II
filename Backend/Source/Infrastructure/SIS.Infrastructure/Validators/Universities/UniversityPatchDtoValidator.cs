@@ -38,14 +38,6 @@ namespace SIS.Infrastructure.Validators.Universities
                 .When(u => !string.IsNullOrEmpty(u.Address), ApplyConditionTo.CurrentValidator);
 
             /// <summary>
-            /// Ensures that the university domain is valid and meets format requirements.
-            /// </summary>
-            RuleFor(x => x.Domain)
-                .Matches(@"^(?!-)[A-Za-z0-9-]{2,63}(?<!-)\.(edu|edu\.[a-z]{2,3})$")
-                .WithMessage("Domain must be a valid .edu or .edu.xx domain (e.g., example.edu, uni.edu.tr).")
-                .When(u => !string.IsNullOrEmpty(u.Domain), ApplyConditionTo.CurrentValidator);
-
-            /// <summary>
             /// Ensures that the rector ID is a valid GUID and corresponds to an existing rector.
             /// </summary>
             RuleFor(u => u.RectorId)

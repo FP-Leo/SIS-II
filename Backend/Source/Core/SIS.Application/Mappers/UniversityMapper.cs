@@ -20,7 +20,6 @@ namespace SIS.Application.Mappers
                 Name = universityCD.Name,
                 Abbreviation = universityCD.Abbreviation,
                 Address = universityCD.Address,
-                Domain = universityCD.Domain,
                 RectorId = universityCD.RectorId
             };
         }
@@ -37,7 +36,6 @@ namespace SIS.Application.Mappers
                 Name = universityCD.Name,
                 Abbreviation = universityCD.Abbreviation,
                 Address = universityCD.Address,
-                Domain = universityCD.Domain,
                 RectorId = universityCD.RectorId
             };
         }
@@ -55,7 +53,6 @@ namespace SIS.Application.Mappers
                 Name = university.Name,
                 Abbreviation = university.Abbreviation,
                 Address = university.Address,
-                Domain = university.Domain,
                 RectorId = university.RectorId
             };
         }

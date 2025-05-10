@@ -18,7 +18,6 @@ namespace SIS.Application.Patchers
             university.Name = dto.Name;
             university.Abbreviation = dto.Abbreviation;
             university.Address = dto.Address;
-            university.Domain = dto.Domain;
             university.RectorId = dto.RectorId;
         }
 
@@ -32,7 +31,6 @@ namespace SIS.Application.Patchers
             if (dto.Name is not null) university.Name = dto.Name;
             if (dto.Abbreviation is not null) university.Abbreviation = dto.Abbreviation;
             if (dto.Address is not null) university.Address = dto.Address;
-            if (dto.Domain is not null) university.Domain = dto.Domain;
             if (dto.RectorId is not null) university.RectorId = dto.RectorId;
         }
     }

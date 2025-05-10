@@ -20,6 +20,10 @@ namespace SIS.Application.Patchers
             Department.Address = DepartmentUpdateDto.Address;
             Department.PhoneNumber = DepartmentUpdateDto.PhoneNumber;
             Department.IsActive = DepartmentUpdateDto.IsActive;
+            Department.MinYears = DepartmentUpdateDto.MinYears;
+            Department.MaxYears = DepartmentUpdateDto.MaxYears;
+            Department.SemesterCredits = DepartmentUpdateDto.SemesterCredits;
+            Department.TotalCredits = DepartmentUpdateDto.TotalCredits;
             Department.FacultyId = DepartmentUpdateDto.FacultyId;
             Department.HeadOfDepartmentId = DepartmentUpdateDto.HeadOfDepartmentId;
         }
@@ -39,6 +43,14 @@ namespace SIS.Application.Patchers
                 Department.Address = DepartmentPatchDto.Address;
             if (DepartmentPatchDto.PhoneNumber != null)
                 Department.PhoneNumber = DepartmentPatchDto.PhoneNumber;
+            if (DepartmentPatchDto.MinYears != null)
+                Department.MinYears = (int)DepartmentPatchDto.MinYears;
+            if (DepartmentPatchDto.MaxYears != null)
+                Department.MaxYears = (int)DepartmentPatchDto.MaxYears;
+            if (DepartmentPatchDto.SemesterCredits != null)
+                Department.SemesterCredits = (int)DepartmentPatchDto.SemesterCredits;
+            if (DepartmentPatchDto.TotalCredits != null)
+                Department.TotalCredits = (int)DepartmentPatchDto.TotalCredits;
             if (DepartmentPatchDto.IsActive != null)
                 Department.IsActive = (bool)DepartmentPatchDto.IsActive;
             if (DepartmentPatchDto.FacultyId != null)

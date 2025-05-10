@@ -73,7 +73,6 @@ namespace SIS.Tests.Repositories
                 Name = "Test University",
                 Abbreviation = "TU",
                 Address = "Test Address",
-                Domain = "test.edu",
                 RectorId = rector.Id,
                 Rector = rector,
                 Faculties = []

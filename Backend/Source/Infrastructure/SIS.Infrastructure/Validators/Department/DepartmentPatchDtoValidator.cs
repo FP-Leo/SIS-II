@@ -20,7 +20,13 @@ namespace SIS.Infrastructure.Validators.Department
         {
             _departmentValidator = departmentValidator;
 
+            RuleFor(d => d.Id)
+                .NotEmpty().WithMessage("Department ID is required.")
+                .GreaterThan(0).WithMessage("Department ID must be greater than 0.")
+                .MustAsync(_departmentValidator.ValidateDepartmentId);
+
             RuleFor(d => d.FacultyId)
+                .NotNull().WithMessage("Faculty ID is required to patch any of the following fields: 'name', 'code', 'head of department'.")
                 .NotEmpty().WithMessage("Faculty ID is required to patch any of the following fields: 'name', 'code', 'head of department'.")
                 .GreaterThan(0).WithMessage("Faculty ID must be greater than 0. It is required to patch any of the following fields: 'name', 'code', 'head of department'.")
                 .MustAsync(_departmentValidator.FacultyExistsAsync).WithMessage("Faculty Id doesn't exist. It is required to patch any of the following fields: 'name', 'code', 'head of department'.")
@@ -45,7 +51,7 @@ namespace SIS.Infrastructure.Validators.Department
                     RuleFor(d => d.HeadOfDepartmentId)
                         .NotEmpty().WithMessage("HoD Id is required.")
                         .Length(36, 450).WithMessage("HoD Id must be a valid GUID.")
-                        .MustAsync(_departmentValidator.BeUniqueHeadOfDepartmentId).WithMessage("The specified user does not have the HoD role.")
+                        .MustAsync(BeUniqueHod).WithMessage("The specified user does not have the HoD role.")
                         .When(d => !string.IsNullOrEmpty(d.HeadOfDepartmentId)); ;
                 });
 
@@ -60,7 +66,7 @@ namespace SIS.Infrastructure.Validators.Department
             RuleFor(d => d.PhoneNumber)
                 .NotEmpty().WithMessage("Phone number is required.")
                 .Matches(@"^\d{10}$").WithMessage("Phone number must be 10 digits long.")
-                .MustAsync(_departmentValidator.BeUniqueDepartmentPhoneNumber)
+                .MustAsync(BeUniquePhoneNumber)
                 .When(d => !string.IsNullOrEmpty(d.PhoneNumber)); ;
 
             RuleFor(d => d.MinYears)
@@ -96,12 +102,22 @@ namespace SIS.Infrastructure.Validators.Department
 
         private async Task<bool> BeUniqueDepartment(DepartmentPatchDto department, string name, CancellationToken cancellationToken)
         {
-            return await _departmentValidator.BeUniqueDepartmentName(department.FacultyId!.Value, name, cancellationToken);
+            return await _departmentValidator.BeUniqueDepartmentName(name, department.Id, department.FacultyId!.Value, cancellationToken);
         }
 
         private async Task<bool> BeUniqueCode(DepartmentPatchDto department, string code, CancellationToken cancellationToken)
         {
-            return await _departmentValidator.BeUniqueDepartmentCode(department.FacultyId!.Value, code, cancellationToken);
+            return await _departmentValidator.BeUniqueDepartmentCode(code, department.Id, department.FacultyId!.Value, cancellationToken);
+        }
+
+        private async Task<bool> BeUniqueHod(DepartmentPatchDto department, string hodId, CancellationToken cancellationToken)
+        {
+            return await _departmentValidator.BeUniqueHeadOfDepartmentId(hodId, department.Id, cancellationToken);
+        }
+
+        private async Task<bool> BeUniquePhoneNumber(DepartmentPatchDto department, string phoneNumber, CancellationToken cancellationToken)
+        {
+            return await _departmentValidator.BeUniqueDepartmentPhoneNumber(phoneNumber, department.Id, cancellationToken);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SIS.Application.Interfaces.Repositories;
 using SIS.Common;
@@ -86,18 +85,27 @@ namespace SIS.Persistence.Repositories
         }
 
         /// <summary>
-        /// Checks if a Department with the specified name exists in a university asynchronously.
+        /// Checks if a Department with the specified ID exists asynchronously.
         /// </summary>
-        /// <param name="name">The name of the Department.</param>
-        /// <param name="facultyId">The unique identifier of the faculty.</param>
+        /// <param name="DepartmentId">The unique identifier of the Department.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the Department exists; otherwise, false.</returns>
+        public async Task<bool> DepartmentExistsByIdAsync(int DepartmentId, CancellationToken cancellationToken)
+        {
+            CommonUtils.EnsureIdIsValid(DepartmentId, nameof(Department));
+
+            bool exists = await _context.Departments.AnyAsync(f => f.Id == DepartmentId, cancellationToken);
+
+            return exists;
+        }
+
+        /// <inheritdoc />
         public async Task<bool> DepartmentExistsInUniAsync(string name, int facultyId, CancellationToken cancellationToken)
         {
             var postFaculty = await _context.Faculties
                 .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == facultyId, cancellationToken) ?? throw new EntityNotFoundException("Faculty entry with the specified Id not found.");
-            
+
             bool exists = await _context.Departments
                 .AsNoTracking()
                 .AnyAsync(d =>
@@ -109,12 +117,29 @@ namespace SIS.Persistence.Repositories
         }
 
         /// <summary>
-        /// Checks if a Department with the specified code exists in a university asynchronously.
+        /// Checks if a Department with the specified name exists in a university asynchronously.
         /// </summary>
-        /// <param name="code">The code of the Department.</param>
+        /// <param name="name">The name of the Department.</param>
         /// <param name="facultyId">The unique identifier of the faculty.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
-        /// <returns>True if the code exists; otherwise, false.</returns>
+        /// <returns>True if the Department exists; otherwise, false.</returns>
+        public async Task<bool> DepartmentExistsInUniAsync(string name, int depId, int facultyId, CancellationToken cancellationToken)
+        {
+            var postFaculty = await _context.Faculties
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == facultyId, cancellationToken) ?? throw new EntityNotFoundException("Faculty entry with the specified Id not found.");
+            
+            bool exists = await _context.Departments
+                .AsNoTracking()
+                .AnyAsync(d =>
+                    d.Id != depId && d.Name == name &&
+                    _context.Faculties.Any(f => f.Id == d.FacultyId && f.UniversityId == postFaculty.UniversityId),
+                    cancellationToken);
+
+            return exists;
+        }
+
+        /// <inheritdoc />
         public async Task<bool> CodeExistsInUniAsync(string code, int facultyId, CancellationToken cancellationToken)
         {
             var postFaculty = await _context.Faculties
@@ -130,31 +155,51 @@ namespace SIS.Persistence.Repositories
 
             return exists;
         }
-
         /// <summary>
-        /// Checks if a Department with the specified ID exists asynchronously.
+        /// Checks if a Department with the specified code exists in a university asynchronously.
         /// </summary>
-        /// <param name="DepartmentId">The unique identifier of the Department.</param>
+        /// <param name="code">The code of the Department.</param>
+        /// <param name="facultyId">The unique identifier of the faculty.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
-        /// <returns>True if the Department exists; otherwise, false.</returns>
-        public async Task<bool> DepartmentExistsByIdAsync(int DepartmentId, CancellationToken cancellationToken)
+        /// <returns>True if the code exists; otherwise, false.</returns>
+        public async Task<bool> CodeExistsInUniAsync(string code, int depId, int facultyId, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(DepartmentId, nameof(Department));
+            var postFaculty = await _context.Faculties
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == facultyId, cancellationToken) ?? throw new EntityNotFoundException("Faculty entry with the specified Id not found.");
 
-            bool exists = await _context.Departments.AnyAsync(f => f.Id == DepartmentId, cancellationToken);
+            bool exists = await _context.Departments
+                .AsNoTracking()
+                .AnyAsync(d =>
+                    d.Id != depId && d.Code == code &&
+                    _context.Faculties.Any(f => f.Id == d.FacultyId && f.UniversityId == postFaculty.UniversityId),
+                    cancellationToken);
 
             return exists;
         }
 
+        /// <inheritdoc />
+        public async Task<bool> DepartmentExistsByHodIdAsync(string hodId, CancellationToken cancellationToken)
+        {
+            bool exists = await _context.Departments.AnyAsync(d => d.HeadOfDepartmentId == hodId, cancellationToken);
+            return exists;
+        }
         /// <summary>
         /// Checks if a Department with the specified dean ID exists asynchronously.
         /// </summary>
         /// <param name="hodId">The unique identifier of the dean.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the dean ID exists; otherwise, false.</returns>
-        public async Task<bool> DepartmentExistsByHodIdAsync(string hodId, CancellationToken cancellationToken)
+        public async Task<bool> DepartmentExistsByHodIdAsync(string hodId, int depId, CancellationToken cancellationToken)
         {
-            bool exists = await _context.Departments.AnyAsync(f => f.HeadOfDepartmentId == hodId, cancellationToken);
+            bool exists = await _context.Departments.AnyAsync(d => d.HeadOfDepartmentId == hodId && d.Id != depId, cancellationToken);
+            return exists;
+        }
+        
+        ///<inheritdoc />
+        public async Task<bool> DepartmentExistsByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken)
+        {
+            bool exists = await _context.Departments.AnyAsync(d => d.PhoneNumber == phoneNumber, cancellationToken);
             return exists;
         }
 
@@ -164,9 +209,9 @@ namespace SIS.Persistence.Repositories
         /// <param name="phoneNumber">The phone number of the Department.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the phone number exists; otherwise, false.</returns>
-        public async Task<bool> DepartmentExistsByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken)
+        public async Task<bool> DepartmentExistsByPhoneNumberAsync(string phoneNumber, int depId, CancellationToken cancellationToken)
         {
-            bool exists = await _context.Departments.AnyAsync(f => f.PhoneNumber == phoneNumber, cancellationToken);
+            bool exists = await _context.Departments.AnyAsync(d => d.PhoneNumber == phoneNumber && d.Id != depId, cancellationToken);
             return exists;
         }
     }

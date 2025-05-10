@@ -6,6 +6,10 @@
     public class DepartmentUpdateDto
     {
         /// <summary>
+        /// Gets or sets the unique identifier of the department.
+        /// </summary>
+        public required int Id { get; set; }
+        /// <summary>
         /// Gets or sets the name of the department.
         /// </summary>
         public required string Name { get; set; }

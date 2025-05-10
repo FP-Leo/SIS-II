@@ -85,12 +85,12 @@ namespace SIS.Infrastructure.Validators.Department
 
         private async Task<bool> BeUniqueDepartment(DepartmentCreateDto department, string name, CancellationToken cancellationToken)
         {
-            return await _departmentValidator.BeUniqueDepartmentName(department.FacultyId, name, cancellationToken);
+            return await _departmentValidator.BeUniqueDepartmentName(name, department.FacultyId, cancellationToken);
         }
 
         private async Task<bool> BeUniqueCode(DepartmentCreateDto department, string code, CancellationToken cancellationToken)
         {
-            return await _departmentValidator.BeUniqueDepartmentCode(department.FacultyId, code, cancellationToken);
+            return await _departmentValidator.BeUniqueDepartmentCode(code, department.FacultyId, cancellationToken);
         }
     }
 }

@@ -17,10 +17,15 @@ namespace SIS.Application.Mappers
         {
             return new DepartmentGetDto
             {
+                Id = department.Id,
                 Name = department.Name,
                 Code = department.Code,
                 Address = department.Address,
                 PhoneNumber = department.PhoneNumber,
+                SemesterCredits = department.SemesterCredits,
+                TotalCredits = department.TotalCredits,
+                MinYears = department.MinYears,
+                MaxYears = department.MaxYears,
                 IsActive = department.IsActive,
                 FacultyId = department.FacultyId,
                 HeadOfDepartmentId = department.HeadOfDepartmentId
@@ -40,6 +45,10 @@ namespace SIS.Application.Mappers
                 Code = departmentCreateDto.Code,
                 Address = departmentCreateDto.Address,
                 PhoneNumber = departmentCreateDto.PhoneNumber,
+                SemesterCredits = departmentCreateDto.SemesterCredits,
+                TotalCredits = departmentCreateDto.TotalCredits,
+                MinYears = departmentCreateDto.MinYears,
+                MaxYears = departmentCreateDto.MaxYears,
                 IsActive = departmentCreateDto.IsActive,
                 FacultyId = departmentCreateDto.FacultyId,
                 HeadOfDepartmentId = departmentCreateDto.HeadOfDepartmentId
@@ -59,6 +68,10 @@ namespace SIS.Application.Mappers
                 Code = departmentUpdateDto.Code,
                 Address = departmentUpdateDto.Address,
                 PhoneNumber = departmentUpdateDto.PhoneNumber,
+                SemesterCredits = departmentUpdateDto.SemesterCredits,
+                TotalCredits = departmentUpdateDto.TotalCredits,
+                MinYears = departmentUpdateDto.MinYears,
+                MaxYears = departmentUpdateDto.MaxYears,
                 IsActive = departmentUpdateDto.IsActive,
                 FacultyId = departmentUpdateDto.FacultyId,
                 HeadOfDepartmentId = departmentUpdateDto.HeadOfDepartmentId

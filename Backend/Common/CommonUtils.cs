@@ -40,5 +40,11 @@ namespace SIS.Common
             if (id <= 0)
                 throw new InvalidInputException($"Invalid Id of {entityName}.");
         }
+
+        public static void EnsureIdIsSame(int routeId, int dtoId, string entityName)
+        {
+            if (routeId != dtoId)
+                throw new InvalidInputException($"The Id of {entityName} in the route ({routeId}) does not match the Id in the DTO ({dtoId}).");
+        }
     }
 }

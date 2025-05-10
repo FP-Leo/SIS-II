@@ -21,11 +21,6 @@
         public required string Address { get; set; }
 
         /// <summary>
-        /// Gets or sets the domain of the university.
-        /// </summary>
-        public required string Domain { get; set; }
-
-        /// <summary>
         /// Gets or sets the ID of the rector of the university.
         /// </summary>
         public required string RectorId { get; set; }

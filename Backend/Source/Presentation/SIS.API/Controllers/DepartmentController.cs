@@ -100,7 +100,7 @@ namespace SIS.API.Controllers
         /// Updates an existing Department.
         /// </summary>
         /// <param name="id">The unique identifier of the Department.</param>
-        /// <param name="DepartmentUpdateDto">The DTO containing the updated Department data.</param>
+        /// <param name="departmentUpdateDto">The DTO containing the updated Department data.</param>
         /// <param name="validator">The validator for the DTO.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>The updated Department.</returns>
@@ -114,11 +114,11 @@ namespace SIS.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = RoleConstants.SuperUser)]
-        public async Task<IActionResult> UpdateDepartment([FromRoute] int id, DepartmentUpdateDto DepartmentUpdateDto, [FromServices] IValidator<DepartmentUpdateDto> validator, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateDepartment([FromRoute] int id, DepartmentUpdateDto departmentUpdateDto, [FromServices] IValidator<DepartmentUpdateDto> validator, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(id, "Department");
+            CommonUtils.EnsureIdIsSame(id, departmentUpdateDto.Id, "Department");
 
-            ValidationResult validationResult = await validator.ValidateAsync(DepartmentUpdateDto, cancellationToken);
+            ValidationResult validationResult = await validator.ValidateAsync(departmentUpdateDto, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
@@ -126,7 +126,7 @@ namespace SIS.API.Controllers
             if (existingDepartment == null)
                 return NotFound($"Department with ID {id} not found.");
 
-            existingDepartment.ApplyUpdate(DepartmentUpdateDto);
+            existingDepartment.ApplyUpdate(departmentUpdateDto);
 
             await _DepartmentRepository.UpdateDepartmentAsync(existingDepartment, cancellationToken);
 
@@ -137,7 +137,7 @@ namespace SIS.API.Controllers
         /// Partially updates an existing Department.
         /// </summary>
         /// <param name="id">The unique identifier of the Department.</param>
-        /// <param name="DepartmentPatchDto">The DTO containing the patch data.</param>
+        /// <param name="departmentPatchDto">The DTO containing the patch data.</param>
         /// <param name="validator">The validator for the DTO.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>The updated Department.</returns>
@@ -151,19 +151,19 @@ namespace SIS.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = RoleConstants.SuperUser)]
-        public async Task<IActionResult> PatchDepartment([FromRoute] int id, [FromBody] DepartmentPatchDto DepartmentPatchDto, [FromServices] IValidator<DepartmentPatchDto> validator, CancellationToken cancellationToken)
+        public async Task<IActionResult> PatchDepartment([FromRoute] int id, [FromBody] DepartmentPatchDto departmentPatchDto, [FromServices] IValidator<DepartmentPatchDto> validator, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(id, "Department");
+            CommonUtils.EnsureIdIsSame(id, departmentPatchDto.Id, "Department");
+
+            ValidationResult validationResult = await validator.ValidateAsync(departmentPatchDto, cancellationToken);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
 
             Department? existingDepartment = await _DepartmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (existingDepartment == null)
                 return NotFound($"Department with ID {id} not found.");
 
-            ValidationResult validationResult = await validator.ValidateAsync(DepartmentPatchDto, cancellationToken);
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
-
-            existingDepartment.ApplyPatch(DepartmentPatchDto);
+            existingDepartment.ApplyPatch(departmentPatchDto);
 
             await _DepartmentRepository.UpdateDepartmentAsync(existingDepartment, cancellationToken);
 

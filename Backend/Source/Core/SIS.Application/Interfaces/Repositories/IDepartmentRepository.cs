@@ -7,6 +7,8 @@ namespace SIS.Application.Interfaces.Repositories
     /// </summary>
     public interface IDepartmentRepository
     {
+        /// API methods
+
         /// <summary>
         /// Retrieves all Departments asynchronously.
         /// </summary>
@@ -44,6 +46,17 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         Task DeleteDepartmentByIdAsync(Department Department, CancellationToken cancellationToken);
 
+        //// Validation Methods
+
+        /// <summary>
+        /// Checks if a department with the specified ID exists asynchronously.
+        /// </summary>
+        /// <param name="id">The unique identifier of the department.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the department exists; otherwise, false.</returns>
+        Task<bool> DepartmentExistsByIdAsync(int id, CancellationToken cancellationToken);
+
+
         /// <summary>
         /// Checks if a Department with the specified name exists in a faculty asynchronously.
         /// </summary>
@@ -52,23 +65,35 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the Department exists; otherwise, false.</returns>
         Task<bool> DepartmentExistsInUniAsync(string name, int facultyId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Checks if a Department with the specified name exists in a faculty asynchronously.
+        /// </summary>
+        /// <param name="name">The name of the Department.</param>
+        /// <param name="depId">The unique identifier of the department to exclude (optional for some overloads).</param>
+        /// <param name="facultyId">The unique identifier of the faculty.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the Department exists; otherwise, false.</returns>
+        Task<bool> DepartmentExistsInUniAsync(string name, int depId, int facultyId, CancellationToken cancellationToken);
+
 
         /// <summary>
-        /// Checks if a Department with the specified code exists in a facultyId asynchronously.
+        /// Checks if a Department with the specified code exists in a faculty asynchronously.
         /// </summary>
         /// <param name="code">The code of the Department.</param>
         /// <param name="facultyId">The unique identifier of the faculty.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the code exists; otherwise, false.</returns>
         Task<bool> CodeExistsInUniAsync(string code, int facultyId, CancellationToken cancellationToken);
-
         /// <summary>
-        /// Checks if a department with the specified id exists asynchronously.
+        /// Checks if a Department with the specified code exists in a faculty asynchronously.
         /// </summary>
-        /// <param name="id">The unique identifier of the department.</param>
+        /// <param name="code">The code of the Department.</param>
+        /// <param name="depId">The unique identifier of the department to exclude (optional for some overloads).</param>
+        /// <param name="facultyId">The unique identifier of the faculty.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
-        /// <returns>True if the department exists; otherwise, false.</returns>
-        Task<bool> DepartmentExistsByIdAsync(int id, CancellationToken cancellationToken);
+        /// <returns>True if the code exists; otherwise, false.</returns>
+        Task<bool> CodeExistsInUniAsync(string code, int depId, int facultyId, CancellationToken cancellationToken);
+
 
         /// <summary>
         /// Checks if a department with the specified phone number exists asynchronously.
@@ -77,13 +102,30 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the phone number exists; otherwise, false.</returns>
         Task<bool> DepartmentExistsByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken);
+        /// <summary>
+        /// Checks if a department with the specified phone number exists asynchronously.
+        /// </summary>
+        /// <param name="phoneNumber">The phone number of the department.</param>
+        /// <param name="depId">The unique identifier of the department to exclude (optional for some overloads).</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the phone number exists; otherwise, false.</returns>
+        Task<bool> DepartmentExistsByPhoneNumberAsync(string phoneNumber, int depId, CancellationToken cancellationToken);
+
 
         /// <summary>
-        /// Checks if a Department with the specified dean ID exists asynchronously.
+        /// Checks if a Department with the specified head of department ID exists asynchronously.
         /// </summary>
         /// <param name="hodId">The unique identifier of the head of the department.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
-        /// <returns>True if the dean ID exists; otherwise, false.</returns>
+        /// <returns>True if the head of department ID exists; otherwise, false.</returns>
         Task<bool> DepartmentExistsByHodIdAsync(string hodId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Checks if a Department with the specified head of department ID exists asynchronously.
+        /// </summary>
+        /// <param name="hodId">The unique identifier of the head of the department.</param>
+        /// <param name="depId">The unique identifier of the department to exclude (optional for some overloads).</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the head of department ID exists; otherwise, false.</returns>
+        Task<bool> DepartmentExistsByHodIdAsync(string hodId, int depId, CancellationToken cancellationToken);
     }
 }

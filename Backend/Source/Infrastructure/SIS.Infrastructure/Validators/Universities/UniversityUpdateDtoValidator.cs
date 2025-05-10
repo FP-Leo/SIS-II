@@ -38,14 +38,6 @@ namespace SIS.Infrastructure.Validators.Universities
                 .Length(5, 100).WithMessage("Address must be between 5 and 100 characters.");
 
             /// <summary>
-            /// Ensures that the university domain is not empty and matches a specific regex pattern.
-            /// </summary>
-            RuleFor(x => x.Domain)
-                .NotEmpty().WithMessage("Domain is required.")
-                .Matches(@"^(?!-)[A-Za-z0-9-]{2,63}(?<!-)\.(edu|edu\.[a-z]{2,3})$")
-                .WithMessage("Domain must be a valid .edu or .edu.xx domain (e.g., example.edu, uni.edu.tr).");
-
-            /// <summary>
             /// Ensures that the rector ID is not empty, has a valid length, and corresponds to an existing rector.
             /// </summary>
             RuleFor(u => u.RectorId)
