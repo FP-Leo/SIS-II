@@ -110,6 +110,21 @@ namespace SIS.Persistence.Repositories
         }
 
         /// <summary>
+        /// Checks if a faculty with the specified ID exists asynchronously.
+        /// </summary>
+        /// <param name="facultyId">The unique identifier of the faculty.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the faculty exists; otherwise, false.</returns>
+        public async Task<bool> FacultyExistsByIdAsync(int facultyId, CancellationToken cancellationToken)
+        {
+            CommonUtils.EnsureIdIsValid(facultyId, nameof(Faculty));
+
+            bool exists = await _context.Faculties.AnyAsync(f => f.Id == facultyId, cancellationToken);
+            
+            return exists;
+        }
+
+        /// <summary>
         /// Checks if a faculty with the specified dean ID exists asynchronously.
         /// </summary>
         /// <param name="deanId">The unique identifier of the dean.</param>

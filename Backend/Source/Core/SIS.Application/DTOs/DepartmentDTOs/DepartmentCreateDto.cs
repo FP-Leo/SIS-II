@@ -1,19 +1,10 @@
-using IndexAttribute = Microsoft.EntityFrameworkCore.IndexAttribute;
-
-namespace SIS.Domain.Entities
+﻿namespace SIS.Application.DTOs.DepartmentDTOs
 {
     /// <summary>
-    /// Represents a department within a faculty in the system.
+    /// Data Transfer Object (DTO) for creating a new department.
     /// </summary>
-    [Index(nameof(HeadOfDepartmentId), IsUnique = true)] // HeadOfDepartmentId is unique to ensure one head per department. If otherwise, it will need to change.
-    [Index(nameof(PhoneNumber), IsUnique = true)]
-    public class Department
+    public class DepartmentCreateDto
     {
-        /// <summary>
-        /// Gets or sets the unique identifier for the department.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Gets or sets the name of the department.
         /// </summary>
@@ -68,15 +59,5 @@ namespace SIS.Domain.Entities
         /// Gets or sets the unique identifier of the head of the department.
         /// </summary>
         public required string HeadOfDepartmentId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the faculty the department belongs to.
-        /// </summary>
-        public Faculty? Faculty { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user who is the head of the department.
-        /// </summary>
-        public User? HeadOfDepartment { get; set; }
     }
 }

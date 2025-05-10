@@ -50,19 +50,19 @@ namespace SIS.Application.Mappers
         /// <summary>
         /// Maps a <see cref="FacultyUpdateDto"/> to a <see cref="Faculty"/> entity.
         /// </summary>
-        /// <param name="facultyGetDto">The DTO containing the data to map.</param>
+        /// <param name="facultyUpdateDto">The DTO containing the data to map.</param>
         /// <returns>A <see cref="Faculty"/> entity containing the mapped data.</returns>
-        public static Faculty ToFaculty(this FacultyUpdateDto facultyGetDto)
+        public static Faculty ToFaculty(this FacultyUpdateDto facultyUpdateDto)
         {
             return new Faculty
             {
-                Name = facultyGetDto.Name,
-                Code = facultyGetDto.Code,
-                Address = facultyGetDto.Address,
-                PhoneNumber = facultyGetDto.PhoneNumber,
-                IsActive = facultyGetDto.IsActive,
-                UniversityId = facultyGetDto.UniId,
-                DeanId = facultyGetDto.DeanId
+                Name = facultyUpdateDto.Name,
+                Code = facultyUpdateDto.Code,
+                Address = facultyUpdateDto.Address,
+                PhoneNumber = facultyUpdateDto.PhoneNumber,
+                IsActive = facultyUpdateDto.IsActive,
+                UniversityId = facultyUpdateDto.UniId,
+                DeanId = facultyUpdateDto.DeanId
             };
         }
     }

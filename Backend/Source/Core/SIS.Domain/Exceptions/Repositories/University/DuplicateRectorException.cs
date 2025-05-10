@@ -10,6 +10,6 @@ namespace SIS.Domain.Exceptions.Repositories.University
         /// <summary>
         /// Initializes a new instance of the <see cref="DuplicateRectorException"/> class with a default message.
         /// </summary>
-        public DuplicateRectorException() : base("Rector not found.") { }
+        public DuplicateRectorException() : base("The specified rector already exists.") { }
     }
 }

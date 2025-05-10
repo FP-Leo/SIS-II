@@ -1,6 +1,7 @@
 ﻿using SIS.Application.Interfaces.Repositories;
 using SIS.Application.Interfaces.Services;
 using SIS.Application.Interfaces.Validators;
+using SIS.Common.Constants;
 using SIS.Domain.Exceptions.Common;
 using SIS.Domain.Exceptions.Database;
 using SIS.Domain.Exceptions.Repositories.University;
@@ -62,13 +63,12 @@ namespace SIS.Infrastructure.Validators.Universities
             bool rectorAlreadyExists = await _universityRepo.RectorExistsAsync(rectorId, cancellationToken);
             if (rectorAlreadyExists) throw new DuplicateRectorException();
 
-            var user = await _userService.GetUserByIdAsync(rectorId);
-            if (user == null) throw new EntityNotFoundException("User", rectorId);
-
+            var user = await _userService.GetUserByIdAsync(rectorId) ?? throw new EntityNotFoundException("User", rectorId);
+            
             var roles = await _userService.GetUserRolesAsync(user);
             if (roles == null || !roles.Any()) throw new InvalidRoleException("The provided user doesn't have any roles associated with it.");
 
-            return roles.Contains("Rector");
+            return roles.Contains(RoleConstants.Rector);
         }
     }
 }

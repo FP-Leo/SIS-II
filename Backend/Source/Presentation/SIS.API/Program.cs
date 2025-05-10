@@ -17,6 +17,7 @@ using SIS.Application.Interfaces.Validators;
 using SIS.Infrastructure.Validators.Universities;
 using SIS.Infrastructure.Validators.Faculty;
 using SIS.Persistence.Databases.Data.SeedData;
+using SIS.Infrastructure.Validators.Department;
 
 namespace SIS.API
 {
@@ -121,6 +122,7 @@ namespace SIS.API
 
             builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
             builder.Services.AddScoped<IFacultyRepository, FacultyRepository>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
             // Add global exception handler
             builder.Services.AddExceptionHandler<DbUpdateExceptionHandler>();
@@ -131,6 +133,7 @@ namespace SIS.API
             builder.Services.AddScoped<IUserValidator, UserValidator>();
             builder.Services.AddScoped<IUniversityValidator, UniversityValidator>();
             builder.Services.AddScoped<IFacultyValidator, FacultyValidator>();
+            builder.Services.AddScoped<IDepartmentValidator, DepartmentValidator>();
 
             builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
 

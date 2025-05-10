@@ -27,8 +27,4 @@
     <ProjectReference Include="..\..\Core\SIS.Domain\SIS.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
-
 </Project>

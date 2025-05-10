@@ -16,6 +16,15 @@ namespace SIS.Domain.Exceptions.Database
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="EntityNotFoundException"/> class with a message.
+        /// </summary>
+        /// /// <param name="message">The message to be passed to the exception.</param>
+        public EntityNotFoundException(string message)
+            : base(message)
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EntityNotFoundException"/> class with a specified entity name and value.
         /// </summary>
         /// <param name="entityName">The name of the entity that was not found.</param>

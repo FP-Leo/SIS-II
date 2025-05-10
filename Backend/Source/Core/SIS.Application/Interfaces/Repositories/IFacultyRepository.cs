@@ -38,7 +38,7 @@ namespace SIS.Application.Interfaces.Repositories
         Task UpdateFacultyAsync(Faculty faculty, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Deletes a faculty by its unique identifier asynchronously.
+        /// Deletes a faculty by its entity asynchronously.
         /// </summary>
         /// <param name="faculty">The faculty entity to delete.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
@@ -61,6 +61,14 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the code exists; otherwise, false.</returns>
         Task<bool> CodeExistsInUniAsync(string code, int uniId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Checks if a faculty with the specified id exists asynchronously.
+        /// </summary>
+        /// <param name="phoneNumber">The unique identifier of the faculty.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if faculty exists; otherwise, false.</returns>
+        Task<bool> FacultyExistsByIdAsync(int facultyId, CancellationToken cancellationToken);
 
         /// <summary>
         /// Checks if a faculty with the specified phone number exists asynchronously.
