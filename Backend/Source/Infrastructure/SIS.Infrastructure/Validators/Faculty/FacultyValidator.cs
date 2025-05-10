@@ -44,11 +44,32 @@ namespace SIS.Infrastructure.Validators.Faculty
 
             return roles.Contains(RoleConstants.Dean);
         }
+        /// <inheritdoc />
+        public async Task<bool> BeUniqueDeanId(string deanId, int facultyId, CancellationToken cancellationToken)
+        {
+            bool deanAlreadyExists = await _facultyRepository.FacultyExistsByDeanIdAsync(deanId, facultyId, cancellationToken);
+            if (deanAlreadyExists) throw new DuplicateDeanException();
+
+            User? dean = await _userService.GetUserByIdAsync(deanId) ?? throw new InvalidInputException($"The specified dean account does not exist.");
+
+            IList<string> roles = await _userService.GetUserRolesAsync(dean);
+            if (roles == null || !roles.Any()) throw new InvalidInputException("The provided user doesn't have any roles associated with it.");
+
+            return roles.Contains(RoleConstants.Dean);
+        }
 
         /// <inheritdoc />
         public async Task<bool> BeUniqueFacultyCode(int uniId, string code, CancellationToken cancellationToken)
         {
             bool result = await _facultyRepository.CodeExistsInUniAsync(code, uniId, cancellationToken);
+            if (result) throw new DuplicateAbbreviationException($"Faculty with code {code} already exists in the specified university.");
+
+            return true;
+        }
+        /// <inheritdoc />
+        public async Task<bool> BeUniqueFacultyCode(int uniId, int facultyId, string code, CancellationToken cancellationToken)
+        {
+            bool result = await _facultyRepository.CodeExistsInUniAsync(code, facultyId, uniId, cancellationToken);
             if (result) throw new DuplicateAbbreviationException($"Faculty with code {code} already exists in the specified university.");
 
             return true;
@@ -62,11 +83,27 @@ namespace SIS.Infrastructure.Validators.Faculty
 
             return true;
         }
+        /// <inheritdoc />
+        public async Task<bool> BeUniqueFacultyName(int uniId, int facultyId ,string name, CancellationToken cancellationToken)
+        {
+            bool result = await _facultyRepository.FacultyExistsInUniAsync(name, facultyId, uniId, cancellationToken);
+            if (result) throw new DuplicateNameException($"Faculty with name {name} already exists in the specified university.");
+
+            return true;
+        }
 
         /// <inheritdoc />
         public async Task<bool> BeUniqueFacultyPhoneNumber(string phoneNumber, CancellationToken cancellationToken)
         {
             bool result = await _facultyRepository.FacultyExistsByPhoneNumberAsync(phoneNumber, cancellationToken);
+            if (result) throw new DuplicatePhoneNumberException();
+
+            return true;
+        }
+        /// <inheritdoc />
+        public async Task<bool> BeUniqueFacultyPhoneNumber(string phoneNumber, int facultyId, CancellationToken cancellationToken)
+        {
+            bool result = await _facultyRepository.FacultyExistsByPhoneNumberAsync(phoneNumber, facultyId, cancellationToken);
             if (result) throw new DuplicatePhoneNumberException();
 
             return true;
@@ -79,7 +116,6 @@ namespace SIS.Infrastructure.Validators.Faculty
 
             return await _universityRepository.UniversityExistsByIdAsync(uniId.Value, cancellationToken);
         }
-
         /// <inheritdoc />
         public async Task<bool> UniversityExistsAsync(int uniId, CancellationToken cancellationToken)
         {

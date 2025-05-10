@@ -46,24 +46,5 @@ namespace SIS.Application.Mappers
                 DeanId = facultyCreateDto.DeanId
             };
         }
-
-        /// <summary>
-        /// Maps a <see cref="FacultyUpdateDto"/> to a <see cref="Faculty"/> entity.
-        /// </summary>
-        /// <param name="facultyUpdateDto">The DTO containing the data to map.</param>
-        /// <returns>A <see cref="Faculty"/> entity containing the mapped data.</returns>
-        public static Faculty ToFaculty(this FacultyUpdateDto facultyUpdateDto)
-        {
-            return new Faculty
-            {
-                Name = facultyUpdateDto.Name,
-                Code = facultyUpdateDto.Code,
-                Address = facultyUpdateDto.Address,
-                PhoneNumber = facultyUpdateDto.PhoneNumber,
-                IsActive = facultyUpdateDto.IsActive,
-                UniversityId = facultyUpdateDto.UniId,
-                DeanId = facultyUpdateDto.DeanId
-            };
-        }
     }
 }

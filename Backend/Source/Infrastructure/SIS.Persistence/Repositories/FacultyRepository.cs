@@ -84,6 +84,21 @@ namespace SIS.Persistence.Repositories
         }
 
         /// <summary>
+        /// Checks if a faculty with the specified ID exists asynchronously.
+        /// </summary>
+        /// <param name="facultyId">The unique identifier of the faculty.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the faculty exists; otherwise, false.</returns>
+        public async Task<bool> FacultyExistsByIdAsync(int facultyId, CancellationToken cancellationToken)
+        {
+            CommonUtils.EnsureIdIsValid(facultyId, nameof(Faculty));
+
+            bool exists = await _context.Faculties.AnyAsync(f => f.Id == facultyId, cancellationToken);
+
+            return exists;
+        }
+
+        /// <summary>
         /// Checks if a faculty with the specified name exists in a university asynchronously.
         /// </summary>
         /// <param name="name">The name of the faculty.</param>
@@ -93,6 +108,13 @@ namespace SIS.Persistence.Repositories
         public async Task<bool> FacultyExistsInUniAsync(string name, int uniId, CancellationToken cancellationToken)
         {
             bool exists = await _context.Faculties.AnyAsync(f => f.Name == name && f.UniversityId == uniId, cancellationToken);
+            return exists;
+        }
+
+        /// <inheritdoc />
+        public async Task<bool> FacultyExistsInUniAsync(string name, int facultyId, int uniId, CancellationToken cancellationToken)
+        {
+            bool exists = await _context.Faculties.AnyAsync(f => f.Id != facultyId && f.Name == name && f.UniversityId == uniId, cancellationToken);
             return exists;
         }
 
@@ -108,19 +130,10 @@ namespace SIS.Persistence.Repositories
             bool exists = await _context.Faculties.AnyAsync(f => f.Code == code && f.UniversityId == uniId, cancellationToken);
             return exists;
         }
-
-        /// <summary>
-        /// Checks if a faculty with the specified ID exists asynchronously.
-        /// </summary>
-        /// <param name="facultyId">The unique identifier of the faculty.</param>
-        /// <param name="cancellationToken">Token to cancel the operation.</param>
-        /// <returns>True if the faculty exists; otherwise, false.</returns>
-        public async Task<bool> FacultyExistsByIdAsync(int facultyId, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task<bool> CodeExistsInUniAsync(string code, int facultyId, int uniId, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(facultyId, nameof(Faculty));
-
-            bool exists = await _context.Faculties.AnyAsync(f => f.Id == facultyId, cancellationToken);
-            
+            bool exists = await _context.Faculties.AnyAsync(f => f.Id != facultyId && f.Code == code && f.UniversityId == uniId, cancellationToken);
             return exists;
         }
 
@@ -135,6 +148,12 @@ namespace SIS.Persistence.Repositories
             bool exists = await _context.Faculties.AnyAsync(f => f.DeanId == deanId, cancellationToken);
             return exists;
         }
+        /// <inheritdoc />
+        public async Task<bool> FacultyExistsByDeanIdAsync(string deanId, int facultyId, CancellationToken cancellationToken)
+        {
+            bool exists = await _context.Faculties.AnyAsync(f => f.Id != facultyId && f.DeanId == deanId, cancellationToken);
+            return exists;
+        }
 
         /// <summary>
         /// Checks if a faculty with the specified phone number exists asynchronously.
@@ -145,6 +164,12 @@ namespace SIS.Persistence.Repositories
         public async Task<bool> FacultyExistsByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken)
         {
             bool exists = await _context.Faculties.AnyAsync(f => f.PhoneNumber == phoneNumber, cancellationToken);
+            return exists;
+        }
+        /// <inheritdoc />
+        public async Task<bool> FacultyExistsByPhoneNumberAsync(string phoneNumber, int facultyId, CancellationToken cancellationToken)
+        {
+            bool exists = await _context.Faculties.AnyAsync(f => f.Id != facultyId && f.PhoneNumber == phoneNumber, cancellationToken);
             return exists;
         }
     }

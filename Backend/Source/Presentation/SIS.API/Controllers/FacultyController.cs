@@ -116,7 +116,7 @@ namespace SIS.API.Controllers
         [Authorize(Roles = RoleConstants.SuperUser)]
         public async Task<IActionResult> UpdateFaculty([FromRoute] int id, FacultyUpdateDto facultyUpdateDto, [FromServices] IValidator<FacultyUpdateDto> validator, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(id, "Faculty");
+            CommonUtils.EnsureIdIsSame(id, facultyUpdateDto.Id, "Faculty");
 
             ValidationResult validationResult = await validator.ValidateAsync(facultyUpdateDto, cancellationToken);
             if (!validationResult.IsValid)
@@ -153,15 +153,15 @@ namespace SIS.API.Controllers
         [Authorize(Roles = RoleConstants.SuperUser)]
         public async Task<IActionResult> PatchFaculty([FromRoute] int id, [FromBody] FacultyPatchDto facultyPatchDto, [FromServices] IValidator<FacultyPatchDto> validator, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(id, "Faculty");
-
-            Faculty? existingFaculty = await _facultyRepository.GetFacultyByIdAsync(id, cancellationToken);
-            if (existingFaculty == null)
-                return NotFound($"Faculty with ID {id} not found.");
+            CommonUtils.EnsureIdIsSame(id, facultyPatchDto.Id, "Faculty");
 
             ValidationResult validationResult = await validator.ValidateAsync(facultyPatchDto, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
+
+            Faculty? existingFaculty = await _facultyRepository.GetFacultyByIdAsync(id, cancellationToken);
+            if (existingFaculty == null)
+                return NotFound($"Faculty with ID {id} not found.");
 
             existingFaculty.ApplyPatch(facultyPatchDto);
 

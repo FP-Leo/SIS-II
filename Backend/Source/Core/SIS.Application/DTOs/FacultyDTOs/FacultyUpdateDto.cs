@@ -6,6 +6,11 @@
     public class FacultyUpdateDto
     {
         /// <summary>
+        /// Gets or sets the unique identifier of the faculty.
+        /// </summary>
+        public required int Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the faculty.
         /// </summary>
         public required string Name { get; set; }

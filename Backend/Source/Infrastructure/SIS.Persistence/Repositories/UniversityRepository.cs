@@ -112,7 +112,7 @@ namespace SIS.Persistence.Repositories
         /// <inheritdoc/>
         public async Task<bool> UniversityExistsByNameAsync(string name, int uniId, CancellationToken cancellationToken)
         {
-            bool exists = await _context.Universities.AnyAsync(u => u.Name == name && u.Id != uniId, cancellationToken);
+            bool exists = await _context.Universities.AnyAsync(u => u.Id != uniId && u.Name == name, cancellationToken);
             return exists;
         }
 
@@ -130,7 +130,7 @@ namespace SIS.Persistence.Repositories
         /// <inheritdoc/>
         public async Task<bool> UniversityExistsByAbbreviationAsync(string abbreviation, int uniId, CancellationToken cancellationToken)
         {
-            bool exists = await _context.Universities.AnyAsync(u => u.Abbreviation == abbreviation && u.Id != uniId, cancellationToken);
+            bool exists = await _context.Universities.AnyAsync(u => u.Id != uniId && u.Abbreviation == abbreviation, cancellationToken);
             return exists;
         }
 
@@ -148,7 +148,7 @@ namespace SIS.Persistence.Repositories
         /// <inheritdoc/>
         public async Task<bool> RectorExistsAsync(string rectorId, int uniId, CancellationToken cancellationToken)
         {
-            bool exists = await _context.Universities.AnyAsync(u => u.RectorId == rectorId && u.Id != uniId, cancellationToken);
+            bool exists = await _context.Universities.AnyAsync(u => u.Id != uniId && u.RectorId == rectorId, cancellationToken);
             return exists;
         }
     }

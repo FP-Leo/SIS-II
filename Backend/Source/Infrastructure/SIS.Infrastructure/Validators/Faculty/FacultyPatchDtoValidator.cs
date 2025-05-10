@@ -8,7 +8,7 @@ namespace SIS.Infrastructure.Validators.Faculty
     /// Validator for the <see cref="FacultyPatchDto"/> class.
     /// Ensures that the data provided for partially updating a faculty meets the required rules and constraints.
     /// </summary>
-    public class FacultyPatchDtoValidator: AbstractValidator<FacultyPatchDto>
+    public class FacultyPatchDtoValidator : AbstractValidator<FacultyPatchDto>
     {
         private readonly IFacultyValidator _facultyValidator;
         /// <summary>
@@ -19,6 +19,11 @@ namespace SIS.Infrastructure.Validators.Faculty
         {
             _facultyValidator = facultyValidator;
             // Define validation rules for each property of the FacultyCreateDto class.
+
+            // The Id property must not be empty, must be greater than 0,
+            RuleFor(f => f.Id)
+                .NotEmpty().WithMessage("Faculty ID is required.")
+                .GreaterThan(0).WithMessage("Faculty ID must be greater than 0.");
 
             // If the UniId property is not null, it must be greater than 0 and the university must exist.
             RuleFor(f => f.UniId)
@@ -45,7 +50,7 @@ namespace SIS.Infrastructure.Validators.Faculty
                     // If the DeanId property is not null, it must be a valid GUID,
                     RuleFor(f => f.DeanId)
                         .Length(36, 450).WithMessage("Dean ID must be a valid GUID.")
-                        .MustAsync(facultyValidator.BeUniqueDeanId).WithMessage("The specified user is not a dean.")
+                        .MustAsync(BeUniqueDeanId).WithMessage("The specified user is not a dean.")
                         .When(u => !string.IsNullOrEmpty(u.DeanId), ApplyConditionTo.CurrentValidator);
                 });
 
@@ -57,17 +62,28 @@ namespace SIS.Infrastructure.Validators.Faculty
             // If the PhoneNumber property is not null, it must be a valid phone number format,
             RuleFor(f => f.PhoneNumber)
                 .Matches(@"^\d{10}$").WithMessage("Phone number must be 10 digits long.")
-                .When(u => !string.IsNullOrEmpty(u.PhoneNumber), ApplyConditionTo.CurrentValidator);
+                .When(u => !string.IsNullOrEmpty(u.PhoneNumber), ApplyConditionTo.CurrentValidator)
+                .MustAsync(BeUniqueFacultyPhoneNumber);
         }
 
         private async Task<bool> BeUniqueFacultyName(FacultyPatchDto faculty, string name, CancellationToken cancellationToken)
         {
-            return await _facultyValidator.BeUniqueFacultyName(faculty.UniId!.Value, name, cancellationToken);
+            return await _facultyValidator.BeUniqueFacultyName(faculty.UniId!.Value, faculty.Id, name, cancellationToken);
         }
 
         private async Task<bool> BeUniqueFacultyCode(FacultyPatchDto faculty, string code, CancellationToken cancellationToken)
         {
-            return await _facultyValidator.BeUniqueFacultyCode(faculty.UniId!.Value, code, cancellationToken);
+            return await _facultyValidator.BeUniqueFacultyCode(faculty.UniId!.Value, faculty.Id, code, cancellationToken);
+        }
+
+        private async Task<bool> BeUniqueDeanId(FacultyPatchDto faculty, string deanId, CancellationToken cancellationToken)
+        {
+            return await _facultyValidator.BeUniqueDeanId(deanId, faculty.Id, cancellationToken);
+        }
+
+        private async Task<bool> BeUniqueFacultyPhoneNumber(FacultyPatchDto faculty, string phoneNumber, CancellationToken cancellationToken)
+        {
+            return await _facultyValidator.BeUniqueFacultyPhoneNumber(phoneNumber, faculty.Id, cancellationToken);
         }
     }
 }

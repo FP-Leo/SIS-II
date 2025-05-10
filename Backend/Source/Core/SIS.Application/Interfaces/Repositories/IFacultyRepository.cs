@@ -7,6 +7,8 @@ namespace SIS.Application.Interfaces.Repositories
     /// </summary>
     public interface IFacultyRepository
     {
+        //// API methods
+
         /// <summary>
         /// Retrieves all faculties asynchronously.
         /// </summary>
@@ -44,23 +46,7 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         Task DeleteFacultyByIdAsync(Faculty faculty, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Checks if a faculty with the specified name exists in a university asynchronously.
-        /// </summary>
-        /// <param name="name">The name of the faculty.</param>
-        /// <param name="uniId">The unique identifier of the university.</param>
-        /// <param name="cancellationToken">Token to cancel the operation.</param>
-        /// <returns>True if the faculty exists; otherwise, false.</returns>
-        Task<bool> FacultyExistsInUniAsync(string name, int uniId, CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Checks if a faculty with the specified code exists in a university asynchronously.
-        /// </summary>
-        /// <param name="code">The code of the faculty.</param>
-        /// <param name="uniId">The unique identifier of the university.</param>
-        /// <param name="cancellationToken">Token to cancel the operation.</param>
-        /// <returns>True if the code exists; otherwise, false.</returns>
-        Task<bool> CodeExistsInUniAsync(string code, int uniId, CancellationToken cancellationToken);
+        //// Validation methods
 
         /// <summary>
         /// Checks if a faculty with the specified id exists asynchronously.
@@ -71,12 +57,56 @@ namespace SIS.Application.Interfaces.Repositories
         Task<bool> FacultyExistsByIdAsync(int facultyId, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Checks if a faculty with the specified name exists in a university asynchronously.
+        /// </summary>
+        /// <param name="name">The name of the faculty.</param>
+        /// <param name="uniId">The unique identifier of the university.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the faculty exists; otherwise, false.</returns>
+        Task<bool> FacultyExistsInUniAsync(string name, int uniId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Checks if a faculty with the specified name exists in a university asynchronously.
+        /// </summary>
+        /// <param name="name">The name of the faculty.</param>
+        /// <param name="facultyId">The unique identifier of the faculty to be excluded.</param>
+        /// <param name="uniId">The unique identifier of the university.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the faculty exists; otherwise, false.</returns>
+        Task<bool> FacultyExistsInUniAsync(string name, int facultyId, int uniId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Checks if a faculty with the specified code exists in a university asynchronously.
+        /// </summary>
+        /// <param name="code">The code of the faculty.</param>
+        /// <param name="uniId">The unique identifier of the university.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the code exists; otherwise, false.</returns>
+        Task<bool> CodeExistsInUniAsync(string code, int uniId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Checks if a faculty with the specified code exists in a university asynchronously.
+        /// </summary>
+        /// <param name="code">The code of the faculty.</param>
+        /// <param name="facultyId"> The unique identifier of the faculty to be excluded.</param>
+        /// <param name="uniId">The unique identifier of the university.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the code exists; otherwise, false.</returns>
+        Task<bool> CodeExistsInUniAsync(string code, int facultyId, int uniId, CancellationToken cancellationToken);
+
+        /// <summary>
         /// Checks if a faculty with the specified phone number exists asynchronously.
         /// </summary>
         /// <param name="phoneNumber">The phone number of the faculty.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the phone number exists; otherwise, false.</returns>
         Task<bool> FacultyExistsByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken);
+        /// <summary>
+        /// Checks if a faculty with the specified phone number exists asynchronously.
+        /// </summary>
+        /// <param name="phoneNumber">The phone number of the faculty.</param>
+        /// <param name="facultyId"> The unique identifier of the faculty to be excluded.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the phone number exists; otherwise, false.</returns>
+        Task<bool> FacultyExistsByPhoneNumberAsync(string phoneNumber, int facultyId, CancellationToken cancellationToken);
 
         /// <summary>
         /// Checks if a faculty with the specified dean ID exists asynchronously.
@@ -85,5 +115,13 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the dean ID exists; otherwise, false.</returns>
         Task<bool> FacultyExistsByDeanIdAsync(string deanId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Checks if a faculty with the specified dean ID exists asynchronously.
+        /// </summary>
+        /// <param name="deanId">The unique identifier of the dean.</param>
+        /// <param name="facultyId"> The unique identifier of the faculty to be excluded.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the dean ID exists; otherwise, false.</returns>
+        Task<bool> FacultyExistsByDeanIdAsync(string deanId,int facultyId, CancellationToken cancellationToken);
     }
 }
