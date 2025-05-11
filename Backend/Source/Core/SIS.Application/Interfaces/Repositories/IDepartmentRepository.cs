@@ -44,7 +44,7 @@ namespace SIS.Application.Interfaces.Repositories
         /// </summary>
         /// <param name="Department">The Department entity to delete.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
-        Task DeleteDepartmentByIdAsync(Department Department, CancellationToken cancellationToken);
+        Task DeleteDepartmentAsync(Department Department, CancellationToken cancellationToken);
 
         //// Validation Methods
 

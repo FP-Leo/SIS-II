@@ -18,6 +18,7 @@ using SIS.Infrastructure.Validators.Universities;
 using SIS.Infrastructure.Validators.Faculty;
 using SIS.Persistence.Databases.Data.SeedData;
 using SIS.Infrastructure.Validators.Department;
+using SIS.Infrastructure.Validators.Course;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +113,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
 builder.Services.AddScoped<IFacultyRepository, FacultyRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 // Exception Handlers
 builder.Services.AddExceptionHandler<DbUpdateExceptionHandler>();
@@ -124,6 +126,8 @@ builder.Services.AddScoped<IUserValidator, UserValidator>();
 builder.Services.AddScoped<IUniversityValidator, UniversityValidator>();
 builder.Services.AddScoped<IFacultyValidator, FacultyValidator>();
 builder.Services.AddScoped<IDepartmentValidator, DepartmentValidator>();
+builder.Services.AddScoped<ICourseValidator, CourseValidator>();
+
 builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
 
 var app = builder.Build();

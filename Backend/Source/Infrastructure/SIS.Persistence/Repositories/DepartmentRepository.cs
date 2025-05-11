@@ -76,7 +76,7 @@ namespace SIS.Persistence.Repositories
         /// </summary>
         /// <param name="department">The Department entity to delete.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
-        public async Task DeleteDepartmentByIdAsync(Department department, CancellationToken cancellationToken)
+        public async Task DeleteDepartmentAsync(Department department, CancellationToken cancellationToken)
         {
             _context.Departments.Remove(department);
             int result = await _context.SaveChangesAsync(cancellationToken);

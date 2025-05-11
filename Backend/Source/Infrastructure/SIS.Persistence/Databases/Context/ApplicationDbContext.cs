@@ -27,6 +27,11 @@ namespace SIS.Persistence.Databases.Context
         public DbSet<Department> Departments { get; set; }
 
         /// <summary>
+        /// Gets or sets the DbSet for courses.
+        /// </summary>
+        public DbSet<Course> Courses { get; set; }
+
+        /// <summary>
         /// Configures the model relationships and seed data for the database.
         /// </summary>
         /// <param name="modelBuilder">The model builder used to configure entity relationships and seed data.</param>

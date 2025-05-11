@@ -15,11 +15,11 @@ namespace SIS.API.Controllers
     /// <summary>
     /// Provides endpoints for managing Departments within the system.
     /// </summary>
-    [Route("api/v{version:apiVersion}/Departments")]
+    [Route("api/v{version:apiVersion}/departments")]
     [ApiController]
-    public class DepartmentController(IDepartmentRepository DepartmentRepository) : ControllerBase
+    public class DepartmentController(IDepartmentRepository departmentRepository) : ControllerBase
     {
-        private readonly IDepartmentRepository _DepartmentRepository = DepartmentRepository;
+        private readonly IDepartmentRepository _departmentRepository = departmentRepository;
 
         /// <summary>
         /// Retrieves all Departments.
@@ -35,7 +35,7 @@ namespace SIS.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllDepartments(CancellationToken cancellationToken)
         {
-            IEnumerable<Department> Departments = await _DepartmentRepository.GetAllDepartmentsAsync(cancellationToken);
+            IEnumerable<Department> Departments = await _departmentRepository.GetAllDepartmentsAsync(cancellationToken);
             if (Departments == null || !Departments.Any())
             {
                 return NotFound("No Departments found.");
@@ -61,7 +61,7 @@ namespace SIS.API.Controllers
         {
             CommonUtils.EnsureIdIsValid(id, "Department");
 
-            Department? Department = await _DepartmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
+            Department? Department = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (Department == null)
                 return NotFound($"Department with ID {id} not found.");
 
@@ -71,7 +71,7 @@ namespace SIS.API.Controllers
         /// <summary>
         /// Creates a new Department.
         /// </summary>
-        /// <param name="DepartmentCreateDto">The DTO containing the Department data.</param>
+        /// <param name="departmentCreateDto">The DTO containing the Department data.</param>
         /// <param name="validator">The validator for the DTO.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>The created Department.</returns>
@@ -83,15 +83,15 @@ namespace SIS.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = RoleConstants.SuperUser)]
-        public async Task<IActionResult> CreateDepartment(DepartmentCreateDto DepartmentCreateDto, [FromServices] IValidator<DepartmentCreateDto> validator, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateDepartment(DepartmentCreateDto departmentCreateDto, [FromServices] IValidator<DepartmentCreateDto> validator, CancellationToken cancellationToken)
         {
-            ValidationResult validationResult = await validator.ValidateAsync(DepartmentCreateDto, cancellationToken);
+            ValidationResult validationResult = await validator.ValidateAsync(departmentCreateDto, cancellationToken);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            Department Department = DepartmentCreateDto.ToDepartment();
+            Department Department = departmentCreateDto.ToDepartment();
 
-            Department result = await _DepartmentRepository.CreateDepartmentAsync(Department, cancellationToken);
+            Department result = await _departmentRepository.CreateDepartmentAsync(Department, cancellationToken);
 
             return CreatedAtAction(nameof(GetDepartmentById), new { id = result.Id }, result.ToDepartmentGetDto());
         }
@@ -122,13 +122,13 @@ namespace SIS.API.Controllers
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            Department? existingDepartment = await _DepartmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
+            Department? existingDepartment = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (existingDepartment == null)
                 return NotFound($"Department with ID {id} not found.");
 
             existingDepartment.ApplyUpdate(departmentUpdateDto);
 
-            await _DepartmentRepository.UpdateDepartmentAsync(existingDepartment, cancellationToken);
+            await _departmentRepository.UpdateDepartmentAsync(existingDepartment, cancellationToken);
 
             return Ok(existingDepartment.ToDepartmentGetDto());
         }
@@ -159,13 +159,13 @@ namespace SIS.API.Controllers
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            Department? existingDepartment = await _DepartmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
+            Department? existingDepartment = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (existingDepartment == null)
                 return NotFound($"Department with ID {id} not found.");
 
             existingDepartment.ApplyPatch(departmentPatchDto);
 
-            await _DepartmentRepository.UpdateDepartmentAsync(existingDepartment, cancellationToken);
+            await _departmentRepository.UpdateDepartmentAsync(existingDepartment, cancellationToken);
 
             return Ok(existingDepartment.ToDepartmentGetDto());
         }
@@ -190,11 +190,11 @@ namespace SIS.API.Controllers
         {
             CommonUtils.EnsureIdIsValid(id, "Department");
 
-            Department? Department = await _DepartmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
+            Department? Department = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (Department == null)
                 return NotFound($"Department with ID {id} not found.");
 
-            await _DepartmentRepository.DeleteDepartmentByIdAsync(Department, cancellationToken);
+            await _departmentRepository.DeleteDepartmentAsync(Department, cancellationToken);
 
             return NoContent();
         }

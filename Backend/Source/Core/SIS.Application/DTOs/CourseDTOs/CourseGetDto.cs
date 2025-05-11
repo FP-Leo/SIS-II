@@ -1,18 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SIS.Domain.Shared;
+﻿using SIS.Domain.Shared;
 
-namespace SIS.Domain.Entities
+namespace SIS.Application.DTOs.CourseDTOs
 {
-    [Index(nameof(Name), IsUnique = true)]
     /// <summary>
-    /// Represents a course in the system.
+    /// Represent the data returned when retrieving a course.
     /// </summary>
-    public class Course
+    public class CourseGetDto
     {
         /// <summary>
         /// Gets or sets the unique identifier for the course.
         /// </summary>
-        public int Id { get; set; }
+        public required int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the course.
@@ -53,15 +51,5 @@ namespace SIS.Domain.Entities
         /// Gets or sets the unique identifier for the department that offers this course.
         /// </summary>
         public required int DepartmentId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the list of prerequisite courses for this course.
-        /// </summary>
-        public List<Course> PrerequisiteCourses { get; set; } = [];
-
-        /// <summary>
-        /// Gets or sets the department that offers this course.
-        /// </summary>
-        public Department? Department { get; set; }    
     }
 }

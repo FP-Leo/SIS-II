@@ -26,11 +26,11 @@ namespace SIS.Infrastructure.Validators.Department
                 .MustAsync(_departmentValidator.ValidateDepartmentId);
 
             RuleFor(d => d.FacultyId)
-                .NotNull().WithMessage("Faculty ID is required to patch any of the following fields: 'name', 'code', 'head of department'.")
-                .NotEmpty().WithMessage("Faculty ID is required to patch any of the following fields: 'name', 'code', 'head of department'.")
+                .NotNull().WithMessage("Faculty ID is required to patch itself or any of the following fields: 'name', 'code', 'head of department'.")
+                .NotEmpty().WithMessage("Faculty ID is required to patch itself or any of the following fields: 'name', 'code', 'head of department'.")
                 .GreaterThan(0).WithMessage("Faculty ID must be greater than 0. It is required to patch any of the following fields: 'name', 'code', 'head of department'.")
-                .MustAsync(_departmentValidator.FacultyExistsAsync).WithMessage("Faculty Id doesn't exist. It is required to patch any of the following fields: 'name', 'code', 'head of department'.")
-                .When(d => !string.IsNullOrEmpty(d.Name) || !string.IsNullOrEmpty(d.Code) || !string.IsNullOrEmpty(d.HeadOfDepartmentId), ApplyConditionTo.CurrentValidator)
+                .MustAsync(_departmentValidator.FacultyExistsAsync).WithMessage("Faculty Id doesn't exist. It is required to patch itself or any of the following fields: 'name', 'code', 'head of department'.")
+                .When(d =>  d.FacultyId != null || !string.IsNullOrEmpty(d.Name) || !string.IsNullOrEmpty(d.Code) || !string.IsNullOrEmpty(d.HeadOfDepartmentId), ApplyConditionTo.CurrentValidator)
                 .DependentRules(() =>
                 {
                     // The Name property must not be empty, must be between 3 and 100 characters long,

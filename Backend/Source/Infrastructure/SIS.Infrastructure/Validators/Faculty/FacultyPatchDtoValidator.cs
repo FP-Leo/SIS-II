@@ -27,10 +27,10 @@ namespace SIS.Infrastructure.Validators.Faculty
 
             // If the UniId property is not null, it must be greater than 0 and the university must exist.
             RuleFor(f => f.UniId)
-                .NotNull().WithMessage("University ID is required to patch any of the following fields: 'name', 'code', 'dean'.")
-                .GreaterThan(0).WithMessage("University ID must be greater than 0. It is required to patch any of the following fields: 'name', 'code', 'dean'")
-                .MustAsync(facultyValidator.UniversityExistsAsync).WithMessage("University ID doesn't exist. It is required to patch any of the following fields: 'name', 'code', 'dean'.")
-                .When(f => !string.IsNullOrEmpty(f.Name) || !string.IsNullOrEmpty(f.Code) || !string.IsNullOrEmpty(f.DeanId), ApplyConditionTo.CurrentValidator)
+                .NotNull().WithMessage("University ID is required to patch itself or any of the following fields: 'name', 'code', 'dean'.")
+                .GreaterThan(0).WithMessage("University ID must be greater than 0. It is required to patch itself or any of the following fields: 'name', 'code', 'dean'")
+                .MustAsync(facultyValidator.UniversityExistsAsync).WithMessage("University ID doesn't exist. It is required to patch itself or any of the following fields: 'name', 'code', 'dean'.")
+                .When(f => f.UniId != null || !string.IsNullOrEmpty(f.Name) || !string.IsNullOrEmpty(f.Code) || !string.IsNullOrEmpty(f.DeanId), ApplyConditionTo.CurrentValidator)
                 .DependentRules(() =>
                 {
                     // The following rules are only applied if the UniId is not null and valid and the Name, Code, or DeanId properties are not null.
