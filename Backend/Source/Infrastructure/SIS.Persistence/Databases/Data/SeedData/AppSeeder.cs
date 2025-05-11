@@ -36,7 +36,7 @@ namespace SIS.Persistence.Databases.Data.SeedData
             // Seed faculty if not exists
             if (!await context.Faculties.AnyAsync(f => f.Code == "ENG"))
             {
-                var dean = await userManager.FindByNameAsync("10010010030") ?? throw new InvalidOperationException("Dean not found. Please create a user with username '10010010020'.");
+                var dean = await userManager.FindByNameAsync("10010010030") ?? throw new InvalidOperationException("Dean not found. Please create a user with username '10010010030'.");
                 
                 var faculty = new Faculty
                 {
@@ -50,6 +50,31 @@ namespace SIS.Persistence.Databases.Data.SeedData
                 };
 
                 await context.Faculties.AddAsync(faculty);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed departments if not exists
+            if (!await context.Departments.AnyAsync(d => d.Code == "CSE"))
+            {
+                var faculty = await context.Faculties.FirstOrDefaultAsync(f => f.Code == "ENG") ?? throw new InvalidOperationException("Faculty not found. Please create a faculty with code 'ENG'.");
+                var dean = await userManager.FindByNameAsync("10010010040") ?? throw new InvalidOperationException("HoD not found. Please create a user with username '10010010040'.");
+
+                var department = new Department
+                {
+                    Name = "Computer Engineering",
+                    Code = "CSE",
+                    Address = "Terzioğlu Campus, 17100 Çanakkale, Turkey",
+                    PhoneNumber = "+90 286 218 00 00",
+                    MinYears = 4,
+                    MaxYears = 7,
+                    SemesterCredits = 15,
+                    TotalCredits = 120,
+                    IsActive = true,
+                    FacultyId = faculty.Id,
+                    HeadOfDepartmentId = dean.Id,
+                };
+
+                await context.Departments.AddAsync(department);
                 await context.SaveChangesAsync();
             }
         }

@@ -6,6 +6,11 @@
     public class UserPatchDto
     {
         /// <summary>
+        /// Gets or sets the unique identifier of the user.
+        /// </summary>
+        
+        public required string Id { get; set; }
+        /// <summary>
         /// Gets or sets the first name of the user.
         /// </summary>
         public string? FirstName { get; set; }

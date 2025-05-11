@@ -14,20 +14,46 @@ namespace SIS.Application.Interfaces.Services
         /// <param name="id">The ID of the user.</param>
         /// <returns>The user if found; otherwise, null.</returns>
         Task<User?> GetUserByIdAsync(string id);
+        /// <summary>
+        /// Retrieves a user by their username asynchronously.
+        /// </summary>
+        /// <param name="userName">The username of the user.</param>
+        /// <returns>The user if found; otherwise, null.</returns>
+        Task<User?> GetUserByUserName(string userName);
+        /// <summary>
+        /// Retrieves a user by their School Mail asynchronously.
+        /// </summary>
+        /// <param name="schoolMail">The school mail of the user</param>
+        /// <returns>The user if it exists; otherwise, null.</returns>
+        Task<User?> GetUserBySchoolMailAsync(string schoolMail);
 
         /// <summary>
         /// Retrieves a user by their username asynchronously.
         /// </summary>
         /// <param name="userName">The username of the user.</param>
         /// <returns>The user if found; otherwise, null.</returns>
-        Task<User?> GetUserByUsernameAsync(string userName);
+        Task<bool> UserNameExistsAsync(string userName);
+        /// <summary>
+        /// Retrieves a user by their username asynchronously.
+        /// </summary>
+        /// <param name="userName">The username of the user.</param>
+        /// <param name="userId"> The unique identifier of the user that is going to be excluded.</param>
+        /// <returns>The user if found; otherwise, null.</returns>
+        // Task<bool> UserNameExistsAsync(string userName, string userId);
 
         /// <summary>
         /// Retrieves a user by their school mail asynchronously.
         /// </summary>
         /// <param name="schoolMail">The school mail of the user.</param>
         /// <returns>The user if found; otherwise, null.</returns>
-        Task<User?> GetUserBySchoolMailAsync(string schoolMail);
+        Task<bool> SchoolMailExistsAsync(string schoolMail);
+        /// <summary>
+        /// Retrieves a user by their school mail asynchronously.
+        /// </summary>
+        /// <param name="schoolMail">The school mail of the user.</param>
+        /// <param name="userId">The unique identifier of the user that is going to be excluded.</param>
+        /// <returns>The user if found; otherwise, null.</returns>
+        Task<bool> SchoolMailExistsAsync(string schoolMail, string userId);
 
         /// <summary>
         /// Registers a new user asynchronously.

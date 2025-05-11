@@ -23,7 +23,7 @@ namespace SIS.Infrastructure.Services
         /// <returns>A <see cref="SuccessfulLoginDto"/> if authentication is successful; otherwise, null.</returns>
         public async Task<SuccessfulLoginDto?> AuthenticateAsync(LoginDto loginDto)
         {
-            User? user = await _userService.GetUserByUsernameAsync(loginDto.Username);
+            User? user = await _userService.GetUserByUserName(loginDto.Username);
             // Don't throw an exception if the user is not found or password is not correct, just return null. Avoids leaking information about whether the user exists.
             if (user == null) return null;
 

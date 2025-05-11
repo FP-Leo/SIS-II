@@ -7,6 +7,7 @@ using SIS.Application.DTOs.UserDTOs;
 using SIS.Application.Interfaces.Services;
 using SIS.Application.Mappers;
 using SIS.Application.Patchers;
+using SIS.Common;
 using SIS.Common.Constants;
 using SIS.Domain.Entities;
 using System.Security.Claims;
@@ -131,14 +132,15 @@ namespace SIS.API.Controllers
             [FromServices] IValidator<UserPatchDto> validator
             )
         {
+            CommonUtils.EnsureGUIDIsSame(id, userPatchDto.Id, "User");
+
+            ValidationResult validationResult = await validator.ValidateAsync(userPatchDto);
+            if (!validationResult.IsValid)
+                return BadRequest(ControllerUtil.CreateValidationProblemDetails(validationResult, HttpContext.Request.Path));
+
             User? user = await _userService.GetUserByIdAsync(id);
             if (user == null)
                 return NotFound(ErrorMessages.UserNotFound);
-
-            ValidationResult validationResult = await validator.ValidateAsync(userPatchDto);
-
-            if (!validationResult.IsValid)
-                return BadRequest(ControllerUtil.CreateValidationProblemDetails(validationResult, HttpContext.Request.Path));
 
             user.ApplyPatch(userPatchDto);
 

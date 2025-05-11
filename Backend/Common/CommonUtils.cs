@@ -46,5 +46,11 @@ namespace SIS.Common
             if (routeId != dtoId)
                 throw new InvalidInputException($"The Id of {entityName} in the route ({routeId}) does not match the Id in the DTO ({dtoId}).");
         }
+
+        public static void EnsureGUIDIsSame(string routeId, string dtoId, string entityName)
+        {
+            if (!routeId.Equals(dtoId))
+                throw new InvalidInputException($"The Id of {entityName} in the route ({routeId}) does not match the Id in the DTO ({dtoId}).");
+        }
     }
 }

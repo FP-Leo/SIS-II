@@ -36,10 +36,32 @@ namespace SIS.Infrastructure.Services
         /// </summary>
         /// <param name="userName">The username of the user.</param>
         /// <returns>The user if found; otherwise, null.</returns>
-        public async Task<User?> GetUserByUsernameAsync(string userName)
+        public async Task<User?> GetUserByUserName(string userName)
         {
             User? user = await _userManager.FindByNameAsync(userName);
             return user;
+        }
+
+        /// <summary>
+        /// Retrieves a user by their School Mail asynchronously.
+        /// </summary>
+        /// <param name="schoolMail">The school mail of the user.</param>
+        /// <returns>The user if it exists; otherwise, null.</returns>
+        public async Task<User?> GetUserBySchoolMailAsync(string schoolMail)
+        {
+            User? user = await _userManager.Users.FirstOrDefaultAsync(u => u.SchoolMail == schoolMail);
+            return user;
+        }
+
+        /// <summary>
+        /// Retrieves a user by their username asynchronously.
+        /// </summary>
+        /// <param name="userName">The username of the user.</param>
+        /// <returns>The user if found; otherwise, null.</returns>
+        public async Task<bool> UserNameExistsAsync(string userName)
+        {
+            bool result = await _userManager.FindByNameAsync(userName) != null;
+            return result;
         }
         
         /// <summary>
@@ -47,10 +69,22 @@ namespace SIS.Infrastructure.Services
         /// </summary>
         /// <param name="schoolMail">The school mail of the user.</param>
         /// <returns>The user if found; otherwise, null.</returns>
-        public async Task<User?> GetUserBySchoolMailAsync(string schoolMail)
+        public async Task<bool> SchoolMailExistsAsync(string schoolMail)
         {
-            User? user = await _userManager.Users.FirstOrDefaultAsync(u => u.SchoolMail == schoolMail);
-            return user;
+            bool result = await _userManager.Users.AnyAsync(u => u.SchoolMail == schoolMail);
+            return result;
+        }
+
+        /// <summary>
+        /// Retrieves a user by their school mail asynchronously.
+        /// </summary>
+        /// <param name="schoolMail">The school mail of the user.</param>
+        /// <param name="userId"> The unique identifier of the user that is going to be excluded.</param>
+        /// <returns>The user if found; otherwise, null.</returns>
+        public async Task<bool> SchoolMailExistsAsync(string schoolMail, string userId)
+        {
+            bool result = await _userManager.Users.AnyAsync(u => u.Id != userId && u.SchoolMail == schoolMail);
+            return result;
         }
 
         /// <summary>
