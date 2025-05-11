@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using SIS.Domain.Exceptions.Common;
 
 namespace SIS.Infrastructure.ExceptionHandlers
 {

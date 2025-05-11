@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using SIS.Application.DTOs.AuthDTOs;
 
 namespace SIS.Infrastructure.Validators.Auth
 {
