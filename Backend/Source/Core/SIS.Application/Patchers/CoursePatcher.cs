@@ -16,6 +16,8 @@ namespace SIS.Application.Patchers
         /// <param name="courseDTO">The DTO containing the updated values.</param>
         public static void ApplyUpdate(this Course course, CourseUpdateDto courseDTO)
         {
+            course.Updated = DateTime.Now;
+
             course.Name = courseDTO.Name;
             course.Description = courseDTO.Description;
             course.Credits = courseDTO.Credits;
@@ -31,6 +33,8 @@ namespace SIS.Application.Patchers
         /// <param name="courseDto"> The DTO containing the patch values.</param>
         public static void ApplyPatch(this Course course, CoursePatchDto courseDto)
         {
+            course.Updated = DateTime.Now;
+
             if (courseDto.Name != null)
                 course.Name = courseDto.Name;
             if (courseDto.Description != null)

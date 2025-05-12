@@ -24,7 +24,7 @@ namespace SIS.Infrastructure.Validators.Course
                 .NotNull().WithMessage("Course ID is required to patch.")
                 .NotEmpty().WithMessage("Course ID is required to patch.")
                 .GreaterThan(0).WithMessage("Course ID must be greater than 0.")
-                .MustAsync(_courseValidator.IsValidCourse).WithMessage("Course ID doesn't exist.");
+                .MustAsync(_courseValidator.IsValidCourse);
 
             RuleFor(c => c.DepartmentId)
                 .NotNull().WithMessage("Department ID is required to patch itself or any of the following fields: Name, Prerequisite Courses.")
@@ -51,7 +51,6 @@ namespace SIS.Infrastructure.Validators.Course
                 .When(c => !string.IsNullOrEmpty(c.Description));
 
             RuleFor(c => c.Level)
-                .NotEmpty().WithMessage("Level is required.")
                 .IsInEnum().WithMessage("Level must be a valid enum value.")
                 .When(c => c.Level != null);
 
@@ -71,20 +70,9 @@ namespace SIS.Infrastructure.Validators.Course
         {
             if (courses.Count == 0) return true;
 
+            if (courses.Contains(course.Id)) throw new InvalidInputException("Course cannot be its own prerequisite.");
 
-            foreach (var courseId in courses)
-            {
-                if (courseId == course.Id)
-                    throw new InvalidInputException("A course cannot be a prerequisite of itself.");
-
-                if (!await _courseValidator.IsValidCourse(courseId, cancellationToken))
-                    throw new InvalidInputException($"An invalid course was found in Prerequisite Courses. Course id: {courseId}");
-
-                if (!await _courseValidator.IsInDepartment(courseId, course.DepartmentId!.Value, cancellationToken))
-                    throw new InvalidInputException($"A course that isn't in the same department was found in Prerequisite Courses. Course id: {courseId}");
-            }
-
-            return true;
+            return await _courseValidator.AreValidCourses(courses, course.DepartmentId!.Value, cancellationToken);
         }
     }
 }

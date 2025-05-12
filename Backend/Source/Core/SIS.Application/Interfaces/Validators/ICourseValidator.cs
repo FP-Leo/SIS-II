@@ -7,8 +7,19 @@
         /// </summary>
         /// <param name="id"> The unique identifier of the course.</param>
         /// <param name="cancellationToken">Token to cancel operation.</param>
-        /// <returns>True if the course is valid; false otherwise.</returns>
+        /// <returns>True if the course is valid; otherwise throws error.</returns>
+        /// <exception cref="InvalidInputException">Thrown if the course is not valid.</exception>
         Task<bool> IsValidCourse(int id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Check if the courses are valid, i.e. exists and are in the same department as specified.
+        /// </summary>
+        /// <param name="ids">The unique identifiers of the courses.</param>
+        /// <param name="depId"> The unique identifier of the department.</param>
+        /// <param name="cancellationToken">Token to cancel operation.</param>
+        /// <returns>True if the courses valid; otherwise throws error.</returns>
+        /// <exception cref="InvalidInputException">Thrown if any of the courses is not valid.</exception>
+        Task<bool> AreValidCourses(List<int> ids, int depId, CancellationToken cancellationToken);
 
         /// <summary>
         /// Check if the course name is valid in the given department.
@@ -28,14 +39,6 @@
         /// <param name="cancellationToken"></param>
         /// <returns>True if the course is valid; false otherwise.</returns>
         Task<bool> IsUniqueCourse(int courseID, string name, int depId, CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Checks if the course is in the given department.
-        /// </summary>
-        /// <param name="courseId"> The unique identifier of the course.</param>
-        /// <param name="depId"> The unique identifier of the department.</param>
-        /// <param name="cancellationToken">Token to cancel operation.</param>
-        Task<bool> IsInDepartment(int courseId, int depId, CancellationToken cancellationToken);
         
         /// <summary>
         /// Checks if department exists.

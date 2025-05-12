@@ -41,7 +41,6 @@ namespace SIS.Infrastructure.Validators.Course
                 .Length(5, 500).WithMessage("Description must be between 5 and 500 characters.");
 
             RuleFor(c => c.Level)
-                .NotEmpty().WithMessage("Level is required.")
                 .IsInEnum().WithMessage("Level must be a valid enum value.");
 
 
@@ -59,17 +58,7 @@ namespace SIS.Infrastructure.Validators.Course
         {
             if (courses.Count == 0) return true;
             
-
-            foreach (var courseId in courses)
-            {
-                if (!await _courseValidator.IsValidCourse(courseId, cancellationToken))
-                    throw new InvalidInputException($"An invalid course was found in Prerequisite Courses. Course id: {courseId}");
-                
-                if (!await _courseValidator.IsInDepartment(courseId, course.DepartmentId, cancellationToken))
-                    throw new InvalidInputException($"A course that isn't in the same department was found in Prerequisite Courses. Course id: {courseId}");
-            }
-
-            return true;
+            return await _courseValidator.AreValidCourses(courses, course.DepartmentId, cancellationToken);
         }
     }
 }

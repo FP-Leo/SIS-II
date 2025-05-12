@@ -60,6 +60,16 @@ namespace SIS.Application.Interfaces.Repositories
         Task<bool> CourseExistsAsync(string CourseName, int depId, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Checks if a course with the specified name exists in the given department.
+        /// </summary>
+        /// <param name="CourseName">The name of the course</param>
+        /// <param name="courseId"> The unique identifier of the course to be excluded.</param>
+        /// <param name="depId">The unique identifier of the department.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>True if the course exists; otherwise false.</returns>
+        Task<bool> CourseExistsAsync(int courseId, string CourseName, int depId, CancellationToken cancellationToken);
+
+        /// <summary>
         /// Checks if a course with the specified unique identifier exists.
         /// </summary>
         /// <param name="id">The unique identifier of the course.</param>

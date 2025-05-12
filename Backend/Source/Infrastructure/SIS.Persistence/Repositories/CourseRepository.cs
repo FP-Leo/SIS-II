@@ -76,11 +76,22 @@ namespace SIS.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<bool> CourseExistsAsync(string CourseName, int depId, CancellationToken cancellationToken)
+        public async Task<bool> CourseExistsAsync(string courseName, int depId, CancellationToken cancellationToken)
         {
             CommonUtils.EnsureIdIsValid(depId, nameof(Department));
 
-            bool exists = await _context.Courses.AnyAsync(c => c.Name == CourseName && c.DepartmentId == depId, cancellationToken);
+            bool exists = await _context.Courses.AnyAsync(c => c.Name == courseName && c.DepartmentId == depId, cancellationToken);
+
+            return exists;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> CourseExistsAsync(int courseId, string courseName, int depId, CancellationToken cancellationToken)
+        {
+            CommonUtils.EnsureIdIsValid(courseId, nameof(Course));
+            CommonUtils.EnsureIdIsValid(depId, nameof(Department));
+
+            bool exists = await _context.Courses.AnyAsync(c => c.Id != courseId && c.Name == courseName && c.DepartmentId == depId, cancellationToken);
 
             return exists;
         }

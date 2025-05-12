@@ -24,7 +24,7 @@ namespace SIS.Infrastructure.Validators.Course
                 .NotNull().WithMessage("Course ID is required to update.")
                 .NotEmpty().WithMessage("Course ID is required to update.")
                 .GreaterThan(0).WithMessage("Course ID must be greater than 0.")
-                .MustAsync(_courseValidator.IsValidCourse).WithMessage("Course ID doesn't exist.");
+                .MustAsync(_courseValidator.IsValidCourse);
 
             RuleFor(x => x.DepartmentId)
                 .NotEmpty().WithMessage("Department ID is required.")
@@ -47,7 +47,6 @@ namespace SIS.Infrastructure.Validators.Course
                 .Length(5, 500).WithMessage("Description must be between 5 and 500 characters.");
 
             RuleFor(x => x.Level)
-                .NotEmpty().WithMessage("Level is required.")
                 .IsInEnum().WithMessage("Level must be a valid enum value.");
 
 
@@ -60,25 +59,13 @@ namespace SIS.Infrastructure.Validators.Course
         {
             return await _courseValidator.IsUniqueCourse(course.Id, name, course.DepartmentId, cancellationToken);
         }
-
         private async Task<bool> BeValidCourses(CourseUpdateDto course, List<int> courses, CancellationToken cancellationToken)
         {
             if (courses.Count == 0) return true;
 
+            if (courses.Contains(course.Id)) throw new InvalidInputException("Course cannot be its own prerequisite.");
 
-            foreach (var courseId in courses)
-            {
-                if(courseId == course.Id)
-                    throw new InvalidInputException("A course cannot be a prerequisite of itself.");
-
-                if (!await _courseValidator.IsValidCourse(courseId, cancellationToken))
-                    throw new InvalidInputException($"An invalid course was found in Prerequisite Courses. Course id: {courseId}");
-
-                if (!await _courseValidator.IsInDepartment(courseId, course.DepartmentId, cancellationToken))
-                    throw new InvalidInputException($"A course that isn't in the same department was found in Prerequisite Courses. Course id: {courseId}");
-            }
-
-            return true;
+            return await _courseValidator.AreValidCourses(courses, course.DepartmentId, cancellationToken);
         }
     }
 }

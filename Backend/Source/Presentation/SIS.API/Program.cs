@@ -19,11 +19,16 @@ using SIS.Infrastructure.Validators.Faculty;
 using SIS.Persistence.Databases.Data.SeedData;
 using SIS.Infrastructure.Validators.Department;
 using SIS.Infrastructure.Validators.Course;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(null)); // preserves PascalCase
+});
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>

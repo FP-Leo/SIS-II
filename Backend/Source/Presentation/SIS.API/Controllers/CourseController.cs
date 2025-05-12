@@ -47,21 +47,21 @@ namespace SIS.API.Controllers
         /// <summary>
         /// Retrieves Courses by their Department ID.
         /// </summary>
-        /// <param name="departmentId">The unique identifier of the department.</param>
+        /// <param name="id">The unique identifier of the department.</param>
         /// <param name="cancellationToken">Token to cancel operations.</param>
         /// <returns>A list of Courses</returns>
         /// <response code="200">Returns the list of Courses associated with the provided Department Id.</response>
         /// <response code="404">No Courses found for the specified Department Id.</response>
         /// <response code="500">Internal server error.</response>
-        [HttpGet("/department/{id:int}")]
+        [HttpGet("department/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetDepartmentCourses([FromRoute] int departmentId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetDepartmentCourses([FromRoute] int id, CancellationToken cancellationToken)
         {
-            CommonUtils.EnsureIdIsValid(departmentId, "Department");
+            CommonUtils.EnsureIdIsValid(id, "Department");
 
-            IEnumerable<Course> Courses = await _CourseRepository.GetCoursesByDepartmentIdAsync(departmentId, cancellationToken);
+            IEnumerable<Course> Courses = await _CourseRepository.GetCoursesByDepartmentIdAsync(id, cancellationToken);
             if (Courses == null || !Courses.Any())
             {
                 return NotFound("No Courses found for the provided department.");
