@@ -18,6 +18,15 @@
         DroppedOut
     }
 
+    public enum LecturerType
+    {
+        Professor,
+        AssociateProfessor,
+        AssistantProfessor,
+        Lecturer,
+        AssistantLecturer,
+    }
+
     public enum Level
     {
         Undergraduate,
@@ -35,5 +44,51 @@
         Online,
         InPerson,
         Hybrid
+    }
+
+    public enum EnrollmentStatus
+    {
+        Enrolled,
+        Waitlisted,
+        Dropped,
+        Completed,
+        Retaking,
+        Failed
+    }
+
+    //// EVENTS
+
+    // Exam
+    public enum AssessmentType
+    {
+        Midterm,
+        Final,
+        Suplementary,
+        Makeup,
+        OneCourse,
+        Project,
+        Quiz,
+        Assignment,
+    }
+
+    // Holiday
+
+    public enum HolidayType
+    {
+        National,
+        Religious,
+        Regional,
+        Academic,
+        Cultural,
+        Administrative,     // Administrative holidays or days off (e.g., Office closures, staff retreats)
+    }
+
+    public enum AcademicEventStatus
+    {
+        Scheduled,
+        Ongoing,
+        Completed,
+        Cancelled,
+        Postponed
     }
 }

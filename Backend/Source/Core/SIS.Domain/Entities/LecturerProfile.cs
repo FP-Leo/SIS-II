@@ -1,5 +1,9 @@
-﻿namespace SIS.Domain.Entities
+﻿using Microsoft.EntityFrameworkCore;
+using SIS.Domain.Shared;
+
+namespace SIS.Domain.Entities
 {
+    [Index(nameof(LecturerId), IsUnique = true)]
     /// <summary>
     /// Represents the profile of a lecturer in the system.
     /// </summary>
@@ -13,7 +17,7 @@
         /// <summary>
         /// Gets or sets the title of the lecturer (e.g., "Professor", "Associate Professor").
         /// </summary>
-        public required string Title { get; set; }
+        public required LecturerType Title { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the lecturer.
@@ -24,5 +28,10 @@
         /// Gets or sets the user associated with the lecturer profile.
         /// </summary>
         public required User User { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of department assignments for the lecturer.
+        /// </summary>
+        public List<LecturerAssignment>? LecturerAssignments { get; set; }
     }
 }

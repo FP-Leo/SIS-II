@@ -18,6 +18,16 @@ namespace SIS.Application.DTOs.CourseDTOs
         public required string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the code for the course.
+        /// </summary>
+        public required string Code { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the course (e.g., core, elective).
+        /// </summary>
+        public required CourseType Type { get; set; }
+
+        /// <summary>
         /// Gets or sets the description of the course.
         /// </summary>
         public required string Description { get; set; }
@@ -33,6 +43,11 @@ namespace SIS.Application.DTOs.CourseDTOs
         public required Level Level { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the course is active.
+        /// </summary>
+        public required bool IsActive { get; set; }
+
+        /// <summary>
         /// Gets or sets the date when the course was created.
         /// </summary>
         public required DateOnly Created { get; set; }
@@ -45,7 +60,7 @@ namespace SIS.Application.DTOs.CourseDTOs
         /// <summary>
         /// Gets or sets the list of student IDs enrolled in this course.
         /// </summary>
-        public required List<int> PrerequisiteCourseIds { get; set; } = [];
+        public required List<int>? PrerequisiteCourseIds { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the department that offers this course.

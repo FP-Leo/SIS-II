@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SIS.Persistence.Databases.Context;
 
@@ -11,9 +12,11 @@ using SIS.Persistence.Databases.Context;
 namespace SIS.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513135139_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,36 @@ namespace SIS.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AcademicProgramPrerequisite", b =>
+                {
+                    b.Property<int>("PrerequisiteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProgramId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PrerequisiteId", "ProgramId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("AcademicProgramPrerequisite");
+                });
+
+            modelBuilder.Entity("CoursePrerequisite", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrerequisiteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId", "PrerequisiteId");
+
+                    b.HasIndex("PrerequisiteId");
+
+                    b.ToTable("CoursePrerequisite");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -51,55 +84,55 @@ namespace SIS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b2accb25-2925-4626-bcd0-d5cdffef775e",
+                            Id = "972061cc-f9d7-4a89-9b51-6840c872999e",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "fb2762fd-7506-4515-8731-e6948a3a6d1f",
+                            Id = "55d2f49f-8e73-4fae-b6d9-d3e4796eafc6",
                             Name = "Lecturer",
                             NormalizedName = "LECTURER"
                         },
                         new
                         {
-                            Id = "fbc1ddd4-ae7f-4e05-9628-07de5d0a74ff",
+                            Id = "ae81c36c-d0c9-4ae2-8239-fb31b5873998",
                             Name = "Advisor",
                             NormalizedName = "ADVISOR"
                         },
                         new
                         {
-                            Id = "f0dfd368-972f-4bf6-aeb7-3b95dea2e34c",
+                            Id = "83d7941b-edd4-40b3-8db2-51fa5a596bc8",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "3076678c-a847-41ef-afde-2d8d9e5b3c3d",
+                            Id = "352af689-533d-4fa1-b3e5-ada36f596061",
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         },
                         new
                         {
-                            Id = "7ee75cda-06b8-4ff9-91c2-7fb33b8314cf",
+                            Id = "7b0e1460-1385-46ba-9415-ec4c9b10fea8",
                             Name = "Rector",
                             NormalizedName = "RECTOR"
                         },
                         new
                         {
-                            Id = "7fe9b441-ebf8-49da-802c-552ea4aec608",
+                            Id = "76b01644-9ce0-431c-ba8e-4295ae142df9",
                             Name = "Dean",
                             NormalizedName = "DEAN"
                         },
                         new
                         {
-                            Id = "b173dd69-4f66-415b-86b0-80b96a631fad",
+                            Id = "8ff72d1d-4a83-4f4f-ab8d-b2c5a073f6de",
                             Name = "HoD",
                             NormalizedName = "HOD"
                         },
                         new
                         {
-                            Id = "fc3b95af-4d6c-4153-8e54-ea849c97ba8a",
+                            Id = "59b7941a-52d4-4a8a-94b4-a070cb14b0e6",
                             Name = "SuperUser",
                             NormalizedName = "SUPERUSER"
                         });
@@ -228,8 +261,7 @@ namespace SIS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AcademicYearId")
-                        .IsUnique();
+                    b.HasIndex("AcademicYearId");
 
                     b.ToTable("AcademicCalendar");
                 });
@@ -241,9 +273,6 @@ namespace SIS.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AcademicProgramId")
-                        .HasColumnType("int");
 
                     b.Property<int>("CampusId")
                         .HasColumnType("int");
@@ -275,7 +304,7 @@ namespace SIS.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrerequisiteProgramIds")
                         .HasColumnType("nvarchar(max)");
@@ -291,14 +320,9 @@ namespace SIS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AcademicProgramId");
-
                     b.HasIndex("CampusId");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("Name", "DepartmentId")
-                        .IsUnique();
 
                     b.ToTable("AcademicProgram");
                 });
@@ -323,7 +347,7 @@ namespace SIS.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -334,9 +358,6 @@ namespace SIS.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AcademicCalendarId");
-
-                    b.HasIndex("Name", "AcademicCalendarId")
-                        .IsUnique();
 
                     b.ToTable("AcademicSemester");
                 });
@@ -364,10 +385,10 @@ namespace SIS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UniversityId");
-
-                    b.HasIndex("Name", "UniversityId")
+                    b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("AcademicYear");
                 });
@@ -388,7 +409,7 @@ namespace SIS.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
@@ -407,10 +428,9 @@ namespace SIS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentCourseEnrollmentId");
+                    b.HasIndex("CourseInstanceId");
 
-                    b.HasIndex("CourseInstanceId", "Name")
-                        .IsUnique();
+                    b.HasIndex("StudentCourseEnrollmentId");
 
                     b.ToTable("Assessment");
                 });
@@ -466,9 +486,6 @@ namespace SIS.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<DateOnly>("CreatedAt")
                         .HasColumnType("date");
 
@@ -495,15 +512,10 @@ namespace SIS.Persistence.Migrations
                     b.Property<string>("PrerequisiteCourseIds")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.HasIndex("DepartmentId", "Code")
                         .IsUnique();
@@ -565,7 +577,7 @@ namespace SIS.Persistence.Migrations
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
@@ -576,9 +588,6 @@ namespace SIS.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CourseInstanceId");
-
-                    b.HasIndex("DayOfWeek", "StartTime", "Location")
-                        .IsUnique();
 
                     b.ToTable("CourseSchedule");
                 });
@@ -638,16 +647,16 @@ namespace SIS.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AcademicProgramId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProgramId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SemesterId")
+                    b.Property<int>("ProgramSemesterId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -655,11 +664,9 @@ namespace SIS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProgramId");
+                    b.HasIndex("AcademicProgramId");
 
-                    b.HasIndex("SemesterId", "ProgramId")
-                        .IsUnique()
-                        .HasFilter("[ProgramId] IS NOT NULL");
+                    b.HasIndex("ProgramSemesterId");
 
                     b.ToTable("ExamPeriod");
                 });
@@ -735,7 +742,7 @@ namespace SIS.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -746,9 +753,6 @@ namespace SIS.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AcademicCalendarId");
-
-                    b.HasIndex("Name", "AcademicCalendarId")
-                        .IsUnique();
 
                     b.ToTable("Holidays");
                 });
@@ -801,15 +805,10 @@ namespace SIS.Persistence.Migrations
                     b.Property<int>("Title")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LecturerId")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("LecturerProfile");
                 });
@@ -852,14 +851,14 @@ namespace SIS.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AcademicProgramId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AcademicSemesterId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ProgramId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SemesterId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -869,11 +868,11 @@ namespace SIS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProgramId");
+                    b.HasIndex("AcademicProgramId");
 
-                    b.HasIndex("SemesterId", "ProgramId")
+                    b.HasIndex("AcademicSemesterId", "AcademicProgramId")
                         .IsUnique()
-                        .HasFilter("[ProgramId] IS NOT NULL");
+                        .HasFilter("[AcademicProgramId] IS NOT NULL");
 
                     b.ToTable("RegistrationPeriod");
                 });
@@ -917,8 +916,7 @@ namespace SIS.Persistence.Migrations
 
                     b.HasIndex("CourseInstanceId");
 
-                    b.HasIndex("ProgramEnrollmentId", "CourseInstanceId")
-                        .IsUnique();
+                    b.HasIndex("ProgramEnrollmentId");
 
                     b.ToTable("StudentCourseEnrollment");
                 });
@@ -1116,6 +1114,36 @@ namespace SIS.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("AcademicProgramPrerequisite", b =>
+                {
+                    b.HasOne("SIS.Domain.Entities.AcademicProgram", null)
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SIS.Domain.Entities.AcademicProgram", null)
+                        .WithMany()
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CoursePrerequisite", b =>
+                {
+                    b.HasOne("SIS.Domain.Entities.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SIS.Domain.Entities.Course", null)
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1180,10 +1208,6 @@ namespace SIS.Persistence.Migrations
 
             modelBuilder.Entity("SIS.Domain.Entities.AcademicProgram", b =>
                 {
-                    b.HasOne("SIS.Domain.Entities.AcademicProgram", null)
-                        .WithMany("PrerequisitePrograms")
-                        .HasForeignKey("AcademicProgramId");
-
                     b.HasOne("SIS.Domain.Entities.CampusBuilding", "Campus")
                         .WithMany()
                         .HasForeignKey("CampusId")
@@ -1240,10 +1264,6 @@ namespace SIS.Persistence.Migrations
 
             modelBuilder.Entity("SIS.Domain.Entities.Course", b =>
                 {
-                    b.HasOne("SIS.Domain.Entities.Course", null)
-                        .WithMany("PrerequisiteCourses")
-                        .HasForeignKey("CourseId");
-
                     b.HasOne("SIS.Domain.Entities.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
@@ -1312,19 +1332,17 @@ namespace SIS.Persistence.Migrations
 
             modelBuilder.Entity("SIS.Domain.Entities.ExamPeriod", b =>
                 {
-                    b.HasOne("SIS.Domain.Entities.AcademicProgram", "Program")
+                    b.HasOne("SIS.Domain.Entities.AcademicProgram", null)
                         .WithMany("ExamPeriods")
-                        .HasForeignKey("ProgramId");
+                        .HasForeignKey("AcademicProgramId");
 
-                    b.HasOne("SIS.Domain.Entities.AcademicSemester", "Semester")
-                        .WithMany()
-                        .HasForeignKey("SemesterId")
+                    b.HasOne("SIS.Domain.Entities.ProgramSemester", "ProgramSemester")
+                        .WithMany("ExamPeriods")
+                        .HasForeignKey("ProgramSemesterId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Program");
-
-                    b.Navigation("Semester");
+                    b.Navigation("ProgramSemester");
                 });
 
             modelBuilder.Entity("SIS.Domain.Entities.Faculty", b =>
@@ -1379,8 +1397,10 @@ namespace SIS.Persistence.Migrations
             modelBuilder.Entity("SIS.Domain.Entities.LecturerProfile", b =>
                 {
                     b.HasOne("SIS.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne()
+                        .HasForeignKey("SIS.Domain.Entities.LecturerProfile", "LecturerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -1406,19 +1426,19 @@ namespace SIS.Persistence.Migrations
 
             modelBuilder.Entity("SIS.Domain.Entities.RegistrationPeriod", b =>
                 {
-                    b.HasOne("SIS.Domain.Entities.AcademicProgram", "Program")
+                    b.HasOne("SIS.Domain.Entities.AcademicProgram", "AcademicProgram")
                         .WithMany()
-                        .HasForeignKey("ProgramId");
+                        .HasForeignKey("AcademicProgramId");
 
-                    b.HasOne("SIS.Domain.Entities.AcademicSemester", "Semester")
+                    b.HasOne("SIS.Domain.Entities.AcademicSemester", "AcademicSemester")
                         .WithMany("RegistrationPeriods")
-                        .HasForeignKey("SemesterId")
+                        .HasForeignKey("AcademicSemesterId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Program");
+                    b.Navigation("AcademicProgram");
 
-                    b.Navigation("Semester");
+                    b.Navigation("AcademicSemester");
                 });
 
             modelBuilder.Entity("SIS.Domain.Entities.StudentCourseEnrollment", b =>
@@ -1443,8 +1463,8 @@ namespace SIS.Persistence.Migrations
             modelBuilder.Entity("SIS.Domain.Entities.StudentProfile", b =>
                 {
                     b.HasOne("SIS.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne()
+                        .HasForeignKey("SIS.Domain.Entities.StudentProfile", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1454,7 +1474,7 @@ namespace SIS.Persistence.Migrations
             modelBuilder.Entity("SIS.Domain.Entities.StudentProgramEnrollment", b =>
                 {
                     b.HasOne("SIS.Domain.Entities.AcademicProgram", "Program")
-                        .WithMany("StudentsEnrolled")
+                        .WithMany()
                         .HasForeignKey("ProgramId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1491,10 +1511,6 @@ namespace SIS.Persistence.Migrations
             modelBuilder.Entity("SIS.Domain.Entities.AcademicProgram", b =>
                 {
                     b.Navigation("ExamPeriods");
-
-                    b.Navigation("PrerequisitePrograms");
-
-                    b.Navigation("StudentsEnrolled");
                 });
 
             modelBuilder.Entity("SIS.Domain.Entities.AcademicSemester", b =>
@@ -1510,8 +1526,6 @@ namespace SIS.Persistence.Migrations
             modelBuilder.Entity("SIS.Domain.Entities.Course", b =>
                 {
                     b.Navigation("CourseInstances");
-
-                    b.Navigation("PrerequisiteCourses");
                 });
 
             modelBuilder.Entity("SIS.Domain.Entities.CourseInstance", b =>
@@ -1541,6 +1555,8 @@ namespace SIS.Persistence.Migrations
             modelBuilder.Entity("SIS.Domain.Entities.ProgramSemester", b =>
                 {
                     b.Navigation("CourseInstances");
+
+                    b.Navigation("ExamPeriods");
                 });
 
             modelBuilder.Entity("SIS.Domain.Entities.StudentCourseEnrollment", b =>

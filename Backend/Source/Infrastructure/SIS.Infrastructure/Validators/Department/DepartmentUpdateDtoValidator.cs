@@ -62,27 +62,6 @@ namespace SIS.Infrastructure.Validators.Department
                 .Matches(@"^\d{10}$").WithMessage("Phone number must be 10 digits long.")
                 .MustAsync(BeUniquePhoneNumber);
 
-            RuleFor(d => d.MinYears)
-                .NotEmpty().WithMessage("Minimum years of study is required.")
-                .GreaterThan(0).WithMessage("Minimum years of study must be greater than 0.")
-                .LessThan(7).WithMessage("Minimum years of study must be less than 7.");
-
-            RuleFor(d => d.MaxYears)
-                .NotEmpty().WithMessage("Maximum years of study is required.")
-                .GreaterThan(2).WithMessage("Maximum years of study must be greater than 2.")
-                .GreaterThan(x => x.MinYears).WithMessage("Maximum years of study must be greater than minimum years of study.")
-                .LessThan(9).WithMessage("Maximum years of study must be less than 9.");
-
-            RuleFor(d => d.SemesterCredits)
-                .NotEmpty().WithMessage("Semester credits is required.")
-                .GreaterThan(0).WithMessage("Semester credits must be greater than 0.")
-                .LessThan(30).WithMessage("Semester credits must be less than 30.");
-
-            RuleFor(d => d.TotalCredits)
-                .NotEmpty().WithMessage("Total credits is required.")
-                .GreaterThan(0).WithMessage("Total credits must be greater than 0.")
-                .LessThan(200).WithMessage("Total credits must be less than 200.");
-
             RuleFor(d => d.IsActive)
                 .NotNull().WithMessage("IsActive is required.")
                 .Must(x => x == true || x == false).WithMessage("IsActive must be a boolean value.");

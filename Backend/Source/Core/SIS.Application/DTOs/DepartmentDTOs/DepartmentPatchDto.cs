@@ -31,26 +31,6 @@
         public string? PhoneNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets the minimum years of study for the department.
-        /// </summary>
-        public int? MinYears { get; set; }
-
-        /// <summary>
-        /// Gets or sets the maximum years of study for the department.
-        /// </summary>
-        public int? MaxYears { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of credits per semester.
-        /// </summary>
-        public int? SemesterCredits { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total number of credits required for graduation.
-        /// </summary>
-        public int? TotalCredits { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the department is active.
         /// </summary>
         public bool? IsActive { get; set; }

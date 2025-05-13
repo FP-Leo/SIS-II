@@ -41,6 +41,7 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="course">The Course entity to update.</param>
         /// <param name="cancellationToken">Token to cancel the operations.</param>
         Task UpdateCourseAsync(Course course, CancellationToken cancellationToken);
+
         /// <summary>
         /// Deletes a course by its unique identifier.
         /// </summary>
@@ -53,21 +54,21 @@ namespace SIS.Application.Interfaces.Repositories
         /// <summary>
         /// Checks if a course with the specified name exists in the given department.
         /// </summary>
-        /// <param name="CourseName">The name of the course</param>
+        /// <param name="courseCode">The name of the course</param>
         /// <param name="depId">The unique identifier of the department.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the course exists; otherwise false.</returns>
-        Task<bool> CourseExistsAsync(string CourseName, int depId, CancellationToken cancellationToken);
+        Task<bool> CourseExistsAsync(string courseCode, int depId, CancellationToken cancellationToken);
 
         /// <summary>
         /// Checks if a course with the specified name exists in the given department.
         /// </summary>
-        /// <param name="CourseName">The name of the course</param>
+        /// <param name="courseCode">The name of the course</param>
         /// <param name="courseId"> The unique identifier of the course to be excluded.</param>
         /// <param name="depId">The unique identifier of the department.</param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>True if the course exists; otherwise false.</returns>
-        Task<bool> CourseExistsAsync(int courseId, string CourseName, int depId, CancellationToken cancellationToken);
+        Task<bool> CourseExistsAsync(int courseId, string courseCode, int depId, CancellationToken cancellationToken);
 
         /// <summary>
         /// Checks if a course with the specified unique identifier exists.

@@ -19,11 +19,14 @@ namespace SIS.Application.Mappers
             {
                 Id = course.Id,
                 Name = course.Name,
+                Code = course.Code,
+                Type = course.Type,
                 Description = course.Description,
                 Credits = course.Credits,
                 Level = course.Level,
-                Created = course.Created,
-                Updated = course.Updated,
+                IsActive = course.IsActive,
+                Created = course.CreatedAt,
+                Updated = course.UpdatedAt,
                 PrerequisiteCourseIds = course.PrerequisiteCourseIds,
                 DepartmentId = course.DepartmentId,
             };
@@ -39,11 +42,14 @@ namespace SIS.Application.Mappers
             return new Course
             {
                 Name = courseDto.Name,
+                Code = courseDto.Code,
+                Type = courseDto.Type,
                 Description = courseDto.Description,
                 Credits = courseDto.Credits,
                 Level = courseDto.Level,
-                Created = DateOnly.FromDateTime(DateTime.Now),
-                Updated = DateTime.Now,
+                IsActive = courseDto.IsActive,
+                CreatedAt = DateOnly.FromDateTime(DateTime.Now),
+                UpdatedAt = DateTime.Now,
                 PrerequisiteCourseIds = courseDto.PrerequisiteCourseIds,
                 DepartmentId = courseDto.DepartmentId,
             };

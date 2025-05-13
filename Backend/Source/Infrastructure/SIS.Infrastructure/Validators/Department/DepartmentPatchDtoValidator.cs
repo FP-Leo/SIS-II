@@ -45,14 +45,14 @@ namespace SIS.Infrastructure.Validators.Department
                         .NotEmpty().WithMessage("Code is required.")
                         .Length(2, 15).WithMessage("Code must be between 2 and 15 characters.")
                         .MustAsync(BeUniqueCode)
-                        .When(d => !string.IsNullOrEmpty(d.Code)); ;
+                        .When(d => !string.IsNullOrEmpty(d.Code));
 
                     // The DeanId property must not be empty, must be a valid GUID,
                     RuleFor(d => d.HeadOfDepartmentId)
                         .NotEmpty().WithMessage("HoD Id is required.")
                         .Length(36, 450).WithMessage("HoD Id must be a valid GUID.")
                         .MustAsync(BeUniqueHod).WithMessage("The specified user does not have the HoD role.")
-                        .When(d => !string.IsNullOrEmpty(d.HeadOfDepartmentId)); ;
+                        .When(d => !string.IsNullOrEmpty(d.HeadOfDepartmentId));
                 });
 
             // The Address property must not be empty, must be between 5 and 100 characters long,
@@ -60,44 +60,19 @@ namespace SIS.Infrastructure.Validators.Department
                 .NotEmpty()
                 .WithMessage("Address is required.")
                 .Length(5, 100).WithMessage("Address must be between 5 and 100 characters.")
-                .When(d => !string.IsNullOrEmpty(d.Address)); ;
+                .When(d => !string.IsNullOrEmpty(d.Address));
 
             // The PhoneNumber property must not be empty, must be exactly 10 digits long,
             RuleFor(d => d.PhoneNumber)
                 .NotEmpty().WithMessage("Phone number is required.")
                 .Matches(@"^\d{10}$").WithMessage("Phone number must be 10 digits long.")
                 .MustAsync(BeUniquePhoneNumber)
-                .When(d => !string.IsNullOrEmpty(d.PhoneNumber)); ;
-
-            RuleFor(d => d.MinYears)
-                .NotEmpty().WithMessage("Minimum years of study is required.")
-                .GreaterThan(0).WithMessage("Minimum years of study must be greater than 0.")
-                .LessThan(7).WithMessage("Minimum years of study must be less than 7.")
-                .When(d => d.MinYears != null); 
-
-            RuleFor(d => d.MaxYears)
-                .NotEmpty().WithMessage("Maximum years of study is required.")
-                .GreaterThan(2).WithMessage("Maximum years of study must be greater than 2.")
-                .GreaterThan(x => x.MinYears).WithMessage("Maximum years of study must be greater than minimum years of study.")
-                .LessThan(9).WithMessage("Maximum years of study must be less than 9.")
-                .When(d => d.MaxYears != null); ;
-
-            RuleFor(d => d.SemesterCredits)
-                .NotEmpty().WithMessage("Semester credits is required.")
-                .GreaterThan(0).WithMessage("Semester credits must be greater than 0.")
-                .LessThan(30).WithMessage("Semester credits must be less than 30.")
-                .When(d => d.SemesterCredits != null); ;
-
-            RuleFor(d => d.TotalCredits)
-                .NotEmpty().WithMessage("Total credits is required.")
-                .GreaterThan(0).WithMessage("Total credits must be greater than 0.")
-                .LessThan(200).WithMessage("Total credits must be less than 200.")
-                .When(d => d.TotalCredits != null); ;
+                .When(d => !string.IsNullOrEmpty(d.PhoneNumber));
 
             RuleFor(d => d.IsActive)
                 .NotNull().WithMessage("IsActive is required.")
                 .Must(x => x == true || x == false).WithMessage("IsActive must be a boolean value.")
-                .When(d => d.IsActive != null); ;
+                .When(d => d.IsActive != null);
         }
 
         private async Task<bool> BeUniqueDepartment(DepartmentPatchDto department, string name, CancellationToken cancellationToken)

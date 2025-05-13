@@ -16,12 +16,15 @@ namespace SIS.Application.Patchers
         /// <param name="courseDTO">The DTO containing the updated values.</param>
         public static void ApplyUpdate(this Course course, CourseUpdateDto courseDTO)
         {
-            course.Updated = DateTime.Now;
+            course.UpdatedAt = DateTime.Now;
 
             course.Name = courseDTO.Name;
+            course.Code = courseDTO.Code;
+            course.Type = courseDTO.Type;
             course.Description = courseDTO.Description;
             course.Credits = courseDTO.Credits;
             course.Level = courseDTO.Level;
+            course.IsActive = courseDTO.IsActive;
             course.PrerequisiteCourseIds = courseDTO.PrerequisiteCourseIds;
             course.DepartmentId = courseDTO.DepartmentId;
         }
@@ -33,16 +36,22 @@ namespace SIS.Application.Patchers
         /// <param name="courseDto"> The DTO containing the patch values.</param>
         public static void ApplyPatch(this Course course, CoursePatchDto courseDto)
         {
-            course.Updated = DateTime.Now;
+            course.UpdatedAt = DateTime.Now;
 
             if (courseDto.Name != null)
                 course.Name = courseDto.Name;
+            if (courseDto.Code != null)
+                course.Code = courseDto.Code;
+            if (courseDto.Type != null)
+                course.Type = (CourseType)courseDto.Type;
             if (courseDto.Description != null)
                 course.Description = courseDto.Description;
             if (courseDto.Credits != null)
                 course.Credits = (int)courseDto.Credits;
             if (courseDto.Level != null)
                 course.Level = (Level)courseDto.Level;
+            if (courseDto.IsActive != null)
+                course.IsActive = (bool)courseDto.IsActive;
             if (courseDto.PrerequisiteCourseIds != null)
                 course.PrerequisiteCourseIds = courseDto.PrerequisiteCourseIds;
             if (courseDto.DepartmentId != null)

@@ -26,15 +26,24 @@ namespace SIS.Infrastructure.Validators.Course
                 .MustAsync(_courseValidator.DepartmentExists).WithMessage("Department ID doesn't exist.")
                 .DependentRules(() =>
                 {
-                    RuleFor(c => c.Name)
-                        .NotEmpty().WithMessage("Course name is required.")
-                        .Length(2, 50).WithMessage("Course name must be between 2 and 50 characters.")
-                        .MustAsync(BeUniqueCourseName).WithMessage("Course name already exists in this department.");
+                    RuleFor(c => c.Code)
+                        .NotEmpty().WithMessage("Course code is required.")
+                        .Matches(@"^[A-Z]{3}-\d{4}$").WithMessage("Course code must be in the format 'XXX-0000'.")
+                        .MustAsync(BeUniqueCourseCode).WithMessage("Course code already exists in this department.");
 
                     RuleFor(c => c.PrerequisiteCourseIds)
-                        .MustAsync(BeValidCourses);
-
+                        .MustAsync(BeValidCourses!)
+                        .When(c => c.PrerequisiteCourseIds != null);
                 });
+
+            RuleFor(c => c.Name)
+                .NotEmpty().WithMessage("Course name is required.")
+                .Length(3, 100).WithMessage("Course name must be between 3 and 100 characters.")
+                .Matches(@"^[A-Za-z0-9\s]+$").WithMessage("Course name can only contain letters, numbers, and spaces.");
+
+            RuleFor(c => c.Type)
+                .NotNull().WithMessage("Course type is required.")
+                .IsInEnum().WithMessage("Course type must be a valid enum value.");
 
             RuleFor(c => c.Description)
                 .NotEmpty().WithMessage("Description is required.")
@@ -43,13 +52,17 @@ namespace SIS.Infrastructure.Validators.Course
             RuleFor(c => c.Level)
                 .IsInEnum().WithMessage("Level must be a valid enum value.");
 
+            RuleFor(c => c.IsActive)
+                .NotNull().WithMessage("IsActive is required.")
+                .NotEmpty().WithMessage("IsActive is required.")
+                .Must(x => x == true || x == false).WithMessage("IsActive must be a boolean value.");
 
             RuleFor(c => c.Credits)
                 .NotEmpty().WithMessage("Credits are required.")
                 .InclusiveBetween(0, 6).WithMessage("Credits must be between 0 and 10.");
         }
 
-        private async Task<bool> BeUniqueCourseName(CourseCreateDto course, string name, CancellationToken cancellationToken)
+        private async Task<bool> BeUniqueCourseCode(CourseCreateDto course, string name, CancellationToken cancellationToken)
         {
             return await _courseValidator.IsUniqueCourse(name, course.DepartmentId, cancellationToken);
         }

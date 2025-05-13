@@ -24,21 +24,21 @@
         /// <summary>
         /// Check if the course name is valid in the given department.
         /// </summary>
-        /// <param name="name">The name of the course.</param>
+        /// <param name="code">The name of the course.</param>
         /// <param name="depId">The unique identifier of the department.</param>
         /// <param name="cancellationToken"></param>
         /// <returns>True if the course is valid; false otherwise.</returns>
-        Task<bool> IsUniqueCourse(string name, int depId, CancellationToken cancellationToken);
+        Task<bool> IsUniqueCourse(string code, int depId, CancellationToken cancellationToken);
         
         /// <summary>
         /// Check if the course name is valid in the given department, excluding the course with the specified ID.
         /// </summary>
         /// <param name="courseID">The unique identifier of the course to be excluded.</param>
-        /// <param name="name">The name of the course.</param>
+        /// <param name="code">The name of the course.</param>
         /// <param name="depId">The unique identifier of the department.</param>
         /// <param name="cancellationToken"></param>
         /// <returns>True if the course is valid; false otherwise.</returns>
-        Task<bool> IsUniqueCourse(int courseID, string name, int depId, CancellationToken cancellationToken);
+        Task<bool> IsUniqueCourse(int courseID, string code, int depId, CancellationToken cancellationToken);
         
         /// <summary>
         /// Checks if department exists.

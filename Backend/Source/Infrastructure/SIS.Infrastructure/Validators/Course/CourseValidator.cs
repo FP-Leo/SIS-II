@@ -33,19 +33,19 @@ namespace SIS.Infrastructure.Validators.Course
         }
 
         /// <inheritdoc/>
-        public async Task<bool> IsUniqueCourse(string name, int depId, CancellationToken cancellationToken)
+        public async Task<bool> IsUniqueCourse(string code, int depId, CancellationToken cancellationToken)
         {
-            bool result = await _courseRepository.CourseExistsAsync(name, depId, cancellationToken);
-            if (result) throw new InvalidInputException($"Course with name {name} already exists in the specified department.");
+            bool result = await _courseRepository.CourseExistsAsync(code, depId, cancellationToken);
+            if (result) throw new InvalidInputException($"Course with name {code} already exists in the specified department.");
 
             return true;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> IsUniqueCourse(int courseID, string name, int depId, CancellationToken cancellationToken)
+        public async Task<bool> IsUniqueCourse(int courseID, string code, int depId, CancellationToken cancellationToken)
         {
-            bool result = await _courseRepository.CourseExistsAsync(courseID, name, depId, cancellationToken);
-            if (result) throw new InvalidInputException($"Course with name {name} already exists in the specified department.");
+            bool result = await _courseRepository.CourseExistsAsync(courseID, code, depId, cancellationToken);
+            if (result) throw new InvalidInputException($"Course with name {code} already exists in the specified department.");
 
             return true;
         }

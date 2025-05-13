@@ -5,18 +5,13 @@ namespace SIS.Domain.Entities
     /// <summary>
     /// Represents the relationship between a department and its lecturers.
     /// </summary>
-    [Index("DepartmentId, LecturerId, StartDate", IsUnique = true)] // To allow to keep records if the lecturer quits and rejoins the department
-    public class DepartmentLecturers
+    [Index(nameof(LecturerProfileId), nameof(DepartmentId), nameof(StartDate), IsUnique = true)] // To allow to keep records if the lecturer quits and rejoins the department
+    public class LecturerAssignment
     {
         /// <summary>
         /// Gets or sets the unique identifier for the department-lecturer relationship.
         /// </summary>
         public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the position of the lecturer in the department.
-        /// </summary>
-        public required string Position { get; set; }
 
         /// <summary>
         /// Gets or sets the start date of the lecturer's position in the department.
@@ -39,9 +34,9 @@ namespace SIS.Domain.Entities
         public required int DepartmentId { get; set; }
 
         /// <summary>
-        /// Gets or sets the unique identifier of the lecturer.
+        /// Gets or sets the unique identifier of the profile associated with the lecturer.
         /// </summary>
-        public required string LecturerId { get; set; }
+        public required int LecturerProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the department associated with the lecturer.
@@ -49,8 +44,13 @@ namespace SIS.Domain.Entities
         public required Department Department { get; set; }
 
         /// <summary>
-        /// Gets or sets the user who is the lecturer.
+        /// Gets or sets the lecturer profile associated with the lecturer.
         /// </summary>
-        public required User Lecturer { get; set; }
+        public required LecturerProfile LecturerProfile { get; set; }
+
+        /// <summary>
+        /// Gets or set the course instances associated with the lecturer.
+        /// </summary>
+        public List<CourseInstance>? CourseInstances { get; set; }
     }
 }
