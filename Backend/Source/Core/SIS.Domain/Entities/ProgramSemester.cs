@@ -26,12 +26,12 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the unique identifier for the program associated with this semester.
         /// </summary>
-        public required int ProgramId { get; set; }
+        public int ProgramId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the semester associated with this program.
         /// </summary>
-        public required int SemesterId { get; set; }
+        public int SemesterId { get; set; }
 
         /// <summary>
         /// Gets or sets the program associated with this semester.

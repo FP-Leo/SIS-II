@@ -27,22 +27,22 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the date when the academic event starts.
         /// </summary>
-        public required DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the date when the academic event ends.
         /// </summary>
-        public required DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the academic event.
         /// </summary>
-        public required AcademicEventStatus Status { get; set; }
+        public AcademicEventStatus Status { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the academic calendar associated with this event.
         /// </summary>
-        public required int AcademicCalendarId { get; set; }
+        public int AcademicCalendarId { get; set; }
 
         /// <summary>
         /// Gets or sets the academic calendar associated with this event.

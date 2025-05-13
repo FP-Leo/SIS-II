@@ -22,28 +22,31 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the delivery method for the course offering (e.g., online, in-person).
         /// </summary>
-        public required DeliveryMethod DeliveryMethod { get; set; }
+        public DeliveryMethod DeliveryMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the required attendance percentage for the course offering.
         /// </summary>
-        public required int AttendancePercentage { get; set; }
+        public int AttendancePercentage { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the course associated with this offering.
         /// </summary>
-        public required int CourseId { get; set; }
+        public int CourseId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the lecturer assignment associated with this offering.
         /// </summary>
+        public int LecturerAssignmentId { get; set; }
 
-        public required int LecturerAssignmentId { get; set; }
-
+        /// <summary>
+        /// Gets or sets the unique identifier for the administrator profile associated with this offering.
+        /// </summary>
+        public int AdminProfileId { get; set; }
         /// <summary>
         /// Gets or sets the unique identifier for the program and semester associated with this offering.
         /// </summary>
-        public required int ProgramSemesterId { get; set; }
+        public int ProgramSemesterId { get; set; }
 
         /// <summary>
         /// Gets or sets the course associated with this offering.
@@ -54,6 +57,11 @@ namespace SIS.Domain.Entities
         /// Gets or sets the profile of the lecturer associated with this offering.
         /// </summary>
         public LecturerAssignment? LecturerAssignment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profile of the administrator associated with this offering.
+        /// </summary>
+        public AdministratorProfile? AdminProfile { get; set; }
 
         /// <summary>
         /// Gets or sets the program and semester associated with this offering.

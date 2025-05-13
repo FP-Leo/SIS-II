@@ -42,7 +42,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the unique identifier of the faculty the department belongs to.
         /// </summary>
-        public required int FacultyId { get; set; }
+        public int FacultyId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the head of the department.

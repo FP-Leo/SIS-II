@@ -21,17 +21,17 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the start date of the academic year.
         /// </summary>
-        public required DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the end date of the academic year.
         /// </summary>
-        public required DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the date when the academic year was created.
         /// </summary>
-        public required int UniversityId { get; set; }
+        public int UniversityId { get; set; }
 
         /// <summary>
         /// Gets or sets the university associated with this academic year.

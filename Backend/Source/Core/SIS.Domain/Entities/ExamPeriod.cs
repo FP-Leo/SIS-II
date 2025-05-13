@@ -17,22 +17,22 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the name of the exam period.
         /// </summary>
-        public required AssessmentType Name { get; set; }
+        public AssessmentType Name { get; set; }
 
         /// <summary>
         /// Gets or sets the start date of the exam period.
         /// </summary>
-        public required DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the end date of the exam period.
         /// </summary>
-        public required DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the semester of the program associated with this exam period.
         /// </summary>
-        public required int SemesterId { get; set; }
+        public int SemesterId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the program semester associated with this exam period. If null, it means the registration period is for all programs unless overridden by the program semester.

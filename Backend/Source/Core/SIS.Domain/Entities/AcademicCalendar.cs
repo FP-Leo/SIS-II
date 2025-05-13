@@ -21,7 +21,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the unique identifier for the academic year associated with this calendar.
         /// </summary>
-        public required int AcademicYearId { get; set; }
+        public int AcademicYearId { get; set; }
 
         /// <summary>
         /// Gets or sets the Academic Year associated with this calendar.

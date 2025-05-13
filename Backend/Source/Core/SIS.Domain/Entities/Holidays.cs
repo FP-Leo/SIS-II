@@ -22,7 +22,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the type of the holiday.
         /// </summary>
-        public required HolidayType Type { get; set; }
+        public HolidayType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the holiday.
@@ -32,17 +32,17 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the date when the holiday starts.
         /// </summary>
-        public required DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the date when the holiday ends.
         /// </summary>
-        public required DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the academic calendar associated with this holiday.
         /// </summary>
-        public required int AcademicCalendarId { get; set; }
+        public int AcademicCalendarId { get; set; }
 
         /// <summary>
         /// Gets or sets the academic calendar associated with this holiday.

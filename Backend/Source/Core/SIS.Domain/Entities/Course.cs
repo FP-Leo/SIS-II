@@ -27,7 +27,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the type of the course (e.g., core, elective).
         /// </summary>
-        public required CourseType Type { get; set; }
+        public CourseType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the course.
@@ -37,37 +37,37 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the number of credits for the course.
         /// </summary>
-        public required int Credits { get; set; }
+        public int Credits { get; set; }
 
         /// <summary>
         /// Gets or sets the level of the course (e.g., undergraduate, graduate).
         /// </summary>
-        public required Level Level { get; set; }
+        public Level Level { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the course is active.
         /// </summary>
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the date when the course was created.
         /// </summary>
-        public required DateOnly CreatedAt { get; set; }
+        public DateOnly CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the date when the course was last updated.
         /// </summary>
-        public required DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the list of student IDs enrolled in this course.
         /// </summary>
-        public required List<int>? PrerequisiteCourseIds { get; set; }
+        public List<int>? PrerequisiteCourseIds { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the department that offers this course.
         /// </summary>
-        public required int DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
 
         /// <summary>
         /// Gets or sets the list of prerequisite courses for this course.

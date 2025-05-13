@@ -25,39 +25,44 @@ namespace SIS.Domain.Entities
         public required string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the campus where the program is offered.
+        /// Gets or sets the unique identifier of the campus where the program is offered.
         /// </summary>
-        public required CampusBuilding Campus {  get; set; }
+        public int CampusId { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the program.
         /// </summary>
-        public required Level Level { get; set; }
+        public Level Level { get; set; }
 
         /// <summary>
         /// Gets or sets the enrollment limit for the program.
         /// </summary>
-        public required int EnrollmentLimit { get; set; }
+        public int EnrollmentLimit { get; set; }
 
         /// <summary>
         /// Gets or sets minimum time required to complete the program.
         /// </summary>
-        public required int MinDuration { get; set; }
+        public int MinDuration { get; set; }
 
         /// <summary>
         /// Gets or sets maximum time required to complete the program.
         /// </summary>
-        public required int MaxDuration { get; set; }
+        public int MaxDuration { get; set; }
 
         /// <summary>
         /// Gets or sets number of credits per semester.
         /// </summary>
-        public required int SemesterCredits {  get; set; }
+        public int SemesterCredits {  get; set; }
 
         /// <summary>
         /// Gets or sets the total number of credits required to complete the program.
         /// </summary>
-        public required int TotalCredits { get; set; }
+        public int TotalCredits { get; set; }
+
+        /// <summary>
+        /// Gets or sets the campus where the program is offered.
+        /// </summary>
+        public CampusBuilding? CampusBuilding { get; set; }
 
         /// <summary>
         /// Gets or sets the prerequisite programs required for admission.
@@ -82,7 +87,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the identifier of the department offering the program.
         /// </summary>
-        public required int DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
 
         /// <summary>
         /// Gets or sets the list of prerequisite courses for this program.

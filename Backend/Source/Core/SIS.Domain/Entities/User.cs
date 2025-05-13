@@ -22,12 +22,12 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the date of birth of the user.
         /// </summary>
-        public required DateOnly DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
 
         /// <summary>
         /// Gets or sets the registration date of the user in the system.
         /// </summary>
-        public required DateOnly RegisterDate { get; set; }
+        public DateOnly RegisterDate { get; set; }
 
         /// <summary>
         /// Gets or sets the school email of the user, which must be unique.

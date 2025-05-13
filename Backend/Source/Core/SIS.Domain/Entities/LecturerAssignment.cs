@@ -16,7 +16,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the start date of the lecturer's position in the department.
         /// </summary>
-        public required DateOnly StartDate { get; set; }
+        public DateOnly StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the end date of the lecturer's position in the department, if applicable.
@@ -26,27 +26,27 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the total assigned hours for the lecturer in the department.
         /// </summary>
-        public required int Hours { get; set; }
+        public int Hours { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the department.
         /// </summary>
-        public required int DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the profile associated with the lecturer.
         /// </summary>
-        public required int LecturerProfileId { get; set; }
+        public int LecturerProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the department associated with the lecturer.
         /// </summary>
-        public required Department Department { get; set; }
+        public Department? Department { get; set; }
 
         /// <summary>
         /// Gets or sets the lecturer profile associated with the lecturer.
         /// </summary>
-        public required LecturerProfile LecturerProfile { get; set; }
+        public LecturerProfile? LecturerProfile { get; set; }
 
         /// <summary>
         /// Gets or set the course instances associated with the lecturer.

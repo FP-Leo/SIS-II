@@ -22,17 +22,17 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the assessment type (e.g., "Midterm", "Final", "Project").
         /// </summary>
-        public required AssessmentType Type { get; set; }
+        public AssessmentType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the start time of the assessment.
         /// </summary>
-        public required DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the end time of the assessment.
         /// </summary>
-        public required DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the notes or additional information about the assessment.
@@ -42,7 +42,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the weight percentage of the assessment in the overall course grade.
         /// </summary>
-        public required int WeightPercentage { get; set; }
+        public int WeightPercentage { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the course instance associated with this assessment.

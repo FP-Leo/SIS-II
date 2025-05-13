@@ -27,22 +27,22 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the year of the student.
         /// </summary>
-        public required int Year { get; set; }
+        public int Year { get; set; }
 
         /// <summary>
         /// Gets or sets the GPA of the student.
         /// </summary>
-        public required double GPA { get; set; }
+        public double GPA { get; set; }
 
         /// <summary>
         /// Gets or sets the total credits earned by the student.
         /// </summary>
-        public required int Credits { get; set; }
+        public int Credits { get; set; }
 
         /// <summary>
         /// Gets or sets the date the student registered in the academic program.
         /// </summary>
-        public required DateOnly ProgramRegistrationDate { get; set; }
+        public DateOnly ProgramRegistrationDate { get; set; }
 
         /// <summary>
         /// Gets or sets the graduation date of the student, if applicable.
@@ -52,12 +52,17 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the unique identifier of the student profile associated with the program enrollment.
         /// </summary>
-        public required int StudentProfileId { get; set; }
+        public int StudentProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the academic program associated with the program enrollment.
         /// </summary>
-        public required int ProgramId { get; set; }
+        public int ProgramId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier of the advisor associated with the program enrollment.
+        /// </summary>
+        public int AdvisorId { get; set; }
 
         /// <summary>
         /// Gets or sets the student profile associated with the program enrollment.
@@ -68,6 +73,11 @@ namespace SIS.Domain.Entities
         /// Gets or sets the academic program associated with the program enrollment.
         /// </summary>
         public AcademicProgram? Program { get; set; }
+
+        /// <summary>
+        /// Gets or sets the advisor profile associated with the program enrollment.
+        /// </summary>
+        public AdvisorProfile? Advisor { get; set; }
 
         /// <summary>
         /// Gets or sets the list of enrollments associated with the student profile.

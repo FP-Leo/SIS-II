@@ -39,12 +39,12 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets a value indicating whether the faculty is active.
         /// </summary>
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the unique identifier of the university the faculty belongs to.
         /// </summary>
-        public required int UniversityId { get; set; }
+        public int UniversityId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the dean of the faculty.
