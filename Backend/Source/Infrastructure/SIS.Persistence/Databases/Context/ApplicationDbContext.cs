@@ -82,6 +82,16 @@ namespace SIS.Persistence.Databases.Context
         public DbSet<LecturerProfile> LecturerProfiles { get; set; }
 
         /// <summary>
+        /// Gets or sets the DbSet for administrator profiles.
+        /// </summary>
+        public DbSet<AdministratorProfile> AdministratorProfiles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for advisor profiles.
+        /// </summary>
+        public DbSet<AdvisorProfile> AdvisorProfiles { get; set; }
+
+        /// <summary>
         /// Gets or sets the DbSet for student program enrollments.
         /// </summary>
         public DbSet<StudentProgramEnrollment> StudentProgramEnrollments { get; set; }

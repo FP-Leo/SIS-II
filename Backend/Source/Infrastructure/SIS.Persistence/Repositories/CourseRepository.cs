@@ -7,6 +7,11 @@ using SIS.Persistence.Databases.Context;
 
 namespace SIS.Persistence.Repositories
 {
+    /// <summary>
+    /// Provides repository operations for managing <see cref="Course"/> entities in the database.
+    /// </summary>
+    /// <param name="context">The database context.</param>
+    /// <param name="logger">Logger for logging operations.</param>
     public class CourseRepository(ApplicationDbContext context, ILogger<CourseRepository> logger) : ICourseRepository
     {
         private readonly ApplicationDbContext _context = context;

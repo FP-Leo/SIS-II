@@ -2,6 +2,9 @@
 
 namespace SIS.Application.Interfaces.Repositories
 {
+    /// <summary>
+    /// Defines the contract for course repository operations.
+    /// </summary>
     public interface ICourseRepository
     {
         /// <summary>
@@ -32,7 +35,7 @@ namespace SIS.Application.Interfaces.Repositories
         /// </summary>
         /// <param name="course">The Course entity to add.</param>
         /// <param name="cancellationToken">Token to cancel operation.</param>
-        /// <returns></returns>
+        /// <returns>The created Course entity.</returns>
         Task<Course> CreateCourseAsync(Course course, CancellationToken cancellationToken);
         
         /// <summary>

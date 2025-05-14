@@ -3,7 +3,7 @@ using SIS.Domain.Entities;
 namespace SIS.Application.Interfaces.Repositories
 {
     /// <summary>
-    /// Provides methods for managing university data in the repository.
+    /// Defines the contract for the university repository.
     /// </summary>
     public interface IUniversityRepository
     {

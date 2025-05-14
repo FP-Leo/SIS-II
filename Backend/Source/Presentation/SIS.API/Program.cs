@@ -20,6 +20,8 @@ using SIS.Persistence.Databases.Data.SeedData;
 using SIS.Infrastructure.Validators.Department;
 using SIS.Infrastructure.Validators.Course;
 using System.Text.Json.Serialization;
+using SIS.Infrastructure.Validators.AdministratorProfile;
+using SIS.Infrastructure.Validators.AdvisorProfile;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -119,6 +121,8 @@ builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
 builder.Services.AddScoped<IFacultyRepository, FacultyRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IAdministratorProfileRepository, AdministratorProfileRepository>();
+builder.Services.AddScoped<IAdvisorProfileRepository, AdvisorProfileRepository>();
 
 // Exception Handlers
 builder.Services.AddExceptionHandler<DbUpdateExceptionHandler>();
@@ -132,6 +136,8 @@ builder.Services.AddScoped<IUniversityValidator, UniversityValidator>();
 builder.Services.AddScoped<IFacultyValidator, FacultyValidator>();
 builder.Services.AddScoped<IDepartmentValidator, DepartmentValidator>();
 builder.Services.AddScoped<ICourseValidator, CourseValidator>();
+builder.Services.AddScoped<IAdministratorProfileValidator, AdministratorProfileValidator>();
+builder.Services.AddScoped<IAdvisorProfileValidator, AdvisorProfileValidator>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
 
