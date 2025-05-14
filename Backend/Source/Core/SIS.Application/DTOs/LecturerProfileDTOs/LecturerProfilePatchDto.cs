@@ -2,10 +2,7 @@
 
 namespace SIS.Application.DTOs.LecturerProfileDTOs
 {
-    /// <summary>
-    /// Data Transfer Object (DTO) for retrieving lecturer profile information.
-    /// </summary>
-    public class LecturerProfileGetDto
+    public class LecturerProfilePatchDto
     {
         /// <summary>
         /// Gets or sets the unique identifier for the lecturer profile.
@@ -15,11 +12,6 @@ namespace SIS.Application.DTOs.LecturerProfileDTOs
         /// <summary>
         /// Gets or sets the title of the lecturer (e.g., "Professor", "Associate Professor").
         /// </summary>
-        public LecturerType Title { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unique identifier of the lecturer.
-        /// </summary>
-        public required string UserId;
+        public LecturerType? Title { get; set; }
     }
 }

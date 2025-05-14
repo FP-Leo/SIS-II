@@ -38,7 +38,7 @@ namespace SIS.API.Controllers
             IEnumerable<AdvisorProfile> AdvisorProfiles = await _AdvisorProfileRepository.GetAllAdvisorProfiles(cancellationToken);
             if (AdvisorProfiles == null || !AdvisorProfiles.Any())
             {
-                return NotFound("No AdvisorProfiles found.");
+                return NotFound("No Advisor Profiles found.");
             }
 
             return Ok(AdvisorProfiles.Select(u => u.ToProfileGetDto()));
@@ -63,7 +63,7 @@ namespace SIS.API.Controllers
 
             AdvisorProfile? AdvisorProfile = await _AdvisorProfileRepository.GetAdvisorProfileByIdAsync(id, cancellationToken);
             if (AdvisorProfile == null)
-                return NotFound($"AdvisorProfile with ID {id} not found.");
+                return NotFound($"Advisor Profile not found.");
 
             return Ok(AdvisorProfile.ToProfileGetDto());
         }
@@ -161,7 +161,7 @@ namespace SIS.API.Controllers
 
             AdvisorProfile? existingAdvisorProfile = await _AdvisorProfileRepository.GetAdvisorProfileByIdAsync(id, cancellationToken);
             if (existingAdvisorProfile == null)
-                return NotFound($"AdvisorProfile with ID {id} not found.");
+                return NotFound($"Advisor Profile not found.");
 
             existingAdvisorProfile.ApplyPatch(advisorProfilePatchDto);
 
@@ -192,7 +192,7 @@ namespace SIS.API.Controllers
 
             AdvisorProfile? AdvisorProfile = await _AdvisorProfileRepository.GetAdvisorProfileByIdAsync(id, cancellationToken);
             if (AdvisorProfile == null)
-                return NotFound($"AdvisorProfile with ID {id} not found.");
+                return NotFound($"Advisor Profile not found.");
 
             await _AdvisorProfileRepository.DeleteAdvisorProfileAsync(AdvisorProfile, cancellationToken);
 

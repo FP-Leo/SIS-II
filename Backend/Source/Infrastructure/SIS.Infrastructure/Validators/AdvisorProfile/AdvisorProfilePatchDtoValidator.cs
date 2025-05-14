@@ -22,7 +22,7 @@ namespace SIS.Infrastructure.Validators.AdvisorProfile
                 .NotEmpty().WithMessage("Department ID is required")
                 .MustAsync(_AdvisorProfileValidator.IsValidDepartment)
                 .MustAsync(IsUnique).WithMessage("The Advisor profile already exists.")
-                .When(ap => ap.DepartmentId != null);
+                .When(ap => ap.DepartmentId != null, ApplyConditionTo.CurrentValidator);
         }
 
         private async Task<bool> IsUnique(AdvisorProfilePatchDto AdvisorProfile, int? depID, CancellationToken cancellationToken)

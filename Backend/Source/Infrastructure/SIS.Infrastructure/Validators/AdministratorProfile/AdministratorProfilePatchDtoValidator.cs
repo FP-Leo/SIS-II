@@ -22,7 +22,7 @@ namespace SIS.Infrastructure.Validators.AdministratorProfile
                 .NotEmpty().WithMessage("Department ID is required")
                 .MustAsync(_administratorProfileValidator.IsValidDepartment)
                 .MustAsync(IsUnique).WithMessage("The administrator profile already exists.")
-                .When(ap => ap.DepartmentId != null);
+                .When(ap => ap.DepartmentId != null, ApplyConditionTo.CurrentValidator);
         }
 
         private async Task<bool> IsUnique(AdministratorProfilePatchDto administratorProfile, int? depID, CancellationToken cancellationToken)

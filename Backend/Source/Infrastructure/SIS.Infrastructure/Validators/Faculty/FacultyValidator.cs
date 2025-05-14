@@ -42,7 +42,9 @@ namespace SIS.Infrastructure.Validators.Faculty
             IList<string> roles = await _userService.GetUserRolesAsync(dean);
             if (roles == null || !roles.Any()) throw new InvalidInputException("The provided user doesn't have any roles associated with it.");
 
-            return roles.Contains(RoleConstants.Dean);
+            if (!roles.Contains(RoleConstants.Dean)) throw new InvalidInputException("The provided user is not a dean.");
+
+            return true;
         }
         /// <inheritdoc />
         public async Task<bool> BeUniqueDeanId(string deanId, int facultyId, CancellationToken cancellationToken)

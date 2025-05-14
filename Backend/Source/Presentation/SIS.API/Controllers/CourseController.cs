@@ -89,7 +89,7 @@ namespace SIS.API.Controllers
 
             Course? course = await _CourseRepository.GetCourseByIdAsync(id, cancellationToken);
             if (course == null)
-                return NotFound($"Course with ID {id} not found.");
+                return NotFound($"Course not found.");
 
             return Ok(course.ToCourseGetDto());
         }
@@ -150,7 +150,7 @@ namespace SIS.API.Controllers
 
             Course? existingCourse = await _CourseRepository.GetCourseByIdAsync(id, cancellationToken);
             if (existingCourse == null)
-                return NotFound($"Course with Id {id} not found.");
+                return NotFound($"Course not found.");
 
             existingCourse.ApplyUpdate(courseUpdateDto);
 
@@ -187,7 +187,7 @@ namespace SIS.API.Controllers
 
             Course? existingCourse = await _CourseRepository.GetCourseByIdAsync(id, cancellationToken);
             if (existingCourse == null)
-                return NotFound($"Course with Id {id} not found.");
+                return NotFound($"Course not found.");
 
             existingCourse.ApplyPatch(coursePatchDto);
 
@@ -218,7 +218,7 @@ namespace SIS.API.Controllers
 
             Course? Course = await _CourseRepository.GetCourseByIdAsync(id, cancellationToken);
             if (Course == null)
-                return NotFound($"Course with ID {id} not found.");
+                return NotFound($"Course not found.");
 
             await _CourseRepository.DeleteCourseAsync(Course, cancellationToken);
 

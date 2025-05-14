@@ -38,21 +38,21 @@ namespace SIS.Infrastructure.Validators.Department
                         .NotEmpty().WithMessage("Name is required.")
                         .Length(3, 100).WithMessage("Name must be between 3 and 100 characters.")
                         .MustAsync(BeUniqueDepartment)
-                        .When(d => !string.IsNullOrEmpty(d.Name));
+                        .When(d => !string.IsNullOrEmpty(d.Name), ApplyConditionTo.CurrentValidator);
 
                     // The Code property must not be empty, must be between 2 and 10 characters long,
                     RuleFor(d => d.Code)
                         .NotEmpty().WithMessage("Code is required.")
                         .Length(2, 15).WithMessage("Code must be between 2 and 15 characters.")
                         .MustAsync(BeUniqueCode)
-                        .When(d => !string.IsNullOrEmpty(d.Code));
+                        .When(d => !string.IsNullOrEmpty(d.Code), ApplyConditionTo.CurrentValidator);
 
                     // The DeanId property must not be empty, must be a valid GUID,
                     RuleFor(d => d.HeadOfDepartmentId)
                         .NotEmpty().WithMessage("HoD Id is required.")
                         .Length(36, 450).WithMessage("HoD Id must be a valid GUID.")
                         .MustAsync(BeUniqueHod).WithMessage("The specified user does not have the HoD role.")
-                        .When(d => !string.IsNullOrEmpty(d.HeadOfDepartmentId));
+                        .When(d => !string.IsNullOrEmpty(d.HeadOfDepartmentId), ApplyConditionTo.CurrentValidator);
                 });
 
             // The Address property must not be empty, must be between 5 and 100 characters long,
@@ -60,19 +60,19 @@ namespace SIS.Infrastructure.Validators.Department
                 .NotEmpty()
                 .WithMessage("Address is required.")
                 .Length(5, 100).WithMessage("Address must be between 5 and 100 characters.")
-                .When(d => !string.IsNullOrEmpty(d.Address));
+                .When(d => !string.IsNullOrEmpty(d.Address), ApplyConditionTo.CurrentValidator);
 
             // The PhoneNumber property must not be empty, must be exactly 10 digits long,
             RuleFor(d => d.PhoneNumber)
                 .NotEmpty().WithMessage("Phone number is required.")
                 .Matches(@"^\d{10}$").WithMessage("Phone number must be 10 digits long.")
                 .MustAsync(BeUniquePhoneNumber)
-                .When(d => !string.IsNullOrEmpty(d.PhoneNumber));
+                .When(d => !string.IsNullOrEmpty(d.PhoneNumber), ApplyConditionTo.CurrentValidator);
 
             RuleFor(d => d.IsActive)
                 .NotNull().WithMessage("IsActive is required.")
                 .Must(x => x == true || x == false).WithMessage("IsActive must be a boolean value.")
-                .When(d => d.IsActive != null);
+                .When(d => d.IsActive != null, ApplyConditionTo.CurrentValidator);
         }
 
         private async Task<bool> BeUniqueDepartment(DepartmentPatchDto department, string name, CancellationToken cancellationToken)

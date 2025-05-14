@@ -63,7 +63,7 @@ namespace SIS.API.Controllers
 
             Faculty? faculty = await _facultyRepository.GetFacultyByIdAsync(id, cancellationToken);
             if (faculty == null)
-                return NotFound($"Faculty with ID {id} not found.");
+                return NotFound($"Faculty not found.");
 
             return Ok(faculty.ToFacultyGetDto());
         }
@@ -124,7 +124,7 @@ namespace SIS.API.Controllers
 
             Faculty? existingFaculty = await _facultyRepository.GetFacultyByIdAsync(id, cancellationToken);
             if (existingFaculty == null)
-                return NotFound($"Faculty with ID {id} not found.");
+                return NotFound($"Faculty not found.");
 
             existingFaculty.ApplyUpdate(facultyUpdateDto);
 
@@ -161,7 +161,7 @@ namespace SIS.API.Controllers
 
             Faculty? existingFaculty = await _facultyRepository.GetFacultyByIdAsync(id, cancellationToken);
             if (existingFaculty == null)
-                return NotFound($"Faculty with ID {id} not found.");
+                return NotFound($"Faculty not found.");
 
             existingFaculty.ApplyPatch(facultyPatchDto);
 
@@ -192,7 +192,7 @@ namespace SIS.API.Controllers
 
             Faculty? faculty = await _facultyRepository.GetFacultyByIdAsync(id, cancellationToken);
             if (faculty == null)
-                return NotFound($"Faculty with ID {id} not found.");
+                return NotFound($"Faculty not found.");
 
             await _facultyRepository.DeleteFacultyByIdAsync(faculty, cancellationToken);
 

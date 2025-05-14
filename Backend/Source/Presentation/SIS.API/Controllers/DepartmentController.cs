@@ -63,7 +63,7 @@ namespace SIS.API.Controllers
 
             Department? Department = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (Department == null)
-                return NotFound($"Department with ID {id} not found.");
+                return NotFound($"Department not found.");
 
             return Ok(Department.ToDepartmentGetDto());
         }
@@ -124,7 +124,7 @@ namespace SIS.API.Controllers
 
             Department? existingDepartment = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (existingDepartment == null)
-                return NotFound($"Department with ID {id} not found.");
+                return NotFound($"Department not found.");
 
             existingDepartment.ApplyUpdate(departmentUpdateDto);
 
@@ -161,7 +161,7 @@ namespace SIS.API.Controllers
 
             Department? existingDepartment = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (existingDepartment == null)
-                return NotFound($"Department with ID {id} not found.");
+                return NotFound($"Department not found.");
 
             existingDepartment.ApplyPatch(departmentPatchDto);
 
@@ -192,7 +192,7 @@ namespace SIS.API.Controllers
 
             Department? Department = await _departmentRepository.GetDepartmentByIdAsync(id, cancellationToken);
             if (Department == null)
-                return NotFound($"Department with ID {id} not found.");
+                return NotFound($"Department not found.");
 
             await _departmentRepository.DeleteDepartmentAsync(Department, cancellationToken);
 

@@ -63,7 +63,7 @@ namespace SIS.API.Controllers
 
             AdministratorProfile? administratorProfile = await _administratorProfileRepository.GetAdministratorProfileByIdAsync(id, cancellationToken);
             if (administratorProfile == null)
-                return NotFound($"AdministratorProfile with ID {id} not found.");
+                return NotFound("Administrator Profile not found.");
 
             return Ok(administratorProfile.ToProfileGetDto());
         }
@@ -124,7 +124,7 @@ namespace SIS.API.Controllers
 
             AdministratorProfile? existingAdministratorProfile = await _administratorProfileRepository.GetAdministratorProfileByIdAsync(id, cancellationToken);
             if (existingAdministratorProfile == null)
-                return NotFound($"AdministratorProfile with ID {id} not found.");
+                return NotFound($"Administrator Profile not found.");
 
             existingAdministratorProfile.ApplyUpdate(administratorProfileUpdateDto);
 
@@ -161,7 +161,7 @@ namespace SIS.API.Controllers
 
             AdministratorProfile? existingAdministratorProfile = await _administratorProfileRepository.GetAdministratorProfileByIdAsync(id, cancellationToken);
             if (existingAdministratorProfile == null)
-                return NotFound($"AdministratorProfile with ID {id} not found.");
+                return NotFound($"Administrator Profile not found.");
 
             existingAdministratorProfile.ApplyPatch(administratorProfilePatchDto);
 
@@ -192,7 +192,7 @@ namespace SIS.API.Controllers
 
             AdministratorProfile? administratorProfile = await _administratorProfileRepository.GetAdministratorProfileByIdAsync(id, cancellationToken);
             if (administratorProfile == null)
-                return NotFound($"AdministratorProfile with ID {id} not found.");
+                return NotFound($"Administrator Profile not found.");
 
             await _administratorProfileRepository.DeleteAdministratorProfileAsync(administratorProfile, cancellationToken);
 

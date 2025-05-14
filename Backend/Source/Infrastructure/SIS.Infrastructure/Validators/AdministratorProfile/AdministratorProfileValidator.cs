@@ -67,7 +67,9 @@ namespace SIS.Infrastructure.Validators.AdministratorProfile
             IList<string> roles = await _userService.GetUserRolesAsync(user);
             if (roles == null || !roles.Any()) throw new InvalidInputException("The provided user doesn't have any roles associated with it.");
 
-            return roles.Contains(RoleConstants.Administrator);
+            if (!roles.Contains(RoleConstants.Administrator)) throw new InvalidInputException("The provided user is not an administrator.");
+
+            return true;
         }
 
         /// <inheritdoc/>  

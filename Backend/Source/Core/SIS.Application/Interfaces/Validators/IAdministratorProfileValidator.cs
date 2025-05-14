@@ -1,7 +1,17 @@
 ﻿namespace SIS.Application.Interfaces.Validators
 {
+    /// <summary>
+    /// Interface for validating administrator profile-related data.
+    /// Provides methods to ensure the uniqueness and existence of administrator profile attributes.
+    /// </summary>
     public interface IAdministratorProfileValidator
     {
+        /// <summary>
+        /// Checks if the administrator profile is valid, i.e. exists and has the role of administrator.
+        /// </summary>
+        /// <param name="id">The unique identifier of the administrator profile.</param>
+        /// <param name="cancellationToken">Token to cancel operation.</param>
+        /// <returns>True if the profile is valid; false otherwise.</returns>
         public Task<bool> IsValidProfile(int id, CancellationToken cancellationToken);
 
         /// <summary>

@@ -85,7 +85,9 @@ namespace SIS.Infrastructure.Validators.Universities
             var roles = await _userService.GetUserRolesAsync(user);
             if (roles == null || !roles.Any()) throw new InvalidRoleException("The provided user doesn't have any roles associated with it.");
 
-            return roles.Contains(RoleConstants.Rector);
+            if (!roles.Contains(RoleConstants.Rector)) throw new InvalidRoleException("The provided user is not a rector.");
+
+            return true;
         }
         /// <inheritdoc/>
         public async Task<bool> BeValidRectorAsync(string rectorId, int uniId, CancellationToken cancellationToken)

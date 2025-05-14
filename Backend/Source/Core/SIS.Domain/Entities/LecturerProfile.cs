@@ -3,7 +3,7 @@ using SIS.Domain.Shared;
 
 namespace SIS.Domain.Entities
 {
-    [Index(nameof(LecturerId), IsUnique = true)]
+    [Index(nameof(UserId), IsUnique = true)]
     /// <summary>
     /// Represents the profile of a lecturer in the system.
     /// </summary>
@@ -22,7 +22,7 @@ namespace SIS.Domain.Entities
         /// <summary>
         /// Gets or sets the unique identifier of the lecturer.
         /// </summary>
-        public required string LecturerId;
+        public required string UserId;
 
         /// <summary>
         /// Gets or sets the user associated with the lecturer profile.

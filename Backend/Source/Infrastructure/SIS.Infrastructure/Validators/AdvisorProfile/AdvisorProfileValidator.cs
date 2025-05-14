@@ -67,7 +67,9 @@ namespace SIS.Infrastructure.Validators.AdvisorProfile
             IList<string> roles = await _userService.GetUserRolesAsync(user);
             if (roles == null || !roles.Any()) throw new InvalidInputException("The provided user doesn't have any roles associated with it.");
 
-            return roles.Contains(RoleConstants.Advisor);
+            if (!roles.Contains(RoleConstants.Advisor)) throw new InvalidInputException("The provided user is not an advisor.");
+
+            return true;
         }
 
         /// <inheritdoc/>  

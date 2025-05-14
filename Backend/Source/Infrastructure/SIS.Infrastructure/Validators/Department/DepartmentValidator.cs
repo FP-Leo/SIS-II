@@ -57,7 +57,9 @@ namespace SIS.Infrastructure.Validators.Department
             IList<string> roles = await _userService.GetUserRolesAsync(hod);
             if (roles == null || !roles.Any()) throw new InvalidInputException("The provided user doesn't have any roles associated with it.");
 
-            return roles.Contains(RoleConstants.HoD);
+            if (!roles.Contains(RoleConstants.HoD)) throw new InvalidInputException("The provided user is not a head of department.");
+
+            return true;
         }
 
         /// <inheritdoc />
