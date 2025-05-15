@@ -6,7 +6,7 @@ namespace SIS.Infrastructure.Validators.LecturerProfile
 {
     /// <summary>
     /// Validator for the <see cref="LecturerProfilePatchDto"/> class.
-    /// Ensures that the data provided for updating a lecturer profile meets the required rules and constraints.
+    /// Ensures that the data provided for patching a lecturer profile meets the required rules and constraints.
     /// </summary>
     public class LecturerPatchDtoValidator: AbstractValidator<LecturerProfilePatchDto>
     {

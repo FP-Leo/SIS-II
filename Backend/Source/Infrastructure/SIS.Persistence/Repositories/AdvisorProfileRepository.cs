@@ -73,6 +73,8 @@ namespace SIS.Persistence.Repositories
         /// <inheritdoc/>
         public async Task<bool> ProfileExistsAsync(int departmentId, string userId, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureGUIDIsValid(userId, nameof(User), _logger);
+
             bool exists = await _context.AdvisorProfiles.AnyAsync(p => p.DepartmentId == departmentId && p.UserId == userId, cancellationToken);
             throw new NotImplementedException();
         }

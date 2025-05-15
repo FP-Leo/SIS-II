@@ -49,7 +49,7 @@ namespace SIS.Persistence.Repositories
         {
             CommonUtils.EnsureIdIsValid(id, nameof(LecturerProfile));
 
-            LecturerProfile? profile = await _context.LecturerProfiles.FindAsync(id);
+            LecturerProfile? profile = await _context.LecturerProfiles.FindAsync([id], cancellationToken);
 
             return profile;
         }
@@ -57,6 +57,8 @@ namespace SIS.Persistence.Repositories
         /// <inheritdoc/>
         public async Task<bool> ProfileExistsAsync(string userId, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureGUIDIsValid(userId, nameof(userId), _logger);
+
             bool exists = await _context.LecturerProfiles.AnyAsync(p => p.UserId == userId, cancellationToken);
             return exists;
         }

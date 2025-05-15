@@ -181,6 +181,8 @@ namespace SIS.Persistence.Repositories
         /// <inheritdoc />
         public async Task<bool> DepartmentExistsByHodIdAsync(string hodId, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureGUIDIsValid(hodId, nameof(User), _logger);
+
             bool exists = await _context.Departments.AnyAsync(d => d.HeadOfDepartmentId == hodId, cancellationToken);
             return exists;
         }

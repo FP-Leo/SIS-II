@@ -47,6 +47,15 @@ namespace SIS.Common
                 throw new InvalidInputException($"The Id of {entityName} in the route ({routeId}) does not match the Id in the DTO ({dtoId}).");
         }
 
+        public static void EnsureGUIDIsValid<T>(string guid, string entityName, ILogger<T> logger)
+        {
+            if (string.IsNullOrEmpty(guid) || !Guid.TryParse(guid, out _))
+            {
+                logger.LogWarning("The GUID is invalid: {Entity}", entityName);
+                throw new InvalidInputException($"Invalid GUID of {entityName}.");
+            }
+        }
+
         public static void EnsureGUIDIsSame(string routeId, string dtoId, string entityName)
         {
             if (!routeId.Equals(dtoId))

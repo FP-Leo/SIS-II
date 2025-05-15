@@ -2,7 +2,7 @@
 
 namespace SIS.Domain.Entities
 {
-    [Index(nameof(UserId), nameof(DepartmentId))]
+    [Index(nameof(UserId), IsUnique = true)]
     /// <summary>
     /// Represents the administrator profile.
     /// </summary>

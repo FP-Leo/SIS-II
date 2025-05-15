@@ -14,7 +14,6 @@ namespace SIS.Infrastructure.Validators.LecturerProfile
     /// <remarks>
     /// Initializes a new instance of the <see cref="LecturerProfileValidator"/> class.
     /// </remarks>
-    /// <param name="departmentRepository">The repository for department-related data operations.</param>
     /// <param name="lecturerProfileRepo">The repository for Lecturer profile-related data operations.</param>
     /// <param name="userService">The service for user-related operations.</param>
     public class LecturerProfileValidator(ILecturerProfileRepository lecturerProfileRepo, IUserService userService) : ILecturerProfileValidator

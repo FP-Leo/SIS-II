@@ -124,7 +124,7 @@ namespace SIS.API.Controllers
 
             AdvisorProfile? existingAdvisorProfile = await _AdvisorProfileRepository.GetAdvisorProfileByIdAsync(id, cancellationToken);
             if (existingAdvisorProfile == null)
-                return NotFound($"AdvisorProfile with ID {id} not found.");
+                return NotFound($"AdvisorProfile not found.");
 
             existingAdvisorProfile.ApplyUpdate(advisorProfileUpdateDto);
 

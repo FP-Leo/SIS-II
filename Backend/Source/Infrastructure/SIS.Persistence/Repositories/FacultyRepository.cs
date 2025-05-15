@@ -145,12 +145,16 @@ namespace SIS.Persistence.Repositories
         /// <returns>True if the dean ID exists; otherwise, false.</returns>
         public async Task<bool> FacultyExistsByDeanIdAsync(string deanId, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureStringNotNullOrEmpty(deanId, nameof(deanId), _logger);
+
             bool exists = await _context.Faculties.AnyAsync(f => f.DeanId == deanId, cancellationToken);
             return exists;
         }
         /// <inheritdoc />
         public async Task<bool> FacultyExistsByDeanIdAsync(string deanId, int facultyId, CancellationToken cancellationToken)
         {
+            CommonUtils.EnsureStringNotNullOrEmpty(deanId, nameof(deanId), _logger);
+
             bool exists = await _context.Faculties.AnyAsync(f => f.Id != facultyId && f.DeanId == deanId, cancellationToken);
             return exists;
         }

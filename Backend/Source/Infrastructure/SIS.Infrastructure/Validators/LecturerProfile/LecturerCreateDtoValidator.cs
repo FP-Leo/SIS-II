@@ -16,14 +16,14 @@ namespace SIS.Infrastructure.Validators.LecturerProfile
         /// <param name="lecturerProfileValidator">An instance of <see cref="ILecturerProfileValidator"/> to perform custom validation logic.</param>
         public LecturerCreateDtoValidator(ILecturerProfileValidator lecturerProfileValidator)
         {
-            RuleFor(l => l.UserId)
+            RuleFor(lp => lp.UserId)
                 .NotNull().WithMessage("User ID is required.")
                 .NotEmpty().WithMessage("User ID is required.")
                 .Length(36, 450).WithMessage("User Id must be a valid GUID.")
                 .MustAsync(lecturerProfileValidator.IsUniqueProfile)
                 .MustAsync(lecturerProfileValidator.IsValidLecturer);
 
-            RuleFor(l => l.Title)
+            RuleFor(lp => lp.Title)
                 .NotNull().WithMessage("Title is required.")
                 .IsInEnum().WithMessage("Title must be a valid lecturer title.");
         }

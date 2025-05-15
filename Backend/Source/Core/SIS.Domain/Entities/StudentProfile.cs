@@ -19,6 +19,11 @@ namespace SIS.Domain.Entities
         public required string UserId { get; set; }
 
         /// <summary>
+        /// Gets or sets the default program identifier for the student profile.
+        /// </summary>
+        public int? DefaultProgramId { get; set; }
+
+        /// <summary>
         /// Gets or sets the user associated with the student profile.
         /// </summary>
         public User? User { get; set; }
