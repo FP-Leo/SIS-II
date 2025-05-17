@@ -1,7 +1,5 @@
-﻿using SIS.Domain.Shared;
-
-namespace SIS.Application.DTOs.StudentProfileDTOs
-{
+﻿namespace SIS.Application.DTOs.StudentProfileDTOs 
+{ 
     /// <summary>
     /// Data Transfer Object (DTO) for retrieving Student profile information.
     /// </summary>

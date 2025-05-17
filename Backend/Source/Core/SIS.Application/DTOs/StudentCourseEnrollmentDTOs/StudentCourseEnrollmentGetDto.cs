@@ -1,13 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SIS.Domain.Shared;
+﻿using SIS.Domain.Shared;
 
-namespace SIS.Domain.Entities
+namespace SIS.Application.DTOs.StudentCourseEnrollmentDTOs
 {
-    [Index(nameof(ProgramEnrollmentId), nameof(CourseInstanceId), IsUnique = true)]
     /// <summary>
-    /// Represents a student's enrollment in a course offering.
+    /// Data Transfer Object (DTO) for retrieving Student Course Enrollment information.
     /// </summary>
-    public class StudentCourseEnrollment
+    public class StudentCourseEnrollmentGetDto
     {
         /// <summary>
         /// Gets or sets the unique identifier for the enrollment.
@@ -53,20 +51,5 @@ namespace SIS.Domain.Entities
         /// Gets or sets the unique identifier for the student program enrollment associated with this course's enrollment.
         /// </summary>
         public int ProgramEnrollmentId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unique identifier for the course instance associated with this enrollment.
-        /// </summary>
-        public CourseInstance? CourseInstance { get; set; }
-
-        /// <summary>
-        /// Gets or sets the student program enrollment associated with the course's enrollment.
-        /// </summary>
-        public StudentProgramEnrollment? ProgramEnrollment { get; set; }
-
-        /// <summary>
-        /// Gets or sets the list of assessments associated with the student's enrollment.
-        /// </summary>
-        public List<Assessment>? Assessments { get; set; }
     }
 }

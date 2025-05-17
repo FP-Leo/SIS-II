@@ -49,10 +49,8 @@
     public enum EnrollmentStatus
     {
         Enrolled,
-        Waitlisted,
-        Dropped,
-        Completed,
         Retaking,
+        Completed,
         Failed
     }
 

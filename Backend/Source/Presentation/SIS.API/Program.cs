@@ -24,6 +24,7 @@ using SIS.Infrastructure.Validators.AdministratorProfile;
 using SIS.Infrastructure.Validators.AdvisorProfile;
 using SIS.Infrastructure.Validators.LecturerProfile;
 using SIS.Infrastructure.Validators.StudentProfile;
+using SIS.Infrastructure.Validators.StudentCourseEnrollment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -129,6 +130,8 @@ builder.Services.AddScoped<IAdvisorProfileRepository, AdvisorProfileRepository>(
 builder.Services.AddScoped<ILecturerProfileRepository, LecturerProfileRepository>();
 builder.Services.AddScoped<IStudentProfileRepository, StudentProfileRepository>();
 builder.Services.AddScoped<IStudentProgramEnrollmentRepository, StudentProgramEnrollmentRepository>();
+builder.Services.AddScoped<IStudentCourseEnrollmentRepository, StudentCourseEnrollmentRepository>();
+builder.Services.AddScoped<ICourseInstanceRepository, CourseInstanceRepository>();
 
 // Exception Handlers
 builder.Services.AddExceptionHandler<DbUpdateExceptionHandler>();
@@ -146,6 +149,7 @@ builder.Services.AddScoped<IAdministratorProfileValidator, AdministratorProfileV
 builder.Services.AddScoped<IAdvisorProfileValidator, AdvisorProfileValidator>();
 builder.Services.AddScoped<ILecturerProfileValidator, LecturerProfileValidator>();
 builder.Services.AddScoped<IStudentProfileValidator, StudentProfileValidator>();
+builder.Services.AddScoped<IStudentCourseEnrollmentValidator, StudentCourseEnrollmentValidator>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
 
