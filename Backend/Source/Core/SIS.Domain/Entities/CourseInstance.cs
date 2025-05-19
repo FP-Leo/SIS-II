@@ -43,6 +43,7 @@ namespace SIS.Domain.Entities
         /// Gets or sets the unique identifier for the administrator profile associated with this offering.
         /// </summary>
         public int AdminProfileId { get; set; }
+
         /// <summary>
         /// Gets or sets the unique identifier for the program and semester associated with this offering.
         /// </summary>

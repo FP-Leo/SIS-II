@@ -42,6 +42,19 @@ namespace SIS.Persistence.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<int?> GetDepartmentIdByCourseIdAsync(int courseId, CancellationToken cancellationToken)
+        {
+            CommonUtils.EnsureIdIsValid(courseId, nameof(Course));
+
+            int? depId = await _context.Courses
+                .Where(c => c.Id == courseId)
+                .Select(c => (int?)c.DepartmentId)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return depId;
+        }
+
+        /// <inheritdoc/>
         public async Task<Course> CreateCourseAsync(Course course, CancellationToken cancellationToken)
         {
             await _context.Courses.AddAsync(course, cancellationToken);

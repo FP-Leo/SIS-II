@@ -31,6 +31,14 @@ namespace SIS.Application.Interfaces.Repositories
         Task<IEnumerable<Course>> GetCoursesByDepartmentIdAsync(int departmentId, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Gets the department identifier associated with a course by its unique identifier.
+        /// </summary>
+        /// <param name="courseId">The unique identifier of the course.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
+        /// <returns>The department identifier if found; otherwise null.</returns>
+        Task<int?> GetDepartmentIdByCourseIdAsync(int courseId, CancellationToken cancellationToken);
+
+        /// <summary>
         /// Adds a new course to the database.
         /// </summary>
         /// <param name="course">The Course entity to add.</param>

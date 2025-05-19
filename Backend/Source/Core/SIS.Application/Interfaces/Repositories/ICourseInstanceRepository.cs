@@ -20,10 +20,27 @@ namespace SIS.Application.Interfaces.Repositories
         /// <summary>
         /// Retrieves all Course Instances for a specific Semester.
         /// </summary>
-        /// <param name="semesterId">The unique identifier of the Semester.</param>
+        /// <param name="progSemesterId">The unique identifier of the Semester.</param>
         /// <param name="cancellationToken">Token to cancel operations.</param>
         /// <returns>List of Course Instances.</returns>
-        Task<IEnumerable<CourseInstance>> GetAllCourseInstancesOfSemesterAsync(int semesterId, CancellationToken cancellationToken);
+        Task<IEnumerable<CourseInstance>> GetAllCourseInstancesOfSemesterAsync(int progSemesterId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Gets all Course Instances for a specific Lecturer.
+        /// </summary>
+        /// <param name="lecProfileId">The unique identifier of the Lecturer Profile.</param>
+        /// <param name="cancellationToken">Token to cancel operations.</param>
+        /// <returns>List of Course Instances that the Lecturer is assigned to.</returns>
+        Task<IEnumerable<CourseInstance>> GetLecturersAllCourseInstancesAsync(int lecProfileId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Gets all Course Instances for a specific Lecturer and Semester.
+        /// </summary>
+        /// <param name="lecProfileId">The unique identifier of the Lecturer Profile.</param>
+        /// <param name="progSemesterId">The unique identifier of the Semester.</param>
+        /// <param name="cancellationToken">Token to cancel operations.</param>
+        /// <returns>List of Course Instances that the Lecturer is assigned to in the specified Semester.</returns>
+        Task<IEnumerable<CourseInstance>> GetLecturersAllCourseInstancesAsync(int lecProfileId, int progSemesterId, CancellationToken cancellationToken);
 
         /// <summary>
         /// Retrieves a Course Instance by its unique identifier.
@@ -32,6 +49,14 @@ namespace SIS.Application.Interfaces.Repositories
         /// <param name="cancellationToken">Token to cancel operations.</param>
         /// <returns>Course Instance if found; otherwise, null.</returns>
         Task<CourseInstance?> GetCourseInstanceByIdAsync(int id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Retrieves the Department ID associated with a Course Instance by its unique identifier.
+        /// </summary>
+        /// <param name="id">The Course Instance's unique identifier.</param>
+        /// <param name="cancellationToken">Token to cancel operations.</param>
+        /// <returns>The Department ID if found; otherwise, null.</returns>
+        Task<int?> GetDepIdOfCourseInstance(int id, CancellationToken cancellationToken);
 
         /// <summary>
         /// Adds a new Course Instance to the database.
@@ -69,10 +94,19 @@ namespace SIS.Application.Interfaces.Repositories
         /// Checks if a Course Instance exists by its Course ID and Semester ID.
         /// </summary>
         /// <param name="courseId">The unique identifier of the Course.</param>
-        /// <param name="semesterId">The unique identifier of the Semester.</param>
+        /// <param name="progSemesterId">The unique identifier of the Semester.</param>
         /// <param name="cancellationToken">Token to cancel operations.</param>
         /// <returns>True if exists; otherwise, false.</returns>
-        Task<bool> CourseInstanceExistsIdAsync(int courseId, int semesterId, CancellationToken cancellationToken);
-       
+        Task<bool> CourseInstanceExistsAsync(int courseId, int progSemesterId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Checks if a Course Instance exists by its Course ID and Semester ID excluding the current instance.
+        /// </summary>
+        /// <param name="instanceId">The unique identifier of the Course Instance to be excluded.</param>
+        /// <param name="courseId">The unique identifier of the Course.</param>
+        /// <param name="progSemesterId">The unique identifier of the Semester.</param>
+        /// <param name="cancellationToken">Token to cancel operations.</param>
+        /// <returns>True if exists; otherwise, false.</returns>
+        Task<bool> CourseInstanceExistsAsync(int instanceId, int courseId, int progSemesterId, CancellationToken cancellationToken);
     }
 }
