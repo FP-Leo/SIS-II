@@ -1,4 +1,4 @@
-## Youtube Sunumu Linki : 
+## Youtube Sunumu Linki : https://www.youtube.com/watch?v=-ykHlGSjkqw
 
 # Öğrenci Bilgi Sistemi
 ## GİRİŞ BÖLÜMÜ 
@@ -95,4 +95,4 @@ Erlindi ISAJ – 200401114
 Leonit SHABANI – 200401110
 
 
-Youtube Sunumu Linki : 
+Youtube Sunumu Linki : https://www.youtube.com/watch?v=-ykHlGSjkqw
