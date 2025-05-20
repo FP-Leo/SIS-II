@@ -1,4 +1,4 @@
-Youtube Sunumu Linki : 
+## Youtube Sunumu Linki : 
 
 # Öğrenci Bilgi Sistemi
 ## GİRİŞ BÖLÜMÜ 
@@ -89,7 +89,7 @@ uygulamaları geliştirmeyi öğrendik. Kodlama yaparken Visual Studio'yu tercih
   * Özetle, projemizde frontend için React.js ve backend için .NET framework'lerini tercih ettik. React.js'nin popülaritesi ve geniş topluluğu, karşılaştığımız sorunları çözmemize yardımcı oldu. Visual Studio Code'un kişiselleştirilebilir yapısı, kodlama sürecimizi kolaylaştırdı. Backend tarafında .NET ve EntityFramework kullanarak web uygulamaları geliştirme ve veri yönetimini etkin bir şekilde gerçekleştirdik. JWT ile kimlik doğrulama, uygulamamıza güvenlik katmanı ekledi. Bu teknolojileri kullanarak, hem frontend hem de backend tarafında başarılı bir proje geliştirdik. 
 
 
-##Ekip Üyeleri: 
+## Ekip Üyeleri: 
 Baha YOLAL – 200401031
 Erlindi ISAJ – 200401114
 Leonit SHABANI – 200401110
